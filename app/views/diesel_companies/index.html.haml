@@ -1,0 +1,23 @@
+%h1 Listing diesel_companies
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Price
+      %th
+      %th
+      %th
+
+  %tbody
+    - @diesel_companies.each do |diesel_company|
+      %tr
+        %td= diesel_company.name
+        %td= diesel_company.price
+        %td= link_to 'Show', diesel_company
+        %td= link_to 'Edit', edit_diesel_company_path(diesel_company)
+        %td= link_to 'Destroy', diesel_company, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Diesel company', new_diesel_company_path

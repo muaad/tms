@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :diesel_companies
   resources :expenses
   resources :products
   resources :trucks

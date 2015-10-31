@@ -1,0 +1,2 @@
+module DieselCompaniesHelper
+end
