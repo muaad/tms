@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @truck_owner.name
+%p
+  %b Phone number:
+  = @truck_owner.phone_number
+%p
+  %b Address:
+  = @truck_owner.address
+%p
+  %b Id number:
+  = @truck_owner.id_number
+%p
+  %b Entity type:
+  = @truck_owner.entity_type
+
+= link_to 'Edit', edit_truck_owner_path(@truck_owner)
+\|
+= link_to 'Back', truck_owners_path

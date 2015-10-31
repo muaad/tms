@@ -1,0 +1,25 @@
+= form_for @truck_owner do |f|
+  - if @truck_owner.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@truck_owner.errors.count, "error")} prohibited this truck_owner from being saved:"
+      %ul
+        - @truck_owner.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :phone_number
+    = f.text_field :phone_number
+  .field
+    = f.label :address
+    = f.text_field :address
+  .field
+    = f.label :id_number
+    = f.text_field :id_number
+  .field
+    = f.label :entity_type
+    = f.text_field :entity_type
+  .actions
+    = f.submit 'Save'

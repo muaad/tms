@@ -1,0 +1,29 @@
+%h1 Listing truck_owners
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Phone number
+      %th Address
+      %th Id number
+      %th Entity type
+      %th
+      %th
+      %th
+
+  %tbody
+    - @truck_owners.each do |truck_owner|
+      %tr
+        %td= truck_owner.name
+        %td= truck_owner.phone_number
+        %td= truck_owner.address
+        %td= truck_owner.id_number
+        %td= truck_owner.entity_type
+        %td= link_to 'Show', truck_owner
+        %td= link_to 'Edit', edit_truck_owner_path(truck_owner)
+        %td= link_to 'Destroy', truck_owner, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Truck owner', new_truck_owner_path
