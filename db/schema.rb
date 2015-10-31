@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151031181031) do
+ActiveRecord::Schema.define(version: 20151031181757) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "name"
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 20151031181031) do
     t.string   "lpo"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.date     "date"
   end
 
   add_index "expenses", ["driver_id"], name: "index_expenses_on_driver_id"
