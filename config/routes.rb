@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :trucks
   resources :turn_boys
   resources :drivers
   resources :truck_owners
