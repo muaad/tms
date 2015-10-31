@@ -1,0 +1,27 @@
+%h1 Listing turn_boys
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Phone number
+      %th Address
+      %th Id number
+      %th
+      %th
+      %th
+
+  %tbody
+    - @turn_boys.each do |turn_boy|
+      %tr
+        %td= turn_boy.name
+        %td= turn_boy.phone_number
+        %td= turn_boy.address
+        %td= turn_boy.id_number
+        %td= link_to 'Show', turn_boy
+        %td= link_to 'Edit', edit_turn_boy_path(turn_boy)
+        %td= link_to 'Destroy', turn_boy, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Turn boy', new_turn_boy_path

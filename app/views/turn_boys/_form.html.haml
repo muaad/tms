@@ -1,0 +1,22 @@
+= form_for @turn_boy do |f|
+  - if @turn_boy.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@turn_boy.errors.count, "error")} prohibited this turn_boy from being saved:"
+      %ul
+        - @turn_boy.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :phone_number
+    = f.text_field :phone_number
+  .field
+    = f.label :address
+    = f.text_field :address
+  .field
+    = f.label :id_number
+    = f.text_field :id_number
+  .actions
+    = f.submit 'Save'

@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @turn_boy.name
+%p
+  %b Phone number:
+  = @turn_boy.phone_number
+%p
+  %b Address:
+  = @turn_boy.address
+%p
+  %b Id number:
+  = @turn_boy.id_number
+
+= link_to 'Edit', edit_turn_boy_path(@turn_boy)
+\|
+= link_to 'Back', turn_boys_path
