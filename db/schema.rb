@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151031144838) do
+ActiveRecord::Schema.define(version: 20151031150513) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "name"
@@ -58,6 +58,18 @@ ActiveRecord::Schema.define(version: 20151031144838) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
+
+  create_table "truck_turn_boys", force: :cascade do |t|
+    t.integer  "truck_id"
+    t.integer  "turn_boy_id"
+    t.boolean  "active"
+    t.float    "salary"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "truck_turn_boys", ["truck_id"], name: "index_truck_turn_boys_on_truck_id"
+  add_index "truck_turn_boys", ["turn_boy_id"], name: "index_truck_turn_boys_on_turn_boy_id"
 
   create_table "trucks", force: :cascade do |t|
     t.string   "registration_number"
