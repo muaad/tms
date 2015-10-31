@@ -19,9 +19,10 @@
   %head
     %meta{:charset => "utf-8"}
       %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}
-        %title AdminLTE 2 | Dashboard
+        %title= content_for?(:title) ? yield(:title) : 'Tms'
         / Tell the browser to be responsive to screen width
         %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no", :name => "viewport"}
+        %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Tms'}"}
           / Bootstrap 3.3.5
         = stylesheet_link_tag 'application', media: 'all'
         = javascript_include_tag 'application'
