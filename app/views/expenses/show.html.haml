@@ -1,0 +1,33 @@
+%p#notice= notice
+
+%p
+  %b Expense category:
+  = @expense.expense_category
+%p
+  %b Amount:
+  = @expense.amount
+%p
+  %b Product:
+  = @expense.product
+%p
+  %b Driver:
+  = @expense.driver
+%p
+  %b Truck:
+  = @expense.truck
+%p
+  %b Turn boy:
+  = @expense.turn_boy
+%p
+  %b User:
+  = @expense.user
+%p
+  %b Description:
+  = @expense.description
+%p
+  %b Lpo:
+  = @expense.lpo
+
+= link_to 'Edit', edit_expense_path(@expense)
+\|
+= link_to 'Back', expenses_path

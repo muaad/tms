@@ -4,6 +4,7 @@ class Truck < ActiveRecord::Base
 	has_many :drivers, through: :truck_drivers
 	has_many :truck_turn_boys
 	has_many :turn_boys, through: :truck_turn_boys
+	has_many :expenses
 
 	def driver
 		drivers.where(active: true).first
