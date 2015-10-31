@@ -17,6 +17,7 @@ end
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'haml-rails'
+gem "font-awesome-rails"
 group :development do
   gem 'better_errors'
   gem 'html2haml'
