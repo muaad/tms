@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151031120501) do
+ActiveRecord::Schema.define(version: 20151031144838) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "name"
@@ -63,7 +63,10 @@ ActiveRecord::Schema.define(version: 20151031120501) do
     t.string   "registration_number"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.integer  "truck_owner_id"
   end
+
+  add_index "trucks", ["truck_owner_id"], name: "index_trucks_on_truck_owner_id"
 
   create_table "turn_boys", force: :cascade do |t|
     t.string   "name"
