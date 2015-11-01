@@ -61,6 +61,15 @@ class DieselCompaniesController < ApplicationController
     end
   end
 
+  def delete_multiple
+    deleted = 0
+    params[:delete_diesel_companies].split(',').each do |id|
+      DieselCompany.find(id).destroy
+      deleted = deleted + 1
+    end
+    redirect_to diesel_companies_path, notice: "You have deleted #{deleted} diesel companies."
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_diesel_company

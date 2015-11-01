@@ -4,6 +4,7 @@ class Driver < ActiveRecord::Base
 	has_many :expenses
 
 	def truck
-		trucks.where(active: true).first
+		t = nil
+		t = truck_drivers.where(active: true).first.truck if !truck_drivers.where(active: true).first.nil?
 	end
 end

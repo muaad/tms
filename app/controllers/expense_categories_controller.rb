@@ -61,6 +61,15 @@ class ExpenseCategoriesController < ApplicationController
     end
   end
 
+  def delete_multiple
+    deleted = 0
+    params[:delete_expense_categories].split(',').each do |id|
+      ExpenseCategory.find(id).destroy
+      deleted = deleted + 1
+    end
+    redirect_to expense_categories_path, notice: "You have deleted #{deleted} expense categories."
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_expense_category

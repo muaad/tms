@@ -61,6 +61,15 @@ class DriversController < ApplicationController
     end
   end
 
+  def delete_multiple
+    deleted = 0
+    params[:delete_drivers].split(',').each do |id|
+      Driver.find(id).destroy
+      deleted = deleted + 1
+    end
+    redirect_to drivers_path, notice: "You have deleted #{deleted} drivers."
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_driver

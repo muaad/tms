@@ -4,7 +4,11 @@ class TruckOwnersController < ApplicationController
   # GET /truck_owners
   # GET /truck_owners.json
   def index
-    @truck_owners = TruckOwner.all
+    if !params[:type].blank?
+      @truck_owners = TruckOwner.where(entity_type: params[:type])
+    else
+      @truck_owners = TruckOwner.all
+    end
   end
 
   # GET /truck_owners/1
@@ -59,6 +63,15 @@ class TruckOwnersController < ApplicationController
       format.html { redirect_to truck_owners_url, notice: 'Truck owner was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def delete_multiple
+    deleted = 0
+    params[:delete_trucks].split(',').each do |id|
+      TruckOwner.find(id).destroy
+      deleted = deleted + 1
+    end
+    redirect_to trucks_path, notice: "You have deleted #{deleted} trucks."
   end
 
   private

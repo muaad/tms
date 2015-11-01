@@ -1,21 +1,58 @@
-%h1 Listing expense_categories
-
-%table
-  %thead
-    %tr
-      %th Name
-      %th
-      %th
-      %th
-
-  %tbody
-    - @expense_categories.each do |expense_category|
-      %tr
-        %td= expense_category.name
-        %td= link_to 'Show', expense_category
-        %td= link_to 'Edit', edit_expense_category_path(expense_category)
-        %td= link_to 'Destroy', expense_category, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Expense category', new_expense_category_path
+%section.content
+	.row
+		.col-md-12
+			.box
+				.box-header.with-border
+					%h3.box-title Expense Categories
+					.box-tools.pull-right
+						.btn-toolbar{role: "toolbar"}
+							.btn-group
+								%a.btn.btn-box-tool.btn-default{href: new_expense_category_path}
+									%i.fa.fa-plus
+									New
+								%a#edit-expense_category.btn.btn-box-tool.btn-default
+									%i.fa.fa-edit
+									Edit
+								%a#delete-expense_categories.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#delete_expense_category_modal"}
+									%i.fa.fa-times
+									Delete
+				/ /.box-header
+				.box-body
+					.row
+						.col-md-12
+							/ start:dynamic data table
+							.adv-table
+								%table#example.exchange-rate.display.table.table-bordered.table-striped
+									%thead
+										%tr
+											%th.no-sort
+												= check_box_tag "toggle_expense_categories"
+											%th Name
+											%th Expenses
+									%tbody.expense_categories_table
+										- @expense_categories.each do |expense_category|
+											%tr.gradeX
+												%td
+													= check_box_tag "expense_category[expense_category.id]", expense_category.id
+												%td
+													= link_to expense_category.name, expense_category_path(expense_category)
+												%td
+													= expense_category.expenses.sum(:amount)
+	#delete_expense_category_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+		.modal-dialog
+			.modal-content
+				.modal-header
+					%button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+						%span{"aria-hidden" => "true"} &times;
+					%h4#myModalLabel.modal-title Delete Expense Categories
+				= form_tag delete_multiple_expense_categories_path do |f|
+					.modal-body
+						%label#lbl-msg
+						= hidden_field_tag 'delete_expense_categories'
+					.modal-footer
+						%button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} 
+							%i.fa.fa-times
+							Cancel
+						%button.btn.btn-danger{:type => "submit"} 
+							%i.fa.fa-trash-o
+							Delete

@@ -7,10 +7,14 @@ class Truck < ActiveRecord::Base
 	has_many :expenses
 
 	def driver
-		drivers.where(active: true).first
+		truck_drivers.where(active: true).first.driver if !truck_drivers.where(active: true).first.nil?
 	end
 
 	def turn_boy
-		turn_boys.where(active: true).first
+		truck_turn_boys.where(active: true).first.turn_boy if !truck_turn_boys.where(active: true).first.nil?
+	end
+
+	def owner
+		truck_owner
 	end
 end

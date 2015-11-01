@@ -14,4 +14,27 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require app
+//= require trucks
+//= require select2.full
+//= require select2
+//= require jquery.dataTables
+//= require dataTables.bootstrap
+//= require angular.min
+//= require jquery.checkboxes
+//= require jquery.datetimepicker
 //= require_tree .
+//= require_self
+
+$(function() {
+	$('#example').dataTable( {
+	    "aoColumnDefs" : [ {
+	        "bSortable" : false,
+	        "aTargets" : [ "no-sort" ]
+	    } ]
+	} );
+
+	$('.datetimepicker').datetimepicker();
+	// $('#owner_phone_number').select2();
+	// $('#driver_phone_number').select2();
+	// $('#turn_boy_phone_number').select2();
+})

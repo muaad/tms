@@ -1,13 +1,113 @@
 = form_for @truck do |f|
-  - if @truck.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@truck.errors.count, "error")} prohibited this truck from being saved:"
-      %ul
-        - @truck.errors.full_messages.each do |msg|
-          %li= msg
-
-  .field
-    = f.label :registration_number
-    = f.text_field :registration_number
-  .actions
-    = f.submit 'Save'
+  .box-body
+    .row
+      .col-md-12
+        - if @truck.errors.any?
+          #error_explanation
+            %h2= "#{pluralize(@truck.errors.count, "error")} prohibited this truck from being saved:"
+            %ul
+              - @truck.errors.full_messages.each do |msg|
+                %li= msg
+        .form-group
+          = f.label :registration_number
+          .input-group
+            .input-group-addon
+              %i.fa.fa-list-ol
+            = f.text_field :registration_number, class: "form-control"
+    .row
+      .col-lg-12
+        %h3 Owner's Details
+        %hr
+        .form-group
+          = f.label :id_number
+          .input-group
+            .input-group-addon
+              %i.fa.fa-credit-card
+            %input#owner_id_number{name: 'owner_id_number', class: "form-control", value: "#{@truck.owner.nil?? '' : @truck.owner.id_number}"}
+        .form-group
+          = f.label :phone_number
+          .input-group
+            .input-group-addon
+              %i.fa.fa-phone
+            %input#owner_phone_number{name: 'owner_phone_number', class: "form-control", value: "#{@truck.owner.nil?? '' : @truck.owner.phone_number}"}
+        .form-group
+          = f.label :name
+          .input-group
+            .input-group-addon
+              %i.fa.fa-user
+            %input#owner_name{name: 'owner_name', class: "form-control", value: "#{@truck.owner.nil?? '' : @truck.owner.name}"}
+        .form-group
+          = f.label :address
+          .input-group
+            .input-group-addon
+              %i.fa.fa-map-marker
+            %input#owner_address{name: 'owner_address', class: "form-control", value: "#{@truck.owner.nil?? '' : @truck.owner.address}"}
+        .form-group
+          = f.label :type
+          %input#ownerType{type: "hidden", value: "#{@truck.owner.nil?? '' : @truck.owner.entity_type}"}
+          %select#owner_type.form-control{name: 'owner_type'}
+            %option{value: "Company"}
+              Company
+            %option{value: "Sub Contractor"}
+              Sub Contractor
+    .row
+      .col-lg-12
+        %h3 Driver's Details
+        %hr
+        .form-group
+          = f.label :id_number
+          .input-group
+            .input-group-addon
+              %i.fa.fa-credit-card
+            %input#driver_id_number{name: 'driver_id_number', class: "form-control", value: "#{@truck.driver.nil?? '' : @truck.driver.id_number}"}
+        .form-group
+          = f.label :phone_number
+          .input-group
+            .input-group-addon
+              %i.fa.fa-phone
+            %input#driver_phone_number{name: 'driver_phone_number', class: "form-control", value: "#{@truck.driver.nil?? '' : @truck.driver.phone_number}"}
+        .form-group
+          = f.label :name
+          .input-group
+            .input-group-addon
+              %i.fa.fa-user
+            %input#driver_name{name: 'driver_name', class: "form-control", value: "#{@truck.driver.nil?? '' : @truck.driver.name}"}
+        .form-group
+          = f.label :address
+          .input-group
+            .input-group-addon
+              %i.fa.fa-map-marker
+            %input#driver_address{name: 'driver_address', class: "form-control", value: "#{@truck.driver.nil?? '' : @truck.driver.address}"}
+    .row
+      .col-lg-12
+        %h3 Turn boy's Details
+        %hr
+        .form-group
+          = f.label :id_number
+          .input-group
+            .input-group-addon
+              %i.fa.fa-credit-card
+            %input#turnboy_id_number{name: 'turnboy_id_number', class: "form-control", value: "#{@truck.turn_boy.nil?? '' : @truck.turn_boy.id_number}"}
+        .form-group
+          = f.label :phone_number
+          .input-group
+            .input-group-addon
+              %i.fa.fa-phone
+            %input#turnboy_phone_number{name: 'turnboy_phone_number', class: "form-control", value: "#{@truck.turn_boy.nil?? '' : @truck.turn_boy.phone_number}"}
+        .form-group
+          = f.label :name
+          .input-group
+            .input-group-addon
+              %i.fa.fa-user
+            %input#turnboy_name{name: 'turnboy_name', class: "form-control", value: "#{@truck.turn_boy.nil?? '' : @truck.turn_boy.name}"}
+        .form-group
+          = f.label :address
+          .input-group
+            .input-group-addon
+              %i.fa.fa-map-marker
+            %input#turnboy_address{name: 'turnboy_address', class: "form-control", value: "#{@truck.turn_boy.nil?? '' : @truck.turn_boy.address}"}
+  .box-footer
+    .actions.pull-right
+      %button.btn.btn-success.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}
+        %i.fa.fa-save
+        Save

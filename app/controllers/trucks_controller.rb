@@ -4,7 +4,11 @@ class TrucksController < ApplicationController
   # GET /trucks
   # GET /trucks.json
   def index
-    @trucks = Truck.all
+    if !params[:owner].blank?
+      @trucks = Truck.where(truck_owner: params[:owner])
+    else
+      @trucks = Truck.all
+    end
   end
 
   # GET /trucks/1
@@ -26,8 +30,30 @@ class TrucksController < ApplicationController
   def create
     @truck = Truck.new(truck_params)
 
+    driver = Driver.find_by id_number: params[:driver_id_number]
+    turn_boy = TurnBoy.find_by id_number: params[:turn_boy_id_number]
+    owner = TruckOwner.find_by id_number: params[:owner_id_number]
+
+    if driver.nil?
+      driver = Driver.create! id_number: params[:driver_id_number], phone_number: params[:driver_phone_number], name: params[:driver_name], address: params[:driver_address]
+    end
+
+    if turn_boy.nil?
+      turn_boy = TurnBoy.create! id_number: params[:turn_boy_id_number], phone_number: params[:turn_boy_phone_number], name: params[:turn_boy_name], address: params[:turn_boy_address]
+    end
+
+    if owner.nil?
+      owner = TruckOwner.create! id_number: params[:owner_id_number], phone_number: params[:owner_phone_number], name: params[:owner_name], address: params[:owner_address], entity_type: [:owner_type]
+    end
+
+    @truck.truck_owner = owner
+
     respond_to do |format|
       if @truck.save
+        truck_driver = TruckDriver.find_or_create_by! driver: driver, truck: @truck
+        truck_driver.update(active: true)
+        truck_turn_boy = TruckTurnBoy.find_or_create_by! turn_boy: turn_boy, truck: @truck
+        truck_turn_boy.update(active: true)
         format.html { redirect_to @truck, notice: 'Truck was successfully created.' }
         format.json { render :show, status: :created, location: @truck }
       else
@@ -59,6 +85,15 @@ class TrucksController < ApplicationController
       format.html { redirect_to trucks_url, notice: 'Truck was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def delete_multiple
+    deleted = 0
+    params[:delete_trucks].split(',').each do |id|
+      Truck.find(id).destroy
+      deleted = deleted + 1
+    end
+    redirect_to trucks_path, notice: "You have deleted #{deleted} trucks."
   end
 
   private

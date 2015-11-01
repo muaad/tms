@@ -61,6 +61,15 @@ class TurnBoysController < ApplicationController
     end
   end
 
+  def delete_multiple
+    deleted = 0
+    params[:delete_turn_boys].split(',').each do |id|
+      TurnBoy.find(id).destroy
+      deleted = deleted + 1
+    end
+    redirect_to turn_boys_path, notice: "You have deleted #{deleted} turn boys."
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_turn_boy
