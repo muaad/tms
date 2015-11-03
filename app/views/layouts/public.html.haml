@@ -1,0 +1,52 @@
+!!!
+%html
+  %head
+    %meta{:charset => "utf-8"}
+      %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}
+        %title AdminLTE 2 | Top Navigation
+        / Tell the browser to be responsive to screen width
+        %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no", :name => "viewport"}
+        = stylesheet_link_tag 'application', media: 'all'
+        = javascript_include_tag 'application'
+        = csrf_meta_tags
+  / ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR.
+  %body.hold-transition.skin-black-light.layout-top-nav
+    .wrapper
+      %header.main-header
+        %nav.navbar.navbar-static-top
+          .container
+            .navbar-header
+              %a.navbar-brand{:href => root_path}
+                %i.fa.fa-truck
+                %b> TMS
+              %button.navbar-toggle.collapsed{"data-target" => "#navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+                %i.fa.fa-bars
+            / Collect the nav links, forms, and other content for toggling
+            #navbar-collapse.collapse.navbar-collapse.pull-right
+              %ul.nav.navbar-nav
+                %li.active
+                  %a{:href => "#features"}
+                    Features
+                %li
+                  %a{:href => "#contact"} Contact Us
+                %li
+                  = link_to "Sign Up", new_user_registration_path
+            / /.navbar-collapse
+            
+          / /.container-fluid
+      / Full Width Column
+      .content-wrapper
+        .container
+          = yield
+        / /.container
+      / /.content-wrapper
+      %footer.main-footer
+        .container
+          %strong
+            Copyright &copy;
+            = Time.now.year
+            = succeed "." do
+              %a{:href => "http://mursal.co"} Mursal
+          All rights reserved.
+        / /.container
+    / ./wrapper
