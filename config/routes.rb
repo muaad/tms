@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :cities
   get '/dashboard' => "dashboard#index", as: "dashboard"
 
   resources :diesel_companies

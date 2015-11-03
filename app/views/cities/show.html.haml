@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @city.name
+%p
+  %b Country:
+  = @city.country
+%p
+  %b City type:
+  = @city.city_type
+
+= link_to 'Edit', edit_city_path(@city)
+\|
+= link_to 'Back', cities_path
