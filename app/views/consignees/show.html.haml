@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @consignee.name
+%p
+  %b Phone number:
+  = @consignee.phone_number
+%p
+  %b City:
+  = @consignee.city
+
+= link_to 'Edit', edit_consignee_path(@consignee)
+\|
+= link_to 'Back', consignees_path

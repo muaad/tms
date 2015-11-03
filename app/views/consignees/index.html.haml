@@ -1,0 +1,25 @@
+%h1 Listing consignees
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Phone number
+      %th City
+      %th
+      %th
+      %th
+
+  %tbody
+    - @consignees.each do |consignee|
+      %tr
+        %td= consignee.name
+        %td= consignee.phone_number
+        %td= consignee.city
+        %td= link_to 'Show', consignee
+        %td= link_to 'Edit', edit_consignee_path(consignee)
+        %td= link_to 'Destroy', consignee, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Consignee', new_consignee_path
