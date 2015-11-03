@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :truck_owners
   resources :expense_categories
   resources :accounts
-  root to: 'visitors#index'
+  root to: 'home#index'
   devise_for :users
 
   post "/trucks/delete_multiple" => "trucks#delete_multiple", as: "delete_multiple_trucks"
