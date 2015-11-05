@@ -1,0 +1,49 @@
+%h1 Listing trips
+
+%table
+  %thead
+    %tr
+      %th Truck
+      %th Driver
+      %th Turn boy
+      %th Date
+      %th Depot
+      %th Destination
+      %th Consignee
+      %th Product
+      %th Quantity
+      %th Rate
+      %th Amount
+      %th Commission
+      %th Short
+      %th Description
+      %th Currency
+      %th
+      %th
+      %th
+
+  %tbody
+    - @trips.each do |trip|
+      %tr
+        %td= trip.truck
+        %td= trip.driver
+        %td= trip.turn_boy
+        %td= trip.date
+        %td= trip.depot_id
+        %td= trip.destination_id
+        %td= trip.consignee
+        %td= trip.product
+        %td= trip.quantity
+        %td= trip.rate
+        %td= trip.amount
+        %td= trip.commission
+        %td= trip.short
+        %td= trip.description
+        %td= trip.currency
+        %td= link_to 'Show', trip
+        %td= link_to 'Edit', edit_trip_path(trip)
+        %td= link_to 'Destroy', trip, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Trip', new_trip_path

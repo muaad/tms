@@ -1,0 +1,51 @@
+%p#notice= notice
+
+%p
+  %b Truck:
+  = @trip.truck
+%p
+  %b Driver:
+  = @trip.driver
+%p
+  %b Turn boy:
+  = @trip.turn_boy
+%p
+  %b Date:
+  = @trip.date
+%p
+  %b Depot:
+  = @trip.depot_id
+%p
+  %b Destination:
+  = @trip.destination_id
+%p
+  %b Consignee:
+  = @trip.consignee
+%p
+  %b Product:
+  = @trip.product
+%p
+  %b Quantity:
+  = @trip.quantity
+%p
+  %b Rate:
+  = @trip.rate
+%p
+  %b Amount:
+  = @trip.amount
+%p
+  %b Commission:
+  = @trip.commission
+%p
+  %b Short:
+  = @trip.short
+%p
+  %b Description:
+  = @trip.description
+%p
+  %b Currency:
+  = @trip.currency
+
+= link_to 'Edit', edit_trip_path(@trip)
+\|
+= link_to 'Back', trips_path

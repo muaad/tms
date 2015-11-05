@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151103194428) do
+ActiveRecord::Schema.define(version: 20151103205301) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "name"
@@ -102,6 +102,32 @@ ActiveRecord::Schema.define(version: 20151103194428) do
     t.datetime "updated_at",   null: false
     t.string   "product_type"
   end
+
+  create_table "trips", force: :cascade do |t|
+    t.integer  "truck_id"
+    t.integer  "driver_id"
+    t.integer  "turn_boy_id"
+    t.date     "date"
+    t.integer  "depot_id"
+    t.integer  "destination_id"
+    t.integer  "consignee_id"
+    t.integer  "product_id"
+    t.integer  "quantity"
+    t.float    "rate"
+    t.float    "amount"
+    t.float    "commission"
+    t.float    "short"
+    t.text     "description"
+    t.string   "currency"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "trips", ["consignee_id"], name: "index_trips_on_consignee_id"
+  add_index "trips", ["driver_id"], name: "index_trips_on_driver_id"
+  add_index "trips", ["product_id"], name: "index_trips_on_product_id"
+  add_index "trips", ["truck_id"], name: "index_trips_on_truck_id"
+  add_index "trips", ["turn_boy_id"], name: "index_trips_on_turn_boy_id"
 
   create_table "truck_drivers", force: :cascade do |t|
     t.integer  "truck_id"
