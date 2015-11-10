@@ -18,6 +18,7 @@ gem 'bootstrap-sass'
 gem 'devise'
 gem 'haml-rails'
 gem "font-awesome-rails"
+gem "paperclip"
 group :development do
   gem 'better_errors'
   gem 'html2haml'

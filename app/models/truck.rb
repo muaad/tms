@@ -9,6 +9,7 @@ class Truck < ActiveRecord::Base
 	has_many :turn_boys, through: :truck_turn_boys
 	has_many :expenses
 	has_many :trips
+	has_many :documents
 
 	def driver
 		d = truck_drivers.where(active: true).first.driver if !truck_drivers.where(active: true).first.nil?

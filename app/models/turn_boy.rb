@@ -3,6 +3,7 @@ class TurnBoy < ActiveRecord::Base
 	has_many :truck_turn_boys
 	has_many :trucks, through: :truck_turn_boys
 	has_many :expenses
+	has_many :documents
 
 	def truck
 		t = nil

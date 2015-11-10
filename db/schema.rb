@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151105191004) do
+ActiveRecord::Schema.define(version: 20151110182347) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "name"
@@ -57,6 +57,21 @@ ActiveRecord::Schema.define(version: 20151105191004) do
 
   add_index "diesel_expenses", ["diesel_company_id"], name: "index_diesel_expenses_on_diesel_company_id"
   add_index "diesel_expenses", ["expense_id"], name: "index_diesel_expenses_on_expense_id"
+
+  create_table "documents", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "driver_id"
+    t.integer  "turn_boy_id"
+    t.integer  "truck_owner_id"
+    t.integer  "truck_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "documents", ["driver_id"], name: "index_documents_on_driver_id"
+  add_index "documents", ["truck_id"], name: "index_documents_on_truck_id"
+  add_index "documents", ["truck_owner_id"], name: "index_documents_on_truck_owner_id"
+  add_index "documents", ["turn_boy_id"], name: "index_documents_on_turn_boy_id"
 
   create_table "drivers", force: :cascade do |t|
     t.string   "name"
