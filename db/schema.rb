@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151110182347) do
+ActiveRecord::Schema.define(version: 20151110183058) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "name"
@@ -64,8 +64,12 @@ ActiveRecord::Schema.define(version: 20151110182347) do
     t.integer  "turn_boy_id"
     t.integer  "truck_owner_id"
     t.integer  "truck_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
   end
 
   add_index "documents", ["driver_id"], name: "index_documents_on_driver_id"
