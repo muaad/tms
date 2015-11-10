@@ -1,22 +1,33 @@
 = form_for @driver do |f|
-  - if @driver.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@driver.errors.count, "error")} prohibited this driver from being saved:"
-      %ul
-        - @driver.errors.full_messages.each do |msg|
-          %li= msg
-
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :phone_number
-    = f.text_field :phone_number
-  .field
-    = f.label :address
-    = f.text_field :address
-  .field
-    = f.label :id_number
-    = f.text_field :id_number
-  .actions
-    = f.submit 'Save'
+  .box-body
+    .row
+      .col-md-12
+        - if @driver.errors.any?
+          #error_explanation
+            %h2= "#{pluralize(@driver.errors.count, "error")} prohibited this driver from being saved:"
+            %ul
+              - @driver.errors.full_messages.each do |msg|
+                %li= msg
+        .form-group
+          = f.label :name
+          .input-group
+            .input-group-addon
+              %i.fa.fa-user
+            = f.text_field :name, class: "form-control"
+        .form-group
+          = f.label :phone_number
+          .input-group
+            .input-group-addon
+              %i.fa.fa-phone
+            = f.text_field :phone_number, class: "form-control"
+        .form-group
+          = f.label :id_number
+          .input-group
+            .input-group-addon
+              %i.fa.fa-credit-card
+            = f.text_field :id_number, class: "form-control"
+  .box-footer
+    .actions.pull-right
+      %button.btn.btn-success.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}
+        %i.fa.fa-save
+        Save

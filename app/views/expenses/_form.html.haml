@@ -1,37 +1,78 @@
 = form_for @expense do |f|
-  - if @expense.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@expense.errors.count, "error")} prohibited this expense from being saved:"
-      %ul
-        - @expense.errors.full_messages.each do |msg|
-          %li= msg
-
-  .field
-    = f.label :expense_category
-    = f.text_field :expense_category
-  .field
-    = f.label :amount
-    = f.text_field :amount
-  .field
-    = f.label :product
-    = f.text_field :product
-  .field
-    = f.label :driver
-    = f.text_field :driver
-  .field
-    = f.label :truck
-    = f.text_field :truck
-  .field
-    = f.label :turn_boy
-    = f.text_field :turn_boy
-  .field
-    = f.label :user
-    = f.text_field :user
-  .field
-    = f.label :description
-    = f.text_area :description
-  .field
-    = f.label :lpo
-    = f.text_field :lpo
-  .actions
-    = f.submit 'Save'
+  .box-body
+    .row
+      .col-md-12
+        - if @expense.errors.any?
+          #error_explanation
+            %h2= "#{pluralize(@expense.errors.count, "error")} prohibited this expense from being saved:"
+            %ul
+              - @expense.errors.full_messages.each do |msg|
+                %li= msg
+        .row
+          .col-sm-6
+            .form-group
+              = f.label :expense_category
+              %select#expense_category.form-control{name: "expense[expense_category_id]"}
+                - ExpenseCategory.all.each do |expense_category|
+                  %option{value: expense_category.id}
+                    = expense_category.name
+          .col-sm-6
+            .form-group
+              = f.label :truck
+              %select#expense_truck_id.form-control{name: "expense[truck_id]"}
+                - Truck.all.each do |truck|
+                  %option{value: truck.id}
+                    = truck.registration_number
+        .row
+          .col-sm-6.expense-reason
+            .form-group
+              = f.label :product, "Spare Parts"
+              %select.form-control{name: "expense[product_id]"}
+                - Product.where(product_type: "Spare Parts").each do |product|
+                  %option{value: product.id}
+                    = product.name
+          .col-sm-6
+            .form-group
+              = f.label :amount
+              = f.text_field :amount, class: "form-control"
+          / .col-sm-6
+          /   .form-group
+          /     = f.label :driver
+          /     %select.form-control{name: "expense[driver_id]"}
+          /       - Driver.all.each do |driver|
+          /         %option{value: driver.id}
+          /           = driver.name
+        .row
+          .col-sm-6
+            .form-group
+              = f.label :lpo, "LPO"
+              = f.text_field :lpo, class: "form-control"          
+          .col-sm-6
+            .form-group
+              = f.label :date
+              = f.text_field :date, class: "form-control datepicker"
+        /   .col-sm-6
+        /     .form-group
+        /       = f.label :turn_boy
+        /       %select.form-control{name: "expense[turn_boy_id]"}
+        /         - TurnBoy.all.each do |turn_boy|
+        /           %option{value: turn_boy.id}
+        /             = turn_boy.name
+        .row
+          .col-sm-12
+            .form-group
+              = f.label :trip
+              %select.form-control{name: "expense[trip_id]"}
+                - Trip.all.each do |trip|
+                  %option{value: trip.id}
+                    = trip.name
+          
+        .row
+          .col-sm-12
+            = f.label :description
+            = f.text_area :description, class: "form-control"
+  .box-footer
+    .actions.pull-right
+      %button.btn.btn-success.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}
+        %i.fa.fa-save
+        Save

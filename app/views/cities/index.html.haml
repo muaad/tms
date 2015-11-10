@@ -1,25 +1,76 @@
-%h1 Listing cities
-
-%table
-  %thead
-    %tr
-      %th Name
-      %th Country
-      %th City type
-      %th
-      %th
-      %th
-
-  %tbody
-    - @cities.each do |city|
-      %tr
-        %td= city.name
-        %td= city.country
-        %td= city.city_type
-        %td= link_to 'Show', city
-        %td= link_to 'Edit', edit_city_path(city)
-        %td= link_to 'Destroy', city, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New City', new_city_path
+%section.content
+  .row
+    .col-md-12
+      .box.box-info
+        .box-header.with-border
+          %h3.box-title 
+            = @city_type
+          .box-tools.pull-right
+            .btn-toolbar{role: "toolbar"}
+              .btn-group
+                %a.btn.btn-box-tool.btn-default{href: "#{new_city_path}?type=#{params[:type]}"}
+                  %i.fa.fa-plus
+                  New
+                / .btn-group
+                /   %button.btn.btn-box-tool.dropdown-toggle{"data-toggle" => "dropdown"}
+                /     %i.fa.fa-wrench
+                /   %ul.dropdown-menu{:role => "menu"}
+                /     %li
+                /       %a{:href => "#"} Action
+                /     %li
+                /       %a{:href => "#"} Another action
+                /     %li
+                /       %a{:href => "#"} Something else here
+                /     %li.divider
+                /     %li
+                /       %a{:href => "#"} Separated link
+                %a#edit-city.btn.btn-box-tool.btn-default
+                  %i.fa.fa-edit
+                  Edit
+                %a#delete-cities.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#delete_city_modal"}
+                  %i.fa.fa-times
+                  Delete
+        / /.box-header
+        .box-body
+          .row
+            .col-md-12
+              / start:dynamic data table
+              .adv-table
+                %table#example.exchange-rate.display.table.table-bordered.table-striped
+                  %thead
+                    %tr
+                      %th.no-sort
+                        = check_box_tag "toggle_cities"
+                      %th Name
+                      %th Country
+                      %th Trips
+                  %tbody.cities_table
+                    - @cities.each do |city|
+                      %tr.gradeX
+                        %td
+                          = check_box_tag "city[city.id]", city.id
+                        %td
+                          = link_to city.name, city_path(city)
+                        %td
+                          = city.country
+                        %td
+                          32
+  #delete_city_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+            %span{"aria-hidden" => "true"} &times;
+          %h4#myModalLabel.modal-title 
+            = "Delete #{@city_type}"
+        = form_tag delete_multiple_cities_path do |f|
+          .modal-body
+            %label#lbl-msg
+            = hidden_field_tag 'delete_cities'
+          .modal-footer
+            %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} 
+              %i.fa.fa-times
+              Cancel
+            %button.btn.btn-danger{:type => "submit"} 
+              %i.fa.fa-trash-o
+              Delete

@@ -1,25 +1,77 @@
-%h1 Listing consignees
-
-%table
-  %thead
-    %tr
-      %th Name
-      %th Phone number
-      %th City
-      %th
-      %th
-      %th
-
-  %tbody
-    - @consignees.each do |consignee|
-      %tr
-        %td= consignee.name
-        %td= consignee.phone_number
-        %td= consignee.city
-        %td= link_to 'Show', consignee
-        %td= link_to 'Edit', edit_consignee_path(consignee)
-        %td= link_to 'Destroy', consignee, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Consignee', new_consignee_path
+%section.content
+  .row
+    .col-md-12
+      .box.box-info
+        .box-header.with-border
+          %h3.box-title Consignees
+          .box-tools.pull-right
+            .btn-toolbar{role: "toolbar"}
+              .btn-group
+                %a.btn.btn-box-tool.btn-default{href: new_consignee_path}
+                  %i.fa.fa-plus
+                  New
+                / .btn-group
+                /   %button.btn.btn-box-tool.dropdown-toggle{"data-toggle" => "dropdown"}
+                /     %i.fa.fa-wrench
+                /   %ul.dropdown-menu{:role => "menu"}
+                /     %li
+                /       %a{:href => "#"} Action
+                /     %li
+                /       %a{:href => "#"} Another action
+                /     %li
+                /       %a{:href => "#"} Something else here
+                /     %li.divider
+                /     %li
+                /       %a{:href => "#"} Separated link
+                %a#edit-consignee.btn.btn-box-tool.btn-default
+                  %i.fa.fa-edit
+                  Edit
+                %a#delete-consignees.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#delete_consignee_modal"}
+                  %i.fa.fa-times
+                  Delete
+        / /.box-header
+        .box-body
+          .row
+            .col-md-12
+              / start:dynamic data table
+              .adv-table
+                %table#example.exchange-rate.display.table.table-bordered.table-striped
+                  %thead
+                    %tr
+                      %th.no-sort
+                        = check_box_tag "toggle_consignees"
+                      %th Name
+                      %th Phone Number
+                      %th City
+                      %th Trips
+                  %tbody.consignees_table
+                    - @consignees.each do |consignee|
+                      %tr.gradeX
+                        %td
+                          = check_box_tag "consignee[consignee.id]", consignee.id
+                        %td
+                          = link_to consignee.name, consignee_path(consignee)
+                        %td
+                          = consignee.phone_number
+                        %td
+                          = consignee.city
+                        %td
+                          32
+  #delete_consignee_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+            %span{"aria-hidden" => "true"} &times;
+          %h4#myModalLabel.modal-title Delete Consignees
+        = form_tag delete_multiple_consignees_path do |f|
+          .modal-body
+            %label#lbl-msg
+            = hidden_field_tag 'delete_consignees'
+          .modal-footer
+            %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} 
+              %i.fa.fa-times
+              Cancel
+            %button.btn.btn-danger{:type => "submit"} 
+              %i.fa.fa-trash-o
+              Delete

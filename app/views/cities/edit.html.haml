@@ -1,7 +1,8 @@
-%h1 Editing city
-
-= render 'form'
-
-= link_to 'Show', @city
-\|
-= link_to 'Back', cities_path
+%section.content
+	.row
+		.col-md-12
+			.box.box-info
+				.box-header.with-border
+					%h3.box-title
+						= @city.city_type.blank? ? "Edit City" : "Edit #{@city.city_type}"
+				= render 'form'

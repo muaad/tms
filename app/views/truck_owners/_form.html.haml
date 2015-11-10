@@ -1,25 +1,40 @@
 = form_for @truck_owner do |f|
-  - if @truck_owner.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@truck_owner.errors.count, "error")} prohibited this truck_owner from being saved:"
-      %ul
-        - @truck_owner.errors.full_messages.each do |msg|
-          %li= msg
-
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :phone_number
-    = f.text_field :phone_number
-  .field
-    = f.label :address
-    = f.text_field :address
-  .field
-    = f.label :id_number
-    = f.text_field :id_number
-  .field
-    = f.label :entity_type
-    = f.text_field :entity_type
-  .actions
-    = f.submit 'Save'
+  .box-body
+    .row
+      .col-md-12
+        - if @truck_owner.errors.any?
+          #error_explanation
+            %h2= "#{pluralize(@truck_owner.errors.count, "error")} prohibited this truck_owner from being saved:"
+            %ul
+              - @truck_owner.errors.full_messages.each do |msg|
+                %li= msg
+        .form-group
+          = f.label :name
+          .input-group
+            .input-group-addon
+              %i.fa.fa-user
+            = f.text_field :name, class: "form-control"
+        .form-group
+          = f.label :phone_number
+          .input-group
+            .input-group-addon
+              %i.fa.fa-phone
+            = f.text_field :phone_number, class: "form-control"
+        .form-group
+          = f.label :id_number
+          .input-group
+            .input-group-addon
+              %i.fa.fa-credit-card
+            = f.text_field :id_number, class: "form-control"
+        .form-group
+          = f.label :entity_type
+          %select.form-control{name: "truck_owner[entity_type]"}
+            %option{value: "Sub Contractor"}
+              Sub Contractor
+            %option{value: "Company"}
+              Company
+  .box-footer
+    .actions.pull-right
+      %button.btn.btn-success.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}
+        %i.fa.fa-save
+        Save

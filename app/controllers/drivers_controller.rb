@@ -74,6 +74,13 @@ class DriversController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_driver
       @driver = Driver.find(params[:id])
+      if !params[:truck].blank?
+        truck = Truck.find(params[:truck])
+        salary = @driver.calculate_salary(truck)
+        # if !salary.blank?
+          @driver.salary = salary
+        # end
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

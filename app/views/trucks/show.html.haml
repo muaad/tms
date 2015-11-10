@@ -1,9 +1,266 @@
-%p#notice= notice
+%section.content
+	.row
+		.col-md-12
+			.box.box-info
+				.box-header.with-border
+					%h3.box-title
+						= @truck.registration_number
+					.box-tools.pull-right
+						.btn-toolbar{role: "toolbar"}
+							.btn-group
+								.btn-group
+									%button.btn.btn-box-tool.dropdown-toggle.btn-default{"data-toggle" => "dropdown"}
+										%i.fa.fa-plus
+										New
+										%i.fa.fa-caret-down
+									%ul.dropdown-menu{:role => "menu"}
+										%li
+											%a{:href => "#"} Trip
+										%li
+											%a{:href => "#"} Expense
+								/ .btn-group
+								/ 	%button.btn.btn-box-tool.dropdown-toggle.btn-default{"data-toggle" => "dropdown"}
+								/ 		%i.fa.fa-plus
+								/ 		Assign New Driver
+								/ 	%ul.dropdown-menu{:role => "menu"}
+								/ 		- Driver.all.each do |driver|
+								/ 			%li
+								/ 				%a{:href => "#"}
+								/ 					= driver.name
+								%a#edit-expense.btn.btn-box-tool.btn-default
+									%i.fa.fa-edit
+									Edit
+								%a#delete-expenses.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#delete_expense_modal"}
+									%i.fa.fa-times
+									Delete
+				%br
+				.box-body
+					.row
+						.col-md-4
+							.box.box-widget.widget-user-2
+								.widget-user-header.bg-yellow
+									.widget-user-image
+										%img.img-circle{:alt => "User Avatar", :src => "/missing.jpg"}
+									%h3.widget-user-username
+										= @truck.owner.name
+									%h5.widget-user-desc Owner
+								.box-footer.no-padding
+									%ul.nav.nav-stacked
+										%li
+											%a
+												Phone number
+												%span.pull-right
+													= @truck.owner.phone_number
+										%li
+											%a
+												ID Number
+												%span.pull-right
+													= @truck.owner.id_number
+										%li
+											%a
+												Address
+												%span.pull-right
+													= @truck.owner.address
+										%li
+											%a
+												Type
+												%span.pull-right
+													= @truck.owner.entity_type
+										%li
+											%a
+												Documents:
+										%li
+											-
+											%ul
+												%li
+													%a.document-link.pull-left.badge.bg-blue{href: "/missing.jpg"}
+														ID Card
+							/ .box.box-success
+							/ 	.box-header.with-border
+							/ 		%h3.box-title
+							/ 			Owner
+							/ 		.box-tools.pull-right
+							/ 			.btn-toolbar{role: "toolbar"}
+							/ 				%a.btn.btn-box-tool{href: truck_owner_path(@truck.owner), title: "View"}
+							/ 					%i.fa.fa-eye
+							/ 	.box-body
+							/ 		%div
+							/ 			%i.fa.fa-user
+							/ 			= @truck.owner.name
+							/ 		%div
+							/ 			%i.fa.fa-phone
+							/ 			= @truck.owner.phone_number
+							/ 		%div
+							/ 			%i.fa.fa-credit-card
+							/ 			= @truck.owner.id_number
+							/ 		%div
+							/ 			%i.fa.fa-map-marker
+							/ 			= @truck.owner.address
+							/ 		%div
+							/ 			%i.fa.fa-map-marker
+							/ 			= @truck.owner.entity_type
+						.col-md-4
+							.box.box-widget.widget-user-2
+								.widget-user-header.bg-yellow
+									.widget-user-image
+										%img.img-circle{:alt => "User Avatar", :src => "/missing.jpg"}
+									%h3.widget-user-username
+										= @truck.driver.name
+									%h5.widget-user-desc Driver
+								.box-footer.no-padding
+									%ul.nav.nav-stacked
+										%li
+											%a
+												Phone number
+												%span.pull-right
+													= @truck.driver.phone_number
+										%li
+											%a
+												ID Number
+												%span.pull-right
+													= @truck.driver.id_number
+										%li
+											%a
+												Address
+												%span.pull-right
+													= @truck.driver.address
+										%li
+											%a
+												Salary
+												%span.pull-right
+													= @truck.driver_salary
+										%li
+											%a
+												Documents:
+										%li
+											-
+											%ul
+												%li
+													%a.document-link.pull-left.badge.bg-blue{href: "/missing.jpg"}
+														ID Card
+							/ .box.box-success
+							/ 	.box-header.with-border
+							/ 		%h3.box-title
+							/ 			Driver
+							/ 		.box-tools.pull-right
+							/ 			.btn-toolbar{role: "toolbar"}
+							/ 				%a.btn.btn-box-tool{href: driver_path(@truck.driver), title: "View"}
+							/ 					%i.fa.fa-eye
+							/ 	.box-body
+							/ 		%div
+							/ 			%i.fa.fa-user
+							/ 			= @truck.driver.name
+							/ 		%div
+							/ 			%i.fa.fa-phone
+							/ 			= @truck.driver.phone_number
+							/ 		%div
+							/ 			%i.fa.fa-credit-card
+							/ 			= @truck.driver.id_number
+							/ 		%div
+							/ 			%i.fa.fa-map-marker
+							/ 			= @truck.driver.address
+							/ 		%div
+							/ 			%i.fa.fa-money
+							/ 			- if !@truck.driver_salary.blank?	
+							/ 				= @truck.driver_salary
+							/ 			- else
+							/ 				Not set
+						.col-md-4
+							.box.box-widget.widget-user-2
+								.widget-user-header.bg-yellow
+									.widget-user-image
+										%img.img-circle{:alt => "User Avatar", :src => "/missing.jpg"}
+									%h3.widget-user-username
+										= @truck.turn_boy.name
+									%h5.widget-user-desc Turn Boy
 
-%p
-  %b Registration number:
-  = @truck.registration_number
 
-= link_to 'Edit', edit_truck_path(@truck)
-\|
-= link_to 'Back', trucks_path
+								.box-footer.no-padding
+									%ul.nav.nav-stacked
+										%li
+											%a
+												Phone number
+												%span.pull-right
+													= @truck.turn_boy.phone_number
+										%li
+											%a
+												ID Number
+												%span.pull-right
+													= @truck.turn_boy.id_number
+										%li
+											%a
+												Address
+												%span.pull-right
+													= @truck.turn_boy.address
+										%li
+											%a
+												Salary
+												%span.pull-right
+													= @truck.turn_boy_salary
+										%li
+											%a
+												Documents:
+										%li
+											-
+											%ul
+												%li
+													%a.document-link.pull-left.badge.bg-blue{href: "/missing.jpg"}
+														ID Card
+							/ .box.box-success
+							/ 	.box-header.with-border
+							/ 		%h3.box-title
+							/ 			Turn Boy
+							/ 		.box-tools.pull-right
+							/ 			.btn-toolbar{role: "toolbar"}
+							/ 				%a.btn.btn-box-tool{href: turn_boy_path(@truck.turn_boy), title: "View"}
+							/ 					%i.fa.fa-eye
+							/ 	.box-body
+							/ 		%div
+							/ 			%i.fa.fa-user
+							/ 			= @truck.turn_boy.name
+							/ 		%div
+							/ 			%i.fa.fa-phone
+							/ 			= @truck.turn_boy.phone_number
+							/ 		%div
+							/ 			%i.fa.fa-credit-card
+							/ 			= @truck.turn_boy.id_number
+							/ 		%div
+							/ 			%i.fa.fa-map-marker
+							/ 			= @truck.turn_boy.address
+							/ 		%div
+							/ 			%i.fa.fa-money
+							/ 			- if !@truck.turn_boy_salary.blank?	
+							/ 				= @truck.turn_boy_salary
+							/ 			- else
+							/ 				Not set
+					%br
+					.row
+						.col-md-3.col-sm-6.col-xs-12
+							%a.info-box.no-link{href: trips_path}
+								%span.info-box-icon.bg-aqua
+									%i.fa.fa-money
+								.info-box-content
+									%span.info-box-text Income
+									%span.info-box-number 1,410
+						.col-md-3.col-sm-6.col-xs-12
+							%a.info-box.no-link{href: trips_path}
+								%span.info-box-icon.bg-green
+									%i.fa.fa-money
+								.info-box-content
+									%span.info-box-text Expenses
+									%span.info-box-number 410
+						.col-md-3.col-sm-6.col-xs-12
+							%a.info-box.no-link{href: trips_path}
+								%span.info-box-icon.bg-yellow
+									%i.fa.fa-files-o
+								.info-box-content
+									%span.info-box-text Balance
+									%span.info-box-number 1,000
+						.col-md-3.col-sm-6.col-xs-12
+							%a.info-box.no-link{href: trips_path}
+								%span.info-box-icon.bg-red
+									%i.fa.fa-truck
+								.info-box-content
+									%span.info-box-text Trips
+									%span.info-box-number
+										= @truck.trips.count

@@ -1,16 +1,27 @@
 = form_for @diesel_company do |f|
-  - if @diesel_company.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@diesel_company.errors.count, "error")} prohibited this diesel_company from being saved:"
-      %ul
-        - @diesel_company.errors.full_messages.each do |msg|
-          %li= msg
-
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :price
-    = f.text_field :price
-  .actions
-    = f.submit 'Save'
+  .box-body
+    .row
+      .col-md-12
+        - if @diesel_company.errors.any?
+          #error_explanation
+            %h2= "#{pluralize(@diesel_company.errors.count, "error")} prohibited this diesel_company from being saved:"
+            %ul
+              - @diesel_company.errors.full_messages.each do |msg|
+                %li= msg
+        .form-group
+          = f.label :name
+          .input-group
+            .input-group-addon
+              %i.fa.fa-user
+            = f.text_field :name, class: "form-control"
+        .form-group
+          = f.label :price
+          .input-group
+            .input-group-addon
+              %i.fa.fa-sort-numeric-desc
+            = f.text_field :price, class: "form-control"
+  .box-footer
+    .actions.pull-right
+      %button.btn.btn-success.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}
+        %i.fa.fa-save
+        Save

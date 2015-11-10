@@ -4,7 +4,22 @@ class CitiesController < ApplicationController
   # GET /cities
   # GET /cities.json
   def index
-    @cities = City.all
+    type = params[:type]
+    if !type.blank?
+      if type.downcase == 'depot'
+        @cities = City.where(city_type: type)
+        @city_type = 'Depots'
+      elsif type.downcase == 'destination'
+        @cities = City.where(city_type: type)
+        @city_type = 'Destinations'
+      else
+        @cities = City.all
+        @city_type = "Depots & Destinations"
+      end
+    else
+      @cities = City.all
+      @city_type = "Depots & Destinations"
+    end
   end
 
   # GET /cities/1
@@ -15,6 +30,7 @@ class CitiesController < ApplicationController
   # GET /cities/new
   def new
     @city = City.new
+    @city.city_type = params[:type]
   end
 
   # GET /cities/1/edit
@@ -59,6 +75,15 @@ class CitiesController < ApplicationController
       format.html { redirect_to cities_url, notice: 'City was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def delete_multiple
+    deleted = 0
+    params[:delete_cities].split(',').each do |id|
+      City.find(id).destroy
+      deleted = deleted + 1
+    end
+    redirect_to cities_path, notice: "You have deleted #{deleted} cities."
   end
 
   private

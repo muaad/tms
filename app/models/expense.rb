@@ -6,6 +6,7 @@ class Expense < ActiveRecord::Base
   belongs_to :turn_boy
   belongs_to :user
   has_one :diesel_expense
+  belongs_to :trip
 
   def category
   	expense_category

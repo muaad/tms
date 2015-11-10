@@ -74,6 +74,13 @@ class TurnBoysController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_turn_boy
       @turn_boy = TurnBoy.find(params[:id])
+      if !params[:truck].blank?
+        truck = Truck.find(params[:truck])
+        salary = @turn_boy.calculate_salary(truck)
+        if !salary.blank?
+          @turn_boy.salary = salary
+        end
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

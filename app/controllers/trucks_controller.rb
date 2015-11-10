@@ -39,7 +39,7 @@ class TrucksController < ApplicationController
     end
 
     if turn_boy.nil?
-      turn_boy = TurnBoy.create! id_number: params[:turn_boy_id_number], phone_number: params[:turn_boy_phone_number], name: params[:turn_boy_name], address: params[:turn_boy_address]
+      turn_boy = TurnBoy.create! id_number: params[:turnboy_id_number], phone_number: params[:turnboy_phone_number], name: params[:turnboy_name], address: params[:turnboy_address]
     end
 
     if owner.nil?
@@ -100,6 +100,8 @@ class TrucksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_truck
       @truck = Truck.find(params[:id])
+      @truck.driver_salary = @truck.calculate_driver_salary
+      @truck.turn_boy_salary = @truck.calculate_turn_boy_salary
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

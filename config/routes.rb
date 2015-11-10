@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   devise_for :users
 
   post "/trucks/delete_multiple" => "trucks#delete_multiple", as: "delete_multiple_trucks"
+  post "/consignees/delete_multiple" => "consignees#delete_multiple", as: "delete_multiple_consignees"
+  post "/cities/delete_multiple" => "cities#delete_multiple", as: "delete_multiple_cities"
+  post "/trips/delete_multiple" => "trips#delete_multiple", as: "delete_multiple_trips"
   post "/turn_boys/delete_multiple" => "turn_boys#delete_multiple", as: "delete_multiple_turn_boys"
   post "/truck_owners/delete_multiple" => "truck_owners#delete_multiple", as: "delete_multiple_truck_owners"
   post "/products/delete_multiple" => "products#delete_multiple", as: "delete_multiple_products"

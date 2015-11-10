@@ -15,13 +15,15 @@
 //= require bootstrap-sprockets
 //= require app
 //= require trucks
-//= require select2.full
-//= require select2
+// require select2.full
+// require select2
+//= require jquery.slimscroll.min
 //= require jquery.dataTables
 //= require dataTables.bootstrap
 //= require angular.min
 //= require jquery.checkboxes
 //= require jquery.datetimepicker
+//= require bootstrap-datepicker
 //= require_tree .
 //= require_self
 
@@ -33,7 +35,8 @@ $(function() {
 	    } ]
 	} );
 
-	$('.datetimepicker').datetimepicker();
+	$('.datepicker').datepicker();
+	// $('.alert.alert-success').fadeOut('slowly', 5000);
 	// $('#owner_phone_number').select2();
 	// $('#driver_phone_number').select2();
 	// $('#turn_boy_phone_number').select2();

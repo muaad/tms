@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151103205301) do
+ActiveRecord::Schema.define(version: 20151105191004) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "name"
@@ -86,11 +86,13 @@ ActiveRecord::Schema.define(version: 20151103205301) do
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.date     "date"
+    t.integer  "trip_id"
   end
 
   add_index "expenses", ["driver_id"], name: "index_expenses_on_driver_id"
   add_index "expenses", ["expense_category_id"], name: "index_expenses_on_expense_category_id"
   add_index "expenses", ["product_id"], name: "index_expenses_on_product_id"
+  add_index "expenses", ["trip_id"], name: "index_expenses_on_trip_id"
   add_index "expenses", ["truck_id"], name: "index_expenses_on_truck_id"
   add_index "expenses", ["turn_boy_id"], name: "index_expenses_on_turn_boy_id"
   add_index "expenses", ["user_id"], name: "index_expenses_on_user_id"

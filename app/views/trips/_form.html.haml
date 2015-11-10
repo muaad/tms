@@ -1,55 +1,104 @@
 = form_for @trip do |f|
-  - if @trip.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@trip.errors.count, "error")} prohibited this trip from being saved:"
-      %ul
-        - @trip.errors.full_messages.each do |msg|
-          %li= msg
-
-  .field
-    = f.label :truck
-    = f.text_field :truck
-  .field
-    = f.label :driver
-    = f.text_field :driver
-  .field
-    = f.label :turn_boy
-    = f.text_field :turn_boy
-  .field
-    = f.label :date
-    = f.date_select :date
-  .field
-    = f.label :depot_id
-    = f.number_field :depot_id
-  .field
-    = f.label :destination_id
-    = f.number_field :destination_id
-  .field
-    = f.label :consignee
-    = f.text_field :consignee
-  .field
-    = f.label :product
-    = f.text_field :product
-  .field
-    = f.label :quantity
-    = f.number_field :quantity
-  .field
-    = f.label :rate
-    = f.text_field :rate
-  .field
-    = f.label :amount
-    = f.text_field :amount
-  .field
-    = f.label :commission
-    = f.text_field :commission
-  .field
-    = f.label :short
-    = f.text_field :short
-  .field
-    = f.label :description
-    = f.text_area :description
-  .field
-    = f.label :currency
-    = f.text_field :currency
-  .actions
-    = f.submit 'Save'
+  .box-body
+    .row
+      .col-md-12
+        - if @trip.errors.any?
+          #error_explanation
+            %h2= "#{pluralize(@trip.errors.count, "error")} prohibited this trip from being saved:"
+            %ul
+              - @trip.errors.full_messages.each do |msg|
+                %li= msg
+        .row
+          .col-sm-6
+            .form-group
+              = f.label :truck
+              %select.form-control{name: "trip[truck_id]"}
+                - Truck.all.each do |truck|
+                  %option{value: truck.id}
+                    = truck.registration_number
+          .col-sm-6
+            .form-group
+              = f.label :driver
+              %select.form-control{name: "trip[driver_id]"}
+                - Driver.all.each do |driver|
+                  %option{value: driver.id}
+                    = driver.name
+        .row
+          .col-sm-6
+            .form-group
+              = f.label :turn_boy
+              %select.form-control{name: "trip[turn_boy_id]"}
+                - TurnBoy.all.each do |turn_boy|
+                  %option{value: turn_boy.id}
+                    = turn_boy.name
+          .col-sm-6
+            .form-group
+              = f.label :date
+              = f.text_field :date, class: "form-control datepicker"
+        .row
+          .col-sm-6
+            .form-group
+              = f.label :depot_id
+              %select.form-control{name: "trip[depot_id]"}
+                - City.where(city_type: 'Depot').each do |depot|
+                  %option{value: depot.id}
+                    = depot.name
+          .col-sm-6
+            .form-group
+              = f.label :destination_id
+              %select.form-control{name: "trip[destination_id]"}
+                - City.where(city_type: 'Destination').each do |destination|
+                  %option{value: destination.id}
+                    = destination.name
+        .row
+          .col-sm-6
+            .form-group
+              = f.label :consignee
+              %select.form-control{name: "trip[consignee_id]"}
+                - Consignee.all.each do |consignee|
+                  %option{value: consignee.id}
+                    = consignee.name
+          .col-sm-6
+            .form-group
+              = f.label :product
+              %select.form-control{name: "trip[product_id]"}
+                - Product.where(product_type: 'Load').each do |product|
+                  %option{value: product.id}
+                    = product.name
+        .row
+          .col-sm-6
+            .form-group
+              = f.label :quantity
+              = f.number_field :quantity, class: 'form-control'
+          .col-sm-6
+            .form-group
+              = f.label :rate
+              = f.text_field :rate, class: 'form-control'
+        .row
+          .col-sm-6
+            .form-group
+              = f.label :amount
+              = f.text_field :amount, class: 'form-control'
+          .col-sm-6
+            .form-group
+              = f.label :commission
+              = f.text_field :commission, class: 'form-control'
+        .row
+          .col-sm-6
+            .form-group
+              = f.label :short
+              = f.text_field :short, class: 'form-control'
+          .col-sm-6
+            .form-group
+              = f.label :currency
+              = f.text_field :currency, class: 'form-control'
+        .row
+          .col-sm-12
+            .form-group
+              = f.label :description
+              = f.text_area :description, class: 'form-control'
+  .box-footer
+    .actions.pull-right
+      %button.btn.btn-success.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}
+        %i.fa.fa-save
+        Save

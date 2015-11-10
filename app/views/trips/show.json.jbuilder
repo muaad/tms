@@ -1,1 +1,1 @@
-json.extract! @trip, :id, :truck_id, :driver_id, :turn_boy_id, :date, :depot_id, :destination_id, :consignee_id, :product_id, :quantity, :rate, :amount, :commission, :short, :description, :currency, :created_at, :updated_at
+json.extract! @trip, :id, :truck_id, :driver_id, :turn_boy_id, :date, :depot_id, :destination_id, :consignee_id, :product_id, :quantity, :rate, :amount, :commission, :short, :description, :currency, :created_at, :updated_at, :name

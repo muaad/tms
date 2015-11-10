@@ -1,13 +1,22 @@
 = form_for @expense_category do |f|
-  - if @expense_category.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@expense_category.errors.count, "error")} prohibited this expense_category from being saved:"
-      %ul
-        - @expense_category.errors.full_messages.each do |msg|
-          %li= msg
+  .box-body
+    .row
+      .col-md-12
+        - if @expense_category.errors.any?
+          #error_explanation
+            %h2= "#{pluralize(@expense_category.errors.count, "error")} prohibited this expense_category from being saved:"
+            %ul
+              - @expense_category.errors.full_messages.each do |msg|
+                %li= msg
 
-  .field
-    = f.label :name
-    = f.text_field :name
-  .actions
-    = f.submit 'Save'
+        .form-group
+          = f.label :name
+          .input-group
+            .input-group-addon
+              %i.fa.fa-file-text-o
+            = f.text_field :name, class: "form-control"
+  .box-footer
+    .actions.pull-right
+      %button.btn.btn-success.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}
+        %i.fa.fa-save
+        Save
