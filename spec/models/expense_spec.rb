@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: expenses
+#
+#  id                  :integer          not null, primary key
+#  expense_category_id :integer
+#  amount              :float
+#  product_id          :integer
+#  driver_id           :integer
+#  truck_id            :integer
+#  turn_boy_id         :integer
+#  user_id             :integer
+#  description         :text
+#  lpo                 :string
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  date                :date
+#  trip_id             :integer
+#
+
 require 'rails_helper'
 
 RSpec.describe Expense, type: :model do

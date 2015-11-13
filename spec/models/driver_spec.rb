@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: drivers
+#
+#  id           :integer          not null, primary key
+#  name         :string
+#  phone_number :string
+#  address      :string
+#  id_number    :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
 require 'rails_helper'
 
 RSpec.describe Driver, type: :model do

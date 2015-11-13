@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: trucks
+#
+#  id                  :integer          not null, primary key
+#  registration_number :string
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  truck_owner_id      :integer
+#
+
 class Truck < ActiveRecord::Base
 	attr_accessor :driver_salary
 	attr_accessor :turn_boy_salary

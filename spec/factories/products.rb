@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: products
+#
+#  id           :integer          not null, primary key
+#  name         :string
+#  price        :float
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  product_type :string
+#
+
 FactoryGirl.define do
   factory :product do
     name "MyString"

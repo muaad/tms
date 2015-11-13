@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: diesel_companies
+#
+#  id         :integer          not null, primary key
+#  name       :string
+#  price      :float
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 require 'rails_helper'
 
 RSpec.describe DieselCompany, type: :model do
