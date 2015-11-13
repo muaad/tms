@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :document do
+  factory :attachment do
     name "MyString"
 driver nil
 turn_boy nil

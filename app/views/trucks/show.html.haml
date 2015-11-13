@@ -70,11 +70,16 @@
 											%a
 												Documents:
 										%li
-											-
 											%ul
 												%li
 													%a.document-link.pull-left.badge.bg-blue{href: "/missing.jpg"}
 														ID Card
+								.box-footer.no-padding
+									%ul.nav.nav-stacked
+										%li
+											%a.btn.btn-success.pull-right{href: truck_owner_path(@truck.truck_owner)}
+												%i.fa.fa-eye
+												View
 							/ .box.box-success
 							/ 	.box-header.with-border
 							/ 		%h3.box-title
@@ -133,11 +138,17 @@
 											%a
 												Documents:
 										%li
-											-
 											%ul
-												%li
-													%a.document-link.pull-left.badge.bg-blue{href: "/missing.jpg"}
-														ID Card
+												- @truck.driver.attachments.each do |attachment|
+													%li
+														%a.document-link.pull-left.badge.bg-blue{href: attachment.file.url}
+															= attachment.name
+								.box-footer.no-padding
+									%ul.nav.nav-stacked
+										%li
+											%a.btn.btn-success.pull-right{href: driver_path(@truck.driver)}
+												%i.fa.fa-eye
+												View
 							/ .box.box-success
 							/ 	.box-header.with-border
 							/ 		%h3.box-title
@@ -201,11 +212,16 @@
 											%a
 												Documents:
 										%li
-											-
 											%ul
 												%li
 													%a.document-link.pull-left.badge.bg-blue{href: "/missing.jpg"}
 														ID Card
+								.box-footer.no-padding
+									%ul.nav.nav-stacked
+										%li
+											%a.btn.btn-success.pull-right{href: turn_boy_path(@truck.turn_boy)}
+												%i.fa.fa-eye
+												View
 							/ .box.box-success
 							/ 	.box-header.with-border
 							/ 		%h3.box-title

@@ -58,14 +58,14 @@
         /         - TurnBoy.all.each do |turn_boy|
         /           %option{value: turn_boy.id}
         /             = turn_boy.name
-        .row
-          .col-sm-12
-            .form-group
-              = f.label :trip
-              %select.form-control{name: "expense[trip_id]"}
-                - Trip.all.each do |trip|
-                  %option{value: trip.id}
-                    = trip.name
+        / .row
+        /   .col-sm-12
+        /     .form-group
+        /       = f.label :trip
+        /       %select.form-control{name: "expense[trip_id]"}
+        /         - Trip.all.each do |trip|
+        /           %option{value: trip.id}
+        /             = trip.name
           
         .row
           .col-sm-12

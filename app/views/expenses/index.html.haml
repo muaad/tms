@@ -7,6 +7,16 @@
           .box-tools.pull-right
             .btn-toolbar{role: "toolbar"}
               .btn-group
+                %button.btn.btn-box-tool.dropdown-toggle.btn-default{"data-toggle" => "dropdown"}
+                  %i.fa.fa-filter
+                  Filter
+                  %i.fa.fa-caret-down
+                %ul.dropdown-menu{:role => "menu"}
+                  - ExpenseCategory.all.each do |category|
+                    %li
+                      %a{:href => "#{expenses_path}?category=#{category.id}"}
+                        = category.name
+              .btn-group
                 %a.btn.btn-box-tool.btn-default{href: new_expense_path}
                   %i.fa.fa-plus
                   New

@@ -4,7 +4,11 @@ class ExpensesController < ApplicationController
   # GET /expenses
   # GET /expenses.json
   def index
-    @expenses = Expense.all
+    if !params[:category].blank?
+      @expenses = Expense.where(expense_category_id: params[:category])
+    else
+      @expenses = Expense.all
+    end
   end
 
   # GET /expenses/1

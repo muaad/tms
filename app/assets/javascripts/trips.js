@@ -35,6 +35,36 @@ $(function() {
 	  }
 	});
 
+	var editPage = window.location.pathname.indexOf("edit") >= 0 && window.location.pathname.indexOf("trips") >= 0
+	if (window.location.pathname === "/trips/new" || editPage) {
+		$.get('/trucks/' + $('select[name="trip[truck_id]"]').val() + '.json', function(data) {
+			$('select[name="trip[driver_id]"] option[value="'+ data.driver.id +'"]').attr('selected', 'selected');	
+			$('select[name="trip[turn_boy_id]"] option[value="'+ data.turn_boy.id +'"]').attr('selected', 'selected');	
+		})
+
+		$('select[name="trip[truck_id]"]').change(function() {
+			$.get('/trucks/' + $('select[name="trip[truck_id]"]').val() + '.json', function(data) {
+				$('select[name="trip[driver_id]"] option[value="'+ data.driver.id +'"]').attr('selected', 'selected');	
+				$('select[name="trip[turn_boy_id]"] option[value="'+ data.turn_boy.id +'"]').attr('selected', 'selected');	
+			})
+		})
+
+		$.get('/products/' + $('select[name="trip[product_id]"]').val() + '.json', function(data) {
+			$('#trip_rate').val(data.price);	
+		})
+
+		$('select[name="trip[product_id]"]').change(function() {
+			$.get('/products/' + $('select[name="trip[product_id]"]').val() + '.json', function(data) {
+				$('#trip_rate').val(data.price);	
+			})
+		})
+	}
+
+	$('#trip_quantity, #trip_rate').on("propertychange change click keyup input paste", function(evt) {
+		var amount = $('#trip_quantity').val() * $('#trip_rate').val();
+		$('#trip_amount').val(amount);
+	})
+
 	$('#edit-trip').click(function(){
 	  if ($(".trips_table input:checked").length < 1)
 	  {

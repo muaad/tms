@@ -77,9 +77,9 @@ class DriversController < ApplicationController
       if !params[:truck].blank?
         truck = Truck.find(params[:truck])
         salary = @driver.calculate_salary(truck)
-        # if !salary.blank?
+        if !salary.blank?
           @driver.salary = salary
-        # end
+        end
       end
     end
 
