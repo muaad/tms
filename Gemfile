@@ -19,6 +19,7 @@ gem 'devise'
 gem 'haml-rails'
 gem "font-awesome-rails"
 gem "paperclip"
+gem 'annotate'
 group :development do
   gem 'better_errors'
   gem 'html2haml'
