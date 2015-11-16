@@ -9,6 +9,9 @@
               - @expense.errors.full_messages.each do |msg|
                 %li= msg
         %input#expense_category{type: 'hidden', name: 'expense_category', value: 'Diesel'}
+        - if !@expense.blank?
+          %input#diesel-company{type: 'hidden', value: "#{@expense.diesel_expense.blank? ? '' : @expense.diesel_expense.diesel_company.id}"}
+          %input#expense-truck{type: 'hidden', value: "#{@expense.truck.blank? ? '' : @expense.truck.id}"}
         .row
           .col-sm-6
             .form-group

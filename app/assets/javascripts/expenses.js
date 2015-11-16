@@ -92,6 +92,7 @@ $(function() {
 	});
 
 	var editPage = window.location.pathname.indexOf("edit") >= 0 && window.location.pathname.indexOf("expenses") >= 0
+	var editDieselPage = window.location.pathname.indexOf("edit_diesel_expense") >= 0 && window.location.pathname.indexOf("expenses") >= 0
 	if (window.location.pathname === "/expenses/new" || editPage) {
 		$('#expense_truck_id').change(function() {
 			$.get('/trucks/' + $('#expense_truck_id').val() + '.json', function(data) {
@@ -154,8 +155,17 @@ $(function() {
 			loadAmount();
 		})
 	}
-	else if (window.location.pathname === "/expenses/diesel/new") {
-		price($("#diesel_company").val())
+	if (window.location.pathname === "/expenses/diesel/new" || editDieselPage) {
+		if (window.location.pathname === "/expenses/diesel/new") {
+			price($("#diesel_company").val())
+		};
+
+		var company_id = $('#diesel-company').val()
+		$('select[id="diesel_company"] option[value="'+ company_id +'"]').attr('selected', 'selected');
+
+		var truck_id = $('#expense-truck').val()
+		$('select[id="expense_truck_id"] option[value="'+ truck_id +'"]').attr('selected', 'selected');
+
 		$('#diesel_company').change(function() {
 			price($("#diesel_company").val());
 		})
