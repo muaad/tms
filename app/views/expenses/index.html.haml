@@ -54,7 +54,7 @@
                       %th Category
                       %th Amount
                       %th Truck
-                      %th Trip
+                      / %th Trip
                       %th Description
                   %tbody.expenses_table
                     - @expenses.each do |expense|
@@ -69,8 +69,8 @@
                           = expense.amount
                         %td
                           = link_to expense.truck.registration_number, truck_path(expense.truck) if !expense.truck.nil?
-                        %td
-                          = link_to expense.trip.name, trip_path(expense.trip) if !expense.trip.nil?
+                        / %td
+                        /   = link_to expense.trip.name, trip_path(expense.trip) if !expense.trip.nil?
                         %td
                           = expense.description
   #delete_expense_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}

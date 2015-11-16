@@ -142,6 +142,20 @@
                 %span Dashboard
             %li.treeview
               %a{:href => "#"}
+                %i.fa.fa-dollar
+                %span Cash
+                %i.fa.fa-angle-left.pull-right
+              %ul.treeview-menu
+                %li
+                  %a{:href => drivers_path}
+                    %i.fa.fa-mail-forward
+                    In
+                %li
+                  %a{:href => turn_boys_path}
+                    %i.fa.fa-mail-reply
+                    Out
+            %li.treeview
+              %a{:href => "#"}
                 %i.fa.fa-money
                 %span Expenses
                 %i.fa.fa-angle-left.pull-right
@@ -152,6 +166,20 @@
                     All
                 %li
                   %a{:href => new_expense_path}
+                    %i.fa.fa-plus
+                    New
+            %li.treeview
+              %a{:href => "#"}
+                %i.fa.fa-money
+                %span Diesel Expenses
+                %i.fa.fa-angle-left.pull-right
+              %ul.treeview-menu
+                %li
+                  %a{:href => "#{expenses_path}?category=#{ExpenseCategory.find_by(name: 'Diesel').nil? ? '0' : ExpenseCategory.find_by(name: 'Diesel').id}"}
+                    %i.fa.fa-circle-o
+                    All
+                %li
+                  %a{:href => new_diesel_expense_path}
                     %i.fa.fa-plus
                     New
             %li.treeview

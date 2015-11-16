@@ -1,11 +1,15 @@
 class ExpensesController < ApplicationController
-  before_action :set_expense, only: [:show, :edit, :update, :destroy]
+  before_action :set_expense, only: [:show, :edit, :update, :destroy, :edit_diesel_expense]
 
   # GET /expenses
   # GET /expenses.json
   def index
     if !params[:category].blank?
-      @expenses = Expense.where(expense_category_id: params[:category])
+      if params[:category] == '0'
+        redirect_to "#{new_expense_category_path}?name=Diesel"
+      else
+        @expenses = Expense.where(expense_category_id: params[:category])
+      end
     else
       @expenses = Expense.all
     end
@@ -21,8 +25,18 @@ class ExpensesController < ApplicationController
     @expense = Expense.new
   end
 
+  def new_diesel_expense
+    @expense = Expense.new
+  end
+
   # GET /expenses/1/edit
   def edit
+    if @expense.category.name == "Diesel"
+      redirect_to edit_diesel_expense_path(@expense)
+    end
+  end
+
+  def edit_diesel_expense
   end
 
   # POST /expenses
@@ -32,6 +46,16 @@ class ExpensesController < ApplicationController
 
     respond_to do |format|
       if @expense.save
+        if !params[:expense_category].blank?
+          category = ExpenseCategory.find_by name: params[:expense_category]
+          if !category.nil?
+            @expense.update(expense_category: category)
+            if params[:expense_category] == "Diesel"
+              company = DieselCompany.find(params[:diesel_company])
+              DieselExpense.create! expense: @expense, diesel_company: company, litres: @expense.quantity
+            end
+          end
+        end
         format.html { redirect_to @expense, notice: 'Expense was successfully created.' }
         format.json { render :show, status: :created, location: @expense }
       else
@@ -82,6 +106,6 @@ class ExpensesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def expense_params
-      params.require(:expense).permit(:expense_category_id, :amount, :product_id, :driver_id, :truck_id, :turn_boy_id, :user_id, :description, :lpo, :date, :trip_id)
+      params.require(:expense).permit(:expense_category_id, :amount, :product_id, :driver_id, :truck_id, :turn_boy_id, :user_id, :description, :lpo, :date, :trip_id, :quantity, :unit_price)
     end
 end

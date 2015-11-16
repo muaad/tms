@@ -14,7 +14,7 @@
           .input-group
             .input-group-addon
               %i.fa.fa-file-text-o
-            = f.text_field :name, class: "form-control"
+            = f.text_field :name, class: "form-control", value: params[:name]
   .box-footer
     .actions.pull-right
       %button.btn.btn-success.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}

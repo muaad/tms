@@ -35,6 +35,15 @@ $(function() {
 	    } ]
 	} );
 
+	var formattedDate = new Date();
+	var d = formattedDate.getDate();
+	var m =  formattedDate.getMonth();
+	m += 1;  // JavaScript months are 0-11
+	var y = formattedDate.getFullYear();
+
+	if ($(".datepicker").val() === null) {
+		$(".datepicker").val(d + "/" + m + "/" + y);
+	};
 	$('.datepicker').datepicker();
 	// $('.alert.alert-success').fadeOut('slowly', 5000);
 	// $('#owner_phone_number').select2();

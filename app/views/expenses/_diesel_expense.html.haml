@@ -1,0 +1,58 @@
+= form_for @expense do |f|
+  .box-body
+    .row
+      .col-md-12
+        - if @expense.errors.any?
+          #error_explanation
+            %h2= "#{pluralize(@expense.errors.count, "error")} prohibited this expense from being saved:"
+            %ul
+              - @expense.errors.full_messages.each do |msg|
+                %li= msg
+        %input#expense_category{type: 'hidden', name: 'expense_category', value: 'Diesel'}
+        .row
+          .col-sm-6
+            .form-group
+              %label Diesel Company
+              %select#diesel_company.form-control{name: "diesel_company"}
+                - DieselCompany.all.each do |company|
+                  %option{value: company.id}
+                    = company.name
+          .col-sm-6
+            .form-group
+              = f.label :truck
+              %select#expense_truck_id.form-control{name: "expense[truck_id]"}
+                - Truck.all.each do |truck|
+                  %option{value: truck.id}
+                    = truck.registration_number
+        .row
+          .col-sm-6
+            .form-group
+              %label Litres
+              = f.text_field :quantity, class: "form-control"
+          .col-sm-6
+            .form-group
+              %label Price Per Litre
+              = f.text_field :unit_price, class: "form-control"
+        .row
+          .col-sm-6
+            .form-group
+              = f.label :amount
+              = f.text_field :amount, class: "form-control"
+          .col-sm-6
+            .form-group
+              = f.label :lpo, "LPO"
+              = f.text_field :lpo, class: "form-control"
+        .row          
+          .col-sm-12
+            .form-group
+              = f.label :date
+              = f.text_field :date, class: "form-control datepicker"
+        .row
+          .col-sm-12
+            = f.label :description
+            = f.text_area :description, class: "form-control"
+  .box-footer
+    .actions.pull-right
+      %button.btn.btn-success.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}
+        %i.fa.fa-save
+        Save
