@@ -13,7 +13,7 @@ $(function() {
 	$('#delete-cities').click(function(){
 	  if ($(".cities_table input:checked").length < 1)
 	  {
-	    alert("You have not selected any cities to be deleted.");
+	    swal("You have not selected any cities to be deleted.");
 	    return false;
 	  }
 	  else
@@ -38,12 +38,12 @@ $(function() {
 	$('#edit-city').click(function(){
 	  if ($(".cities_table input:checked").length < 1)
 	  {
-	    alert("You have not selected any city to be edited.");
+	    swal("You have not selected any city to be edited.");
 	    return false;
 	  }
 	  else if ($(".cities_table input:checked").length > 1)
 	  {
-	    alert("You have selected more than one city. You can only edit one city at a time.");
+	    swal("You have selected more than one city. You can only edit one city at a time.");
 	    return false;
 	  }
 	  else

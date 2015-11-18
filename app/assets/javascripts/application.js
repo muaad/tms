@@ -21,6 +21,7 @@
 //= require jquery.dataTables
 //= require dataTables.bootstrap
 //= require angular.min
+//= require sweetalert.min
 //= require jquery.checkboxes
 //= require jquery.datetimepicker
 //= require bootstrap-datepicker

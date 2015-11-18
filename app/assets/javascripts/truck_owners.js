@@ -13,7 +13,7 @@ $(function() {
 	$('#delete-truck_owners').click(function(){
 	  if ($(".truck_owners_table input:checked").length < 1)
 	  {
-	    alert("You have not selected any truck owners to be deleted.");
+	    swal("You have not selected any truck owners to be deleted.");
 	    return false;
 	  }
 	  else
@@ -38,12 +38,12 @@ $(function() {
 	$('#edit-truck_owner').click(function(){
 	  if ($(".truck_owners_table input:checked").length < 1)
 	  {
-	    alert("You have not selected any truck owner to be edited.");
+	    swal("You have not selected any truck owner to be edited.");
 	    return false;
 	  }
 	  else if ($(".truck_owners_table input:checked").length > 1)
 	  {
-	    alert("You have selected more than one truck owner. You can only edit one truck owner at a time.");
+	    swal("You have selected more than one truck owner. You can only edit one truck owner at a time.");
 	    return false;
 	  }
 	  else

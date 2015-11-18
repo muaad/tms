@@ -13,7 +13,7 @@ $(function() {
 	$('#delete-products').click(function(){
 	  if ($(".products_table input:checked").length < 1)
 	  {
-	    alert("You have not selected any products to be deleted.");
+	    swal("You have not selected any products to be deleted.");
 	    return false;
 	  }
 	  else
@@ -38,12 +38,12 @@ $(function() {
 	$('#edit-product').click(function(){
 	  if ($(".products_table input:checked").length < 1)
 	  {
-	    alert("You have not selected any product to be edited.");
+	    swal("You have not selected any product to be edited.");
 	    return false;
 	  }
 	  else if ($(".products_table input:checked").length > 1)
 	  {
-	    alert("You have selected more than one product. You can only edit one product at a time.");
+	    swal("You have selected more than one product. You can only edit one product at a time.");
 	    return false;
 	  }
 	  else

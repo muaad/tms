@@ -13,7 +13,7 @@ $(function() {
 	$('#delete-diesel_companies').click(function(){
 	  if ($(".diesel_companies_table input:checked").length < 1)
 	  {
-	    alert("You have not selected any diesel companies to be deleted.");
+	    swal("You have not selected any diesel companies to be deleted.");
 	    return false;
 	  }
 	  else
@@ -38,12 +38,12 @@ $(function() {
 	$('#edit-diesel_company').click(function(){
 	  if ($(".diesel_companies_table input:checked").length < 1)
 	  {
-	    alert("You have not selected any diesel company to be edited.");
+	    swal("You have not selected any diesel company to be edited.");
 	    return false;
 	  }
 	  else if ($(".diesel_companies_table input:checked").length > 1)
 	  {
-	    alert("You have selected more than one diesel company. You can only edit one diesel company at a time.");
+	    swal("You have selected more than one diesel company. You can only edit one diesel company at a time.");
 	    return false;
 	  }
 	  else

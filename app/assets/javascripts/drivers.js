@@ -13,7 +13,7 @@ $(function() {
 	$('#delete-drivers').click(function(){
 	  if ($(".drivers_table input:checked").length < 1)
 	  {
-	    alert("You have not selected any drivers to be deleted.");
+	    swal("You have not selected any drivers to be deleted.");
 	    return false;
 	  }
 	  else
@@ -38,12 +38,12 @@ $(function() {
 	$('#edit-driver').click(function(){
 	  if ($(".drivers_table input:checked").length < 1)
 	  {
-	    alert("You have not selected any driver to be edited.");
+	    swal("You have not selected any driver to be edited.");
 	    return false;
 	  }
 	  else if ($(".drivers_table input:checked").length > 1)
 	  {
-	    alert("You have selected more than one driver. You can only edit one driver at a time.");
+	    swal("You have selected more than one driver. You can only edit one driver at a time.");
 	    return false;
 	  }
 	  else

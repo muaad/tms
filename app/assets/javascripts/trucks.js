@@ -79,7 +79,7 @@ $(function() {
 	$('#delete-trucks').click(function(){
 	  if ($(".trucks_table input:checked").length < 1)
 	  {
-	    alert("You have not selected any trucks to be deleted.");
+	    swal("You have not selected any trucks to be deleted.");
 	    return false;
 	  }
 	  else
@@ -104,12 +104,12 @@ $(function() {
 	$('#edit-truck').click(function(){
 	  if ($(".trucks_table input:checked").length < 1)
 	  {
-	    alert("You have not selected any truck to be edited.");
+	    swal("You have not selected any truck to be edited.");
 	    return false;
 	  }
 	  else if ($(".trucks_table input:checked").length > 1)
 	  {
-	    alert("You have selected more than one truck. You can only edit one truck at a time.");
+	    swal("You have selected more than one truck. You can only edit one truck at a time.");
 	    return false;
 	  }
 	  else

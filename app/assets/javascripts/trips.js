@@ -13,7 +13,7 @@ $(function() {
 	$('#delete-trips').click(function(){
 	  if ($(".trips_table input:checked").length < 1)
 	  {
-	    alert("You have not selected any trips to be deleted.");
+	    swal("You have not selected any trips to be deleted.");
 	    return false;
 	  }
 	  else
@@ -37,6 +37,18 @@ $(function() {
 
 	var editPage = window.location.pathname.indexOf("edit") >= 0 && window.location.pathname.indexOf("trips") >= 0
 	if (window.location.pathname === "/trips/new" || editPage) {
+		if (editPage) {
+			var truck_id = $('#trip-truck').val()
+			$('select[name="trip[truck_id]"] option[value="'+ truck_id +'"]').attr('selected', 'selected').change();
+			var consignee_id = $('#trip-consignee').val()
+			$('select[name="trip[consignee_id]"] option[value="'+ consignee_id +'"]').attr('selected', 'selected').change();
+			var depot_id = $('#trip-depot').val()
+			$('select[name="trip[depot_id]"] option[value="'+ depot_id +'"]').attr('selected', 'selected').change();
+			var destination_id = $('#trip-destination').val()
+			$('select[name="trip[destination_id]"] option[value="'+ destination_id +'"]').attr('selected', 'selected').change();
+			var product_id = $('#trip-product').val()
+			$('select[name="trip[product_id]"] option[value="'+ product_id +'"]').attr('selected', 'selected').change();
+		};
 		$.get('/trucks/' + $('select[name="trip[truck_id]"]').val() + '.json', function(data) {
 			$('select[name="trip[driver_id]"] option[value="'+ data.driver.id +'"]').attr('selected', 'selected');	
 			$('select[name="trip[turn_boy_id]"] option[value="'+ data.turn_boy.id +'"]').attr('selected', 'selected');	
@@ -68,12 +80,12 @@ $(function() {
 	$('#edit-trip').click(function(){
 	  if ($(".trips_table input:checked").length < 1)
 	  {
-	    alert("You have not selected any trip to be edited.");
+	    swal("You have not selected any trip to be edited.");
 	    return false;
 	  }
 	  else if ($(".trips_table input:checked").length > 1)
 	  {
-	    alert("You have selected more than one trip. You can only edit one trip at a time.");
+	    swal("You have selected more than one trip. You can only edit one trip at a time.");
 	    return false;
 	  }
 	  else

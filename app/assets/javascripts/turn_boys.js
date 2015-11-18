@@ -13,7 +13,7 @@ $(function() {
 	$('#delete-turn_boys').click(function(){
 	  if ($(".turn_boys_table input:checked").length < 1)
 	  {
-	    alert("You have not selected any turn boys to be deleted.");
+	    swal("You have not selected any turn boys to be deleted.");
 	    return false;
 	  }
 	  else
@@ -38,12 +38,12 @@ $(function() {
 	$('#edit-turn_boy').click(function(){
 	  if ($(".turn_boys_table input:checked").length < 1)
 	  {
-	    alert("You have not selected any turn boy to be edited.");
+	    swal("You have not selected any turn boy to be edited.");
 	    return false;
 	  }
 	  else if ($(".turn_boys_table input:checked").length > 1)
 	  {
-	    alert("You have selected more than one turn boy. You can only edit one turn boy at a time.");
+	    swal("You have selected more than one turn boy. You can only edit one turn boy at a time.");
 	    return false;
 	  }
 	  else

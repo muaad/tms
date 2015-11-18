@@ -13,7 +13,7 @@ $(function() {
 	$('#delete-consignees').click(function(){
 	  if ($(".consignees_table input:checked").length < 1)
 	  {
-	    alert("You have not selected any consignees to be deleted.");
+	    swal("You have not selected any consignees to be deleted.");
 	    return false;
 	  }
 	  else
@@ -38,12 +38,12 @@ $(function() {
 	$('#edit-consignee').click(function(){
 	  if ($(".consignees_table input:checked").length < 1)
 	  {
-	    alert("You have not selected any consignee to be edited.");
+	    swal("You have not selected any consignee to be edited.");
 	    return false;
 	  }
 	  else if ($(".consignees_table input:checked").length > 1)
 	  {
-	    alert("You have selected more than one consignee. You can only edit one consignee at a time.");
+	    swal("You have selected more than one consignee. You can only edit one consignee at a time.");
 	    return false;
 	  }
 	  else

@@ -13,7 +13,7 @@ $(function() {
 	$('#delete-expense_categories').click(function(){
 	  if ($(".expense_categories_table input:checked").length < 1)
 	  {
-	    alert("You have not selected any expense_categories to be deleted.");
+	    swal("You have not selected any expense_categories to be deleted.");
 	    return false;
 	  }
 	  else
@@ -38,12 +38,12 @@ $(function() {
 	$('#edit-expense_category').click(function(){
 	  if ($(".expense_categories_table input:checked").length < 1)
 	  {
-	    alert("You have not selected any expense category to be edited.");
+	    swal("You have not selected any expense category to be edited.");
 	    return false;
 	  }
 	  else if ($(".expense_categories_table input:checked").length > 1)
 	  {
-	    alert("You have selected more than one expense_category. You can only edit one expense category at a time.");
+	    swal("You have selected more than one expense_category. You can only edit one expense category at a time.");
 	    return false;
 	  }
 	  else
