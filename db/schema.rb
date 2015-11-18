@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151115203443) do
+ActiveRecord::Schema.define(version: 20151118190129) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "name"
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(version: 20151115203443) do
     t.string   "file_content_type"
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
+    t.date     "date_of_issue"
+    t.date     "date_of_expiry"
   end
 
   add_index "attachments", ["driver_id"], name: "index_attachments_on_driver_id"
