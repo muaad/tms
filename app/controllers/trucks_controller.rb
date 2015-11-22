@@ -43,7 +43,7 @@ class TrucksController < ApplicationController
     end
 
     if owner.nil?
-      owner = TruckOwner.create! id_number: params[:owner_id_number], phone_number: params[:owner_phone_number], name: params[:owner_name], address: params[:owner_address], entity_type: [:owner_type]
+      owner = TruckOwner.create! id_number: params[:owner_id_number], phone_number: params[:owner_phone_number], name: params[:owner_name], address: params[:owner_address], entity_type: params[:owner_type]
     end
 
     @truck.truck_owner = owner
@@ -51,9 +51,9 @@ class TrucksController < ApplicationController
     respond_to do |format|
       if @truck.save
         truck_driver = TruckDriver.find_or_create_by! driver: driver, truck: @truck
-        truck_driver.update(active: true)
+        truck_driver.update(active: true, salary: params[:driver_salary])
         truck_turn_boy = TruckTurnBoy.find_or_create_by! turn_boy: turn_boy, truck: @truck
-        truck_turn_boy.update(active: true)
+        truck_turn_boy.update(active: true, salary: params[:turn_boy_salary])
         format.html { redirect_to @truck, notice: 'Truck was successfully created.' }
         format.json { render :show, status: :created, location: @truck }
       else

@@ -50,6 +50,8 @@
                         %td
                           = link_to trip.turn_boy.name, turn_boy_path(trip.turn_boy) if !trip.turn_boy.blank?
                         %td
+                          = trip.date
+                        %td
                           = link_to trip.depot.name, city_path(trip.depot) if !trip.depot.blank?
                         %td
                           = link_to trip.destination.name, city_path(trip.destination) if !trip.destination.blank?
@@ -58,11 +60,11 @@
                         %td
                           = link_to trip.product.name, product_path(trip.product) if !trip.product.blank?
                         %td
-                          23
+                          = trip.quantity
                         %td
-                          200
+                          = trip.rate
                         %td
-                          4600
+                          = trip.amount
   #delete_trip_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
     .modal-dialog
       .modal-content

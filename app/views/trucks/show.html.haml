@@ -15,9 +15,11 @@
 										%i.fa.fa-caret-down
 									%ul.dropdown-menu{:role => "menu"}
 										%li
-											%a{:href => "#"} Trip
+											%a{:href => "#{new_trip_path}?truck=#{@truck.id}"} Trip
 										%li
-											%a{:href => "#"} Expense
+											%a{:href => "#{new_expense_path}?truck=#{@truck.id}"} Expense
+										%li
+											%a{:href => "#{new_diesel_expense_path}?truck=#{@truck.id}"} Diesel Expense
 								/ .btn-group
 								/ 	%button.btn.btn-box-tool.dropdown-toggle.btn-default{"data-toggle" => "dropdown"}
 								/ 		%i.fa.fa-plus
@@ -27,7 +29,10 @@
 								/ 			%li
 								/ 				%a{:href => "#"}
 								/ 					= driver.name
-								%a#edit-expense.btn.btn-box-tool.btn-default
+								%a#edit-expense.btn.btn-box-tool.btn-default{href: edit_truck_path(@truck)}
+									%i.fa.fa-cloud-upload
+									Upload
+								%a#edit-expense.btn.btn-box-tool.btn-default{href: edit_truck_path(@truck)}
 									%i.fa.fa-edit
 									Edit
 								%a#delete-expenses.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#delete_expense_modal"}

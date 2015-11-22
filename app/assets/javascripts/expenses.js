@@ -1,38 +1,23 @@
-function loadAmount() {
-	$('#expense_driver, #expense_truck_id').change(function() {
-		var id = $('#expense_driver').val()
-		var truck = $('#expense_truck_id').val()
-		$.get('/drivers/' + id + '.json?truck=' + truck, function(data) {
-			$('#expense_amount').val(data.salary)
-		});
-	})
-	$('#expense_turn_boy').change(function() {
-		var id = $('#expense_turn_boy').val()
-		$.get('/turn_boys/' + id + '.json', function() {
-			
-		});
-	})
-	$('#diesel_company_id').change(function() {
-		var id = $('#diesel_company_id').val()
-		$.get('/diesel_companies/' + id + '.json', function() {
-			
-		});
-	})
-	$("#product_id").change(function() {
-		var id = $("#product_id").val()
-		$.get('/products/' + id + '.json', function() {
-			
-		});
-	})
+function loadAmount(category) {
+	if (category == "Spare Parts") {
+		$("#product_id").change(function() {
+			var id = $("#product_id").val()
+			$.get('/products/' + id + '.json', function(data) {
+				$('#expense_amount').val(data.price)
+			});
+		})
+	}
+	console.log(category)
 }
 
 function loadCombos(category) {
+	console.log(category)
 	if (category === "Driver Salary") {
 		var driver = '<div class="form-group"><label for="expense_driver">Driver</label><select id = "expense_driver" class="form-control" name="expense[driver_id]"></select></div>'
         $('.expense-reason').html(driver)
         $.get('/drivers.json', function(data) {
         	for (var i = 0; i < data.length; i++) {
-        		$('#expense_driver').append('<option value="' + data[i].id + '">' + data[i].name + '</option>')
+        		$('select[id="expense_driver"]').append('<option value="' + data[i].id + '">' + data[i].name + '</option>')
         	};
         });
         var driver_id = $('#expense_driver').val()
@@ -49,10 +34,12 @@ function loadCombos(category) {
         $('.expense-reason').html(turn_boy)
         $.get('/turn_boys.json', function(data) {
         	for (var i = 0; i < data.length; i++) {
-        		$('#expense_turn_boy').append('<option value="' + data[i].id + '">' + data[i].name + '</option>')
+        		$('select[id="expense_turn_boy"]').append('<option value="' + data[i].id + '">' + data[i].name + '</option>')
         	};
         });
-	} 
+       	var turn_boy_id = $('#expense_turn_boy').val()
+       	$('select[id="expense_turn_boy"] option[value="'+ turn_boy_id +'"]').attr('selected', 'selected');
+	}
 	// else if (category === "Diesel"){
 	// 	var diesel_company = '<div class="form-group"><label for="diesel_company_id">Diesel Company</label><select id="diesel_company_id" class="form-control" name="diesel_company_id"></select></div>'
  //        $('.expense-reason').html(diesel_company)
@@ -67,35 +54,41 @@ function loadCombos(category) {
 		$('.expense-reason').html(product)
         $.get('/products.json?type=Spare parts', function(data) {
         	for (var i = 0; i < data.length; i++) {
-        		console.log(i)
-        		$("#product_id").append('<option value="' + data[i].id + '">' + data[i].name + '</option>')
+        		$("select[id='product_id']").append('<option value="' + data[i].id + '">' + data[i].name + '</option>')
         	};
         });
 	};
 }
 
-function loadDetails(editPage) {
-	$('#expense_truck_id').change(function() {
-		console.log('truck changed')
-		$.get('/trucks/' + $('#expense_truck_id').val() + '.json', function(data) {
+function loadSalary(category) {
+	$.get('/trucks/' + $('select[id="expense_truck_id"]').val() + '.json', function(data) {
+		if (category == "Driver Salary") {
 			$('#expense_amount').val(data.driver_salary)
 			$('select[id="expense_driver"] option[value="'+ data.driver.id +'"]').attr('selected', 'selected');
-			// $('select[name="expense[trip_id]"]').html('')
-			// for (var i = 0; i < data.trips.length; i++) {
-			// 	var tripName = data.registration_number + " - " + data.trips[i].date
-			// 	$('select[name="expense[trip_id]"]').append('<option value="' + data.trips[i].id + '">' + tripName + '</option>');
-			// };
-		})
-		// loadAmount();
+		}
+		if (category == "TurnBoy Salary") {
+			$('#expense_amount').val(data.turn_boy_salary)
+			$('select[id="expense_turn_boy"] option[value="'+ data.turn_boy.id +'"]').attr('selected', 'selected');
+		}
 	})
+}
 
+function loadDetails(editPage) {
 	$('#expense_category').change(function() {
-		console.log('category changed')
-		var category = $('#expense_category :selected').html().trim();
+		var category = $('select[id="expense_category"] :selected').html().trim();
+		console.log(category)
 		loadCombos(category);
 		if (!editPage) {
-			loadAmount();
+			loadSalary(category);
+			loadAmount(category);
 		};
+	})
+	
+	$('#expense_truck_id').change(function() {
+		var category = $('select[id="expense_category"] :selected').html().trim();
+		if (!editPage) {
+			loadSalary(category);
+		}
 	})
 }
 
@@ -163,6 +156,9 @@ $(function() {
 	  	document.location = '/expenses/' + id + '/edit'
 	  }
 	});
+
+	var truck_id = $('#expense_truck').val()
+	$('select[id="expense_truck_id"] option[value="'+ truck_id +'"]').attr('selected', 'selected').change();
 
 	var editPage = window.location.pathname.indexOf("edit") >= 0 && window.location.pathname.indexOf("/expenses") >= 0
 	var editDieselPage = window.location.pathname.indexOf("edit") >= 0 && window.location.pathname.indexOf("diesel_expenses") >= 0

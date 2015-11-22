@@ -78,6 +78,12 @@
             .input-group-addon
               %i.fa.fa-map-marker
             %input#driver_address{name: 'driver_address', class: "form-control", value: "#{@truck.driver.nil?? '' : @truck.driver.address}"}
+        .form-group
+          = f.label :salary
+          .input-group
+            .input-group-addon
+              %i.fa.fa-money
+            %input#driver_salary{name: 'driver_salary', class: "form-control", value: "#{@truck.driver.nil?? '' : @truck.driver_salary}"}
     .row
       .col-lg-12
         %h3 Turn boy's Details
@@ -106,6 +112,12 @@
             .input-group-addon
               %i.fa.fa-map-marker
             %input#turnboy_address{name: 'turnboy_address', class: "form-control", value: "#{@truck.turn_boy.nil?? '' : @truck.turn_boy.address}"}
+        .form-group
+          = f.label :salary
+          .input-group
+            .input-group-addon
+              %i.fa.fa-money
+            %input#turn_boy_salary{name: 'turn_boy_salary', class: "form-control", value: "#{@truck.turn_boy.nil?? '' : @truck.turn_boy_salary}"}
   .box-footer
     .actions.pull-right
       %button.btn.btn-success.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}

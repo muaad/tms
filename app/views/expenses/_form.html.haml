@@ -8,6 +8,14 @@
             %ul
               - @expense.errors.full_messages.each do |msg|
                 %li= msg
+        - if !@expense.new_record?
+          %input#expense_category{type: 'hidden', value: "#{@expense.category.blank? ? '' : @expense.category.id}"}
+          %input#expense_truck{type: 'hidden', value: "#{@expense.truck.blank? ? '' : @expense.truck.id}"}
+          %input#expense_driver{type: 'hidden', value: "#{@expense.driver.blank? ? '' : @expense.driver.id}"}
+          %input#expense_turn_boy{type: 'hidden', value: "#{@expense.turn_boy.blank? ? '' : @expense.turn_boy.id}"}
+          %input#expense_product{type: 'hidden', value: "#{@expense.product.blank? ? '' : @expense.product.id}"}
+        - else
+          %input#expense_truck{type: 'hidden', value: params[:truck]}
         .row
           .col-sm-6
             .form-group

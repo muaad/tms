@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   resources :consignees
   resources :cities
   get '/dashboard' => "dashboard#index", as: "dashboard"
-  get '/expenses/diesel/new' => "expenses#new_diesel_expense", as: "new_diesel_expense"
-  get '/expenses/:id/edit_diesel_expense' => "expenses#edit_diesel_expense", as: "edit_diesel_expense"
+  get '/diesel_expenses/new' => "expenses#new_diesel_expense", as: "new_diesel_expense"
+  get '/diesel_expenses/:id/edit' => "expenses#edit_diesel_expense", as: "edit_diesel_expense"
 
   resources :diesel_companies
   resources :expenses

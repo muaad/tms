@@ -35,6 +35,9 @@ $(function() {
 	  }
 	});
 
+	var truck_id = $('#trip-truck').val()
+	$('select[name="trip[truck_id]"] option[value="'+ truck_id +'"]').attr('selected', 'selected').change();
+
 	var editPage = window.location.pathname.indexOf("edit") >= 0 && window.location.pathname.indexOf("trips") >= 0
 	if (window.location.pathname === "/trips/new" || editPage) {
 		if (editPage) {

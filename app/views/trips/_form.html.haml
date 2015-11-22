@@ -8,6 +8,14 @@
             %ul
               - @trip.errors.full_messages.each do |msg|
                 %li= msg
+        - if !@trip.new_record?
+          %input#trip-truck{type: 'hidden', value: "#{@trip.truck.blank? ? '' : @trip.truck.id}"}
+          %input#trip-depot{type: 'hidden', value: "#{@trip.depot.blank? ? '' : @trip.depot.id}"}
+          %input#trip-destination{type: 'hidden', value: "#{@trip.destination.blank? ? '' : @trip.destination.id}"}
+          %input#trip-consignee{type: 'hidden', value: "#{@trip.consignee.blank? ? '' : @trip.consignee.id}"}
+          %input#trip-product{type: 'hidden', value: "#{@trip.product.blank? ? '' : @trip.product.id}"}
+        - else
+          %input#trip-truck{type: 'hidden', value: params[:truck]}
         .row
           .col-sm-6
             .form-group
