@@ -24,4 +24,24 @@ class Attachment < ActiveRecord::Base
 
 	has_attached_file :file, styles: { medium: "300x300>", thumb: "100x100>" }#, default_url: "/images/:style/missing.png"
 	validates_attachment_content_type :file, content_type: /\Aimage\/.*\Z/
+
+	def owner_details
+		if !driver_id.nil?
+			owner = driver
+			owner_type = 'driver'
+		end
+		if !turn_boy_id.nil?
+			owner = turn_boy
+			owner_type = 'turn_boy'
+		end
+		if !truck_owner_id.nil?
+			owner = truck_owner
+			owner_type = 'truck_owner'
+		end
+		if !truck_id.nil?
+			owner = truck
+			owner_type = 'truck'
+		end
+		{owner: owner, owner_type: owner_type}
+	end
 end
