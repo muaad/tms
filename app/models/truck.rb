@@ -43,4 +43,8 @@ class Truck < ActiveRecord::Base
 	def owner
 		truck_owner
 	end
+
+	def name
+		registration_number
+	end
 end
