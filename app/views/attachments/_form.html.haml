@@ -1,0 +1,65 @@
+= form_for @attachment, html: { multipart: true } do |f|
+	.box-body
+		.row
+			.col-md-12
+				- if @attachment.errors.any?
+					#error_explanation
+						%h2= "#{pluralize(@attachment.errors.count, "error")} prohibited this attachment from being saved:"
+						%ul
+							- @attachment.errors.full_messages.each do |msg|
+								%li= msg
+				- if !@attachment.new_record?
+					%input#ownerType{type: 'hidden', value: "#{@attachment.owner_details[:owner_type]}s"}
+					%input#ownerID{type: 'hidden', value: @attachment.owner_details[:owner].id}
+				.row
+					.col-md-6
+						.form-group
+							= f.label :name
+							.input-group
+								.input-group-addon
+									%i.fa.fa-file-text-o
+								= f.text_field :name, class: "form-control"
+					.col-md-6
+						.form-group
+							%label This document is for
+							%select.form-control#attachment_type
+								%option{value: "trucks"}
+									Truck
+								%option{value: "truck_owners"}
+									Truck Owner
+								%option{value: "drivers"}
+									Driver
+								%option{value: "turn_boys"}
+									Turn Boy
+				.row
+					.col-md-6
+						.form-group#attachment_owner
+							= f.label :truck_id, id: "owner_type_label"
+							%select.form-control#attachment_owner_list{name: "attachment[truck_id]"}
+								- Truck.all.each do |truck|
+									%option{value: truck.id}
+										= truck.registration_number
+					.col-md-6
+						.form-group
+							= f.label :file
+							= f.file_field :file, class: "form-control"
+				.row
+					.col-md-6
+						.form-group
+							= f.label :date_of_issue
+							.input-group
+								.input-group-addon
+									%i.fa.fa-calendar
+								= f.text_field :date_of_issue, class: "form-control datepicker"
+					.col-md-6
+						.form-group
+							= f.label :date_of_expiry
+							.input-group
+								.input-group-addon
+									%i.fa.fa-calendar
+								= f.text_field :date_of_expiry, class: "form-control datepicker"
+	.box-footer
+		.actions.pull-right
+			%button.btn.btn-success.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}
+				%i.fa.fa-save
+				Save

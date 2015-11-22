@@ -1,0 +1,20 @@
+%section.content
+	.row
+		.col-md-12
+			.box.box-info
+				.box-header.with-border
+					%h3.box-title
+						= @attachment.name
+				.box-body
+					.box.box-default
+						.box-body
+							.inner
+								%img{src: @attachment.file.url, style: 'width: 100%;'}
+						.box-footer.bg-aqua
+							%a.btn.btn-success{href: eval("#{@attachment.owner_details[:owner_type]}_path(@attachment.owner_details[:owner])")}
+								%i.fa.fa-user
+								Owner: 
+								= @attachment.owner_details[:owner].name
+							.pull-right
+								%a.btn{href: ""}
+									%i.fa.fa-trash{style: "color: white;"}
