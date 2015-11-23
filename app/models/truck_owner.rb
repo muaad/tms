@@ -15,4 +15,16 @@
 class TruckOwner < ActiveRecord::Base
 	has_many :trucks
 	has_many :attachments
+
+	def income
+		trucks.collect{|t| t.income}.sum
+	end
+
+	def total_expenses
+		trucks.collect{|t| t.total_expenses}.sum
+	end
+
+	def balance
+		income - total_expenses
+	end
 end
