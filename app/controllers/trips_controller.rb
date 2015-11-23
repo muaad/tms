@@ -4,7 +4,11 @@ class TripsController < ApplicationController
   # GET /trips
   # GET /trips.json
   def index
-    @trips = Trip.all
+    if !params[:truck].blank?
+      @trips = Trip.where(truck_id: params[:truck])
+    else
+      @trips = Trip.all
+    end
   end
 
   # GET /trips/1

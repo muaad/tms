@@ -29,7 +29,7 @@
 								/ 			%li
 								/ 				%a{:href => "#"}
 								/ 					= driver.name
-								%a#edit-expense.btn.btn-box-tool.btn-default{href: edit_truck_path(@truck)}
+								%a#upload-docs.btn.btn-box-tool.btn-default{href: "#{new_attachment_path}?owner_id=#{@truck.id}&owner_type=trucks"}
 									%i.fa.fa-cloud-upload
 									Upload
 								%a#edit-expense.btn.btn-box-tool.btn-default{href: edit_truck_path(@truck)}
@@ -76,39 +76,16 @@
 												Documents:
 										%li
 											%ul
-												%li
-													%a.document-link.pull-left.badge.bg-blue{href: "/missing.jpg"}
-														ID Card
+												- @truck.owner.attachments.each do |attachment|
+													%li
+														%a.document-link.pull-left.badge.bg-blue{href: attachment.file.url.split("?")[0]}
+															= attachment.name
 								.box-footer.no-padding
 									%ul.nav.nav-stacked
 										%li
 											%a.btn.btn-success.pull-right{href: truck_owner_path(@truck.truck_owner)}
 												%i.fa.fa-eye
 												View
-							/ .box.box-success
-							/ 	.box-header.with-border
-							/ 		%h3.box-title
-							/ 			Owner
-							/ 		.box-tools.pull-right
-							/ 			.btn-toolbar{role: "toolbar"}
-							/ 				%a.btn.btn-box-tool{href: truck_owner_path(@truck.owner), title: "View"}
-							/ 					%i.fa.fa-eye
-							/ 	.box-body
-							/ 		%div
-							/ 			%i.fa.fa-user
-							/ 			= @truck.owner.name
-							/ 		%div
-							/ 			%i.fa.fa-phone
-							/ 			= @truck.owner.phone_number
-							/ 		%div
-							/ 			%i.fa.fa-credit-card
-							/ 			= @truck.owner.id_number
-							/ 		%div
-							/ 			%i.fa.fa-map-marker
-							/ 			= @truck.owner.address
-							/ 		%div
-							/ 			%i.fa.fa-map-marker
-							/ 			= @truck.owner.entity_type
 						.col-md-4
 							.box.box-widget.widget-user-2
 								.widget-user-header.bg-yellow
@@ -146,7 +123,7 @@
 											%ul
 												- @truck.driver.attachments.each do |attachment|
 													%li
-														%a.document-link.pull-left.badge.bg-blue{href: attachment.file.url}
+														%a.document-link.pull-left.badge.bg-blue{href: attachment.file.url.split("?")[0]}
 															= attachment.name
 								.box-footer.no-padding
 									%ul.nav.nav-stacked
@@ -154,33 +131,6 @@
 											%a.btn.btn-success.pull-right{href: driver_path(@truck.driver)}
 												%i.fa.fa-eye
 												View
-							/ .box.box-success
-							/ 	.box-header.with-border
-							/ 		%h3.box-title
-							/ 			Driver
-							/ 		.box-tools.pull-right
-							/ 			.btn-toolbar{role: "toolbar"}
-							/ 				%a.btn.btn-box-tool{href: driver_path(@truck.driver), title: "View"}
-							/ 					%i.fa.fa-eye
-							/ 	.box-body
-							/ 		%div
-							/ 			%i.fa.fa-user
-							/ 			= @truck.driver.name
-							/ 		%div
-							/ 			%i.fa.fa-phone
-							/ 			= @truck.driver.phone_number
-							/ 		%div
-							/ 			%i.fa.fa-credit-card
-							/ 			= @truck.driver.id_number
-							/ 		%div
-							/ 			%i.fa.fa-map-marker
-							/ 			= @truck.driver.address
-							/ 		%div
-							/ 			%i.fa.fa-money
-							/ 			- if !@truck.driver_salary.blank?	
-							/ 				= @truck.driver_salary
-							/ 			- else
-							/ 				Not set
 						.col-md-4
 							.box.box-widget.widget-user-2
 								.widget-user-header.bg-yellow
@@ -218,9 +168,10 @@
 												Documents:
 										%li
 											%ul
-												%li
-													%a.document-link.pull-left.badge.bg-blue{href: "/missing.jpg"}
-														ID Card
+												- @truck.turn_boy.attachments.each do |attachment|
+													%li
+														%a.document-link.pull-left.badge.bg-blue{href: attachment.file.url.split("?")[0]}
+															= attachment.name
 								.box-footer.no-padding
 									%ul.nav.nav-stacked
 										%li
@@ -257,31 +208,47 @@
 					%br
 					.row
 						.col-md-3.col-sm-6.col-xs-12
-							%a.info-box.no-link{href: trips_path}
+							%a.info-box.no-link{href: "#{trips_path}?truck=#{@truck.id}"}
 								%span.info-box-icon.bg-aqua
 									%i.fa.fa-money
 								.info-box-content
 									%span.info-box-text Income
-									%span.info-box-number 1,410
+									%span.info-box-number
+										= @truck.income
 						.col-md-3.col-sm-6.col-xs-12
-							%a.info-box.no-link{href: trips_path}
+							%a.info-box.no-link{href: "#{expenses_path}?truck=#{@truck.id}"}
 								%span.info-box-icon.bg-green
 									%i.fa.fa-money
 								.info-box-content
 									%span.info-box-text Expenses
-									%span.info-box-number 410
+									%span.info-box-number
+										= @truck.total_expenses
 						.col-md-3.col-sm-6.col-xs-12
-							%a.info-box.no-link{href: trips_path}
+							%a.info-box.no-link
 								%span.info-box-icon.bg-yellow
 									%i.fa.fa-files-o
 								.info-box-content
 									%span.info-box-text Balance
-									%span.info-box-number 1,000
+									%span.info-box-number
+										= @truck.balance
 						.col-md-3.col-sm-6.col-xs-12
-							%a.info-box.no-link{href: trips_path}
+							%a.info-box.no-link{href: "#{trips_path}?truck=#{@truck.id}"}
 								%span.info-box-icon.bg-red
 									%i.fa.fa-truck
 								.info-box-content
 									%span.info-box-text Trips
 									%span.info-box-number
 										= @truck.trips.count
+					%br
+					.col-lg-12
+						.box
+							%h3 Documents
+							%hr
+								%div.slick-list
+									- @truck.attachments.each do |attachment|
+										.small-box.bg-aqua
+											.inner
+												= image_tag(attachment.file.url, style: "width: 100%;")
+											%a.small-box-footer{:href => attachment_path(attachment)}
+												%i.fa.fa-eye
+												View

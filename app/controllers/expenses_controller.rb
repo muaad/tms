@@ -10,6 +10,8 @@ class ExpensesController < ApplicationController
       else
         @expenses = Expense.where(expense_category_id: params[:category])
       end
+    elsif !params[:truck].blank?
+      @expenses = Expense.where(truck_id: params[:truck])
     else
       @expenses = Expense.all
     end

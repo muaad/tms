@@ -15,6 +15,14 @@
 								%i.fa.fa-user
 								Owner: 
 								= @attachment.owner_details[:owner].name
+							%a.btn.btn-success
+								%i.fa.fa-calendar
+								Date of Issue: 
+								= @attachment.date_of_issue
+							%a.btn.btn-success
+								%i.fa.fa-calendar
+								Date of Expiry: 
+								= @attachment.date_of_expiry
 							.pull-right
 								%a.btn{href: ""}
 									%i.fa.fa-trash{style: "color: white;"}

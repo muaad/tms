@@ -22,9 +22,11 @@ function switchOwners(ownerType, ownerID) {
 
 $(function() {
 	var editPage = window.location.pathname.indexOf("edit") >= 0 && window.location.pathname.indexOf("attachments") >= 0
-	if (editPage) {
-		switchOwners($('#ownerType').val(), $('#ownerID').val());
+	var ownerType = $('#ownerType').val();
+	var ownerID = $('#ownerID').val();
+	if (editPage || (ownerType != null && ownerID != null)) {
 		$('#attachment_owner_list option[value="'+ $('#ownerID').val() +'"]').attr('selected', 'selected');
+		switchOwners(ownerType, ownerID);
 	}
 	if (window.location.pathname === "/attachments/new") {
 		$('#attachment_type').change(function() {

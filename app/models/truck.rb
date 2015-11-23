@@ -47,4 +47,16 @@ class Truck < ActiveRecord::Base
 	def name
 		registration_number
 	end
+
+	def income
+		trips.sum(:amount)
+	end
+
+	def total_expenses
+		expenses.sum(:amount)
+	end
+
+	def balance
+		income - total_expenses
+	end
 end

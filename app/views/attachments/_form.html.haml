@@ -11,6 +11,10 @@
 				- if !@attachment.new_record?
 					%input#ownerType{type: 'hidden', value: "#{@attachment.owner_details[:owner_type]}s"}
 					%input#ownerID{type: 'hidden', value: @attachment.owner_details[:owner].id}
+				- else
+					- if !params[:owner_type].blank? and !params[:owner_id].blank?
+						%input#ownerType{type: 'hidden', value: params[:owner_type]}
+						%input#ownerID{type: 'hidden', value: params[:owner_id]}
 				.row
 					.col-md-6
 						.form-group
