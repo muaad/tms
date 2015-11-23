@@ -32,10 +32,10 @@
 								%a#upload-docs.btn.btn-box-tool.btn-default{href: "#{new_attachment_path}?owner_id=#{@truck.id}&owner_type=trucks"}
 									%i.fa.fa-cloud-upload
 									Upload
-								%a#edit-expense.btn.btn-box-tool.btn-default{href: edit_truck_path(@truck)}
+								%a.btn.btn-box-tool.btn-default{href: edit_truck_path(@truck)}
 									%i.fa.fa-edit
 									Edit
-								%a#delete-expenses.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#delete_expense_modal"}
+								%a.btn.btn-box-tool.btn-default
 									%i.fa.fa-times
 									Delete
 				%br
