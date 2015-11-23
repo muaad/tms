@@ -240,15 +240,17 @@
 									%span.info-box-number
 										= @truck.trips.count
 					%br
-					.col-lg-12
-						.box
-							%h3 Documents
-							%hr
-								%div.slick-list
-									- @truck.attachments.each do |attachment|
-										.small-box.bg-aqua
-											.inner
-												= image_tag(attachment.file.url, style: "width: 100%;")
-											%a.small-box-footer{:href => attachment_path(attachment)}
-												%i.fa.fa-eye
-												View
+					.row
+						.col-lg-12
+							.box
+								%h3 Documents
+								%hr
+									%div.slick-list
+										- @truck.attachments.each do |attachment|
+											.small-box.bg-aqua
+												.inner
+													= image_tag(attachment.file.url, style: "width: 100%;")
+												%a.small-box-footer{:href => attachment_path(attachment)}
+													%b
+														%i.fa.fa-eye
+														View
