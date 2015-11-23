@@ -15,15 +15,12 @@
 //= require bootstrap-sprockets
 //= require app
 //= require trucks
-// require select2.full
-// require select2
 //= require jquery.slimscroll.min
 //= require jquery.dataTables
 //= require dataTables.bootstrap
-//= require angular.min
+//= require slick.min
 //= require sweetalert.min
 //= require jquery.checkboxes
-//= require jquery.datetimepicker
 //= require bootstrap-datepicker
 //= require_tree .
 //= require_self
@@ -46,6 +43,42 @@ $(function() {
 		$(".datepicker").val(d + "/" + m + "/" + y);
 	};
 	$('.datepicker').datepicker();
+
+	$('.slick-list').slick({
+	  dots: true,
+	    infinite: false,
+	    speed: 300,
+	    slidesToShow: 3,
+	    slidesToScroll: 3,
+	    responsive: [
+	      {
+	        breakpoint: 1024,
+	        settings: {
+	          slidesToShow: 3,
+	          slidesToScroll: 3,
+	          infinite: true,
+	          dots: true
+	        }
+	      },
+	      {
+	        breakpoint: 600,
+	        settings: {
+	          slidesToShow: 2,
+	          slidesToScroll: 2
+	        }
+	      },
+	      {
+	        breakpoint: 480,
+	        settings: {
+	          slidesToShow: 1,
+	          slidesToScroll: 1
+	        }
+	      }
+	      // You can unslick at a given breakpoint now by adding:
+	      // settings: "unslick"
+	      // instead of a settings object
+	    ]
+	});
 	// $('.alert.alert-success').fadeOut('slowly', 5000);
 	// $('#owner_phone_number').select2();
 	// $('#driver_phone_number').select2();
