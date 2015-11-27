@@ -18,11 +18,11 @@
         %a.logo{:href => root_path}
           / mini logo for sidebar mini 50x50 pixels
           %span.logo-mini
-            %b>TMS
+            %b>Kasoko
           / logo for regular state and mobile devices
           %span.logo-lg
             %i.fa.fa-truck
-            %b> TMS
+            %b> Kasoko
         / Header Navbar: style can be found in header.less
         %nav.navbar.navbar-static-top{:role => "navigation"}
           / Sidebar toggle button
@@ -86,13 +86,14 @@
               %li.dropdown.user.user-menu
                 %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
                   %img.user-image{:alt => "User Image", :src => "/missing.jpg"}
-                    %span.hidden-xs Muaad Abdirahman
+                    %span.hidden-xs
+                      = current_user.name
                 %ul.dropdown-menu
                   / User image
                   %li.user-header
                     %img.img-circle{:alt => "User Image", :src => "/missing.jpg"}
                       %p
-                        Muaad Abdirahman
+                        = current_user.name
                         %small Admin
                   / Menu Body
                   / %li.user-body
@@ -105,9 +106,9 @@
                   / Menu Footer
                   %li.user-footer
                     .pull-left
-                      %a.btn.btn-default.btn-flat{:href => "#"} Profile
+                      = link_to 'Edit Profile', edit_user_registration_path, class: "btn btn-default btn-flat"
                     .pull-right
-                      %a.btn.btn-default.btn-flat{:href => "#"} Sign out
+                      = link_to 'Sign out', destroy_user_session_path, :method=>'delete', class: "btn btn-default btn-flat"
               / Control Sidebar Toggle Button
               %li
                 %a{"data-toggle" => "control-sidebar", :href => "#"}
@@ -121,7 +122,8 @@
             .pull-left.image
               %img.img-circle{:alt => "User Image", :src => "/missing.jpg"}
             .pull-left.info
-              %p Muaad Abdirahman
+              %p
+                = current_user.name
               %a{:href => "#"}
                 %i.fa.fa-circle.text-success
                 Online
@@ -300,82 +302,18 @@
           Copyright &copy;
           = Time.now.year
           = succeed "." do
-            %a{:href => "http://mursal.co"} Mursal
+            %a{:href => "http://kasoko.co.ke"} Kasoko
         All rights reserved.
       / Control Sidebar
       %aside.control-sidebar.control-sidebar-dark
         / Create the tabs
         %ul.nav.nav-tabs.nav-justified.control-sidebar-tabs
           %li
-            %a{"data-toggle" => "tab", :href => "#control-sidebar-home-tab"}
-              %i.fa.fa-home
-          %li
             %a{"data-toggle" => "tab", :href => "#control-sidebar-settings-tab"}
               %i.fa.fa-gears
         / Tab panes
         .tab-content
           / Home tab content
-          #control-sidebar-home-tab.tab-pane
-            %h3.control-sidebar-heading Recent Activity
-            %ul.control-sidebar-menu
-              %li
-                %a{:href => "javascript::;"}
-                  %i.menu-icon.fa.fa-birthday-cake.bg-red
-                  .menu-info
-                    %h4.control-sidebar-subheading Langdon's Birthday
-                    %p Will be 23 on April 24th
-              %li
-                %a{:href => "javascript::;"}
-                  %i.menu-icon.fa.fa-user.bg-yellow
-                  .menu-info
-                    %h4.control-sidebar-subheading Frodo Updated His Profile
-                    %p New phone +1(800)555-1234
-              %li
-                %a{:href => "javascript::;"}
-                  %i.menu-icon.fa.fa-envelope-o.bg-light-blue
-                  .menu-info
-                    %h4.control-sidebar-subheading Nora Joined Mailing List
-                    %p nora@example.com
-              %li
-                %a{:href => "javascript::;"}
-                  %i.menu-icon.fa.fa-file-code-o.bg-green
-                  .menu-info
-                    %h4.control-sidebar-subheading Cron Job 254 Executed
-                    %p Execution time 5 seconds
-            / /.control-sidebar-menu
-            %h3.control-sidebar-heading Tasks Progress
-            %ul.control-sidebar-menu
-              %li
-                %a{:href => "javascript::;"}
-                  %h4.control-sidebar-subheading
-                    Custom Template Design
-                    %span.label.label-danger.pull-right 70%
-                  .progress.progress-xxs
-                    .progress-bar.progress-bar-danger{:style => "width: 70%"}
-              %li
-                %a{:href => "javascript::;"}
-                  %h4.control-sidebar-subheading
-                    Update Resume
-                    %span.label.label-success.pull-right 95%
-                  .progress.progress-xxs
-                    .progress-bar.progress-bar-success{:style => "width: 95%"}
-              %li
-                %a{:href => "javascript::;"}
-                  %h4.control-sidebar-subheading
-                    Laravel Integration
-                    %span.label.label-warning.pull-right 50%
-                  .progress.progress-xxs
-                    .progress-bar.progress-bar-warning{:style => "width: 50%"}
-              %li
-                %a{:href => "javascript::;"}
-                  %h4.control-sidebar-subheading
-                    Back End Framework
-                    %span.label.label-primary.pull-right 68%
-                  .progress.progress-xxs
-                    .progress-bar.progress-bar-primary{:style => "width: 68%"}
-            / /.control-sidebar-menu
-          / /.tab-pane
-          / Settings tab content
           #control-sidebar-settings-tab.tab-pane
             %form{:method => "post"}
               %h3.control-sidebar-heading General Settings
