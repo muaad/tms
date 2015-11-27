@@ -17,6 +17,8 @@ class Driver < ActiveRecord::Base
 	has_many :trucks, through: :truck_drivers
 	has_many :expenses
 	has_many :attachments
+	belongs_to :account
+	acts_as_tenant(:account)
 
 	def truck
 		t = nil

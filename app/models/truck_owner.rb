@@ -15,6 +15,8 @@
 class TruckOwner < ActiveRecord::Base
 	has_many :trucks
 	has_many :attachments
+	belongs_to :account
+	acts_as_tenant(:account)
 
 	def income
 		trucks.collect{|t| t.income}.sum

@@ -27,6 +27,8 @@ class Expense < ActiveRecord::Base
   belongs_to :user
   has_one :diesel_expense
   belongs_to :trip
+  belongs_to :account
+  acts_as_tenant(:account)
 
   def category
   	expense_category

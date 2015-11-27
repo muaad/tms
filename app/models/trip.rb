@@ -28,6 +28,8 @@ class Trip < ActiveRecord::Base
   belongs_to :turn_boy
   belongs_to :consignee
   belongs_to :product
+  belongs_to :account
+  acts_as_tenant(:account)
 
   def depot
   	City.find(depot_id)

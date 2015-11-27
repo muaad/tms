@@ -14,4 +14,6 @@
 class TruckTurnBoy < ActiveRecord::Base
   belongs_to :truck
   belongs_to :turn_boy
+  belongs_to :account
+	acts_as_tenant(:account)
 end

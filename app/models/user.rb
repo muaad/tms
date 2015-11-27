@@ -24,4 +24,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   has_many :expenses
+  belongs_to :account
+	acts_as_tenant(:account)
 end

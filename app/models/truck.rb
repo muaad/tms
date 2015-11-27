@@ -21,6 +21,8 @@ class Truck < ActiveRecord::Base
 	has_many :expenses
 	has_many :trips
 	has_many :attachments
+	belongs_to :account
+	acts_as_tenant(:account)
 
 	def driver
 		d = truck_drivers.where(active: true).first.driver if !truck_drivers.where(active: true).first.nil?
