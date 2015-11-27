@@ -67,8 +67,8 @@
             .box-tools.pull-right
               %button.btn.btn-box-tool{"data-widget" => "collapse"}
                 %i.fa.fa-minus
-              %button.btn.btn-box-tool{"data-widget" => "remove"}
-                %i.fa.fa-times
+              / %button.btn.btn-box-tool{"data-widget" => "remove"}
+              /   %i.fa.fa-times
           .box-body
             .table-responsive
               %table.table.no-margin
@@ -97,6 +97,9 @@
                         - if truck.balance > 0
                           %span.label.label-success
                             = truck.balance
+                        - elsif truck.balance == 0.0
+                          %span.label.label-primary
+                            = truck.balance
                         - else
                           %span.label.label-danger
                             = "(#{truck.balance})"
@@ -111,8 +114,8 @@
             .box-tools.pull-right
               %button.btn.btn-box-tool{"data-widget" => "collapse"}
                 %i.fa.fa-minus
-              %button.btn.btn-box-tool{"data-widget" => "remove"}
-                %i.fa.fa-times
+              / %button.btn.btn-box-tool{"data-widget" => "remove"}
+              /   %i.fa.fa-times
           .box-body
             .table-responsive
               %table.table.no-margin
@@ -151,8 +154,8 @@
             .box-tools.pull-right
               %button.btn.btn-box-tool{"data-widget" => "collapse"}
                 %i.fa.fa-minus
-              %button.btn.btn-box-tool{"data-widget" => "remove"}
-                %i.fa.fa-times
+              / %button.btn.btn-box-tool{"data-widget" => "remove"}
+              /   %i.fa.fa-times
           .box-body
             .table-responsive
               %table.table.no-margin
@@ -187,8 +190,8 @@
             .box-tools.pull-right
               %button.btn.btn-box-tool{"data-widget" => "collapse"}
                 %i.fa.fa-minus
-              %button.btn.btn-box-tool{"data-widget" => "remove"}
-                %i.fa.fa-times
+              / %button.btn.btn-box-tool{"data-widget" => "remove"}
+              /   %i.fa.fa-times
           .box-body
             .table-responsive
               %table.table.no-margin
