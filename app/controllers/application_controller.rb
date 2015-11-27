@@ -28,14 +28,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def after_sign_in_path_for(resource)
-    dashboard_path
-  end
-
-  def after_sign_up_path_for(resource)
-    new_account_path
-  end
-
   def resource_name
     :user
   end
