@@ -94,7 +94,8 @@
                     %img.img-circle{:alt => "User Image", :src => "/missing.jpg"}
                       %p
                         = current_user.name
-                        %small Admin
+                        %small
+                          = current_user.role
                   / Menu Body
                   / %li.user-body
                   /   .col-xs-4.text-center
