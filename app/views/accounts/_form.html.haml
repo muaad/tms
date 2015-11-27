@@ -1,22 +1,33 @@
 = form_for @account do |f|
-  - if @account.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@account.errors.count, "error")} prohibited this account from being saved:"
-      %ul
-        - @account.errors.full_messages.each do |msg|
-          %li= msg
-
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :email
-    = f.text_field :email
-  .field
-    = f.label :phone_number
-    = f.text_field :phone_number
-  .field
-    = f.label :active
-    = f.check_box :active
-  .actions
-    = f.submit 'Save'
+  .box-body
+    .row
+      .col-md-12
+        - if @account.errors.any?
+          #error_explanation
+            %h2= "#{pluralize(@account.errors.count, "error")} prohibited this account from being saved:"
+            %ul
+              - @account.errors.full_messages.each do |msg|
+                %li= msg
+        .form-group
+          = f.label :name
+          .input-group
+            .input-group-addon
+              %i.fa.fa-institution
+            = f.text_field :name, class: "form-control"
+        .form-group
+          = f.label :email
+          .input-group
+            .input-group-addon
+              %i.fa.fa-envelope
+            = f.email_field :email, class: "form-control"
+        .form-group
+          = f.label :phone_number
+          .input-group
+            .input-group-addon
+              %i.fa.fa-phone
+            = f.text_field :phone_number, class: "form-control"
+  .box-footer
+    .actions.pull-right
+      %button.btn.btn-success.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}
+        %i.fa.fa-save
+        Save
