@@ -26,4 +26,8 @@ class User < ActiveRecord::Base
   has_many :expenses
   belongs_to :account
 	acts_as_tenant(:account)
+
+	def role
+		is_admin ? "Admin" : "Normal"
+	end
 end
