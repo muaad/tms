@@ -20,6 +20,7 @@ gem 'haml-rails'
 gem "font-awesome-rails"
 gem "paperclip"
 gem 'annotate'
+gem 'acts_as_tenant'
 group :development do
   gem 'better_errors'
   gem 'html2haml'
