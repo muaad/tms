@@ -36,6 +36,9 @@ group :development, :test do
   gem 'pry-rescue'
   gem 'rspec-rails'
 end
+group :production do
+  gem 'mysql2'
+end
 group :test do
   gem 'capybara'
   gem 'database_cleaner'
