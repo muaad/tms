@@ -3,7 +3,7 @@
   %head
     %meta{:charset => "utf-8"}
       %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}
-        %title AdminLTE 2 | Top Navigation
+        %title Kasoko | Transportation
         / Tell the browser to be responsive to screen width
         %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no", :name => "viewport"}
         = stylesheet_link_tag 'application', media: 'all'
@@ -24,18 +24,13 @@
             / Collect the nav links, forms, and other content for toggling
             #navbar-collapse.collapse.navbar-collapse.pull-right
               %ul.nav.navbar-nav
-                %li.active
-                  %a{:href => "#features"}
-                    Features
-                %li
-                  %a{:href => "#contact"} Contact Us
                 %li
                   = link_to "Sign Up", new_user_registration_path
             / /.navbar-collapse
             
           / /.container-fluid
       / Full Width Column
-      .content-wrapper
+      .content_wrapper
         .container
           = yield
         / /.container
@@ -46,7 +41,7 @@
             Copyright &copy;
             = Time.now.year
             = succeed "." do
-              %a{:href => "http://mursal.co"} Mursal
+              %a{:href => "http://kasoko.co.ke"} Kasoko
           All rights reserved.
         / /.container
     / ./wrapper
