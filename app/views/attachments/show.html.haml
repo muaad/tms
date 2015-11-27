@@ -9,7 +9,7 @@
 					.box.box-default
 						.box-body
 							.inner
-								%img{src: @attachment.file.url, style: 'width: 100%;'}
+								= image_tag(@attachment.file.url, style: 'width: 100%;')
 						.box-footer.bg-aqua
 							%a.btn.btn-success{href: eval("#{@attachment.owner_details[:owner_type]}_path(@attachment.owner_details[:owner])")}
 								%i.fa.fa-user

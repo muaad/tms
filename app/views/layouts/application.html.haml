@@ -85,17 +85,17 @@
               / User Account: style can be found in dropdown.less
               %li.dropdown.user.user-menu
                 %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-                  %img.user-image{:alt => "User Image", :src => "/missing.jpg"}
-                    %span.hidden-xs
-                      = current_user.name
+                  = image_tag('/missing.jpg', class: "user-image")
+                  %span.hidden-xs
+                    = current_user.name
                 %ul.dropdown-menu
                   / User image
                   %li.user-header
-                    %img.img-circle{:alt => "User Image", :src => "/missing.jpg"}
-                      %p
-                        = current_user.name
-                        %small
-                          = current_user.role
+                    = image_tag('/missing.jpg', class: "img-circle")
+                    %p
+                      = current_user.name
+                      %small
+                        = current_user.role
                   / Menu Body
                   / %li.user-body
                   /   .col-xs-4.text-center
@@ -121,7 +121,7 @@
           / Sidebar user panel
           .user-panel
             .pull-left.image
-              %img.img-circle{:alt => "User Image", :src => "/missing.jpg"}
+              = image_tag('/missing.jpg', class: "img-circle")
             .pull-left.info
               %p
                 = current_user.name

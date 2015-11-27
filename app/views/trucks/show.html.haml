@@ -45,7 +45,7 @@
 							.box.box-widget.widget-user-2
 								.widget-user-header.bg-yellow
 									.widget-user-image
-										%img.img-circle{:alt => "User Avatar", :src => "/missing.jpg"}
+										= image_tag('/missing.jpg', class: "img-circle")
 									%h3.widget-user-username
 										= @truck.owner.name
 									%h5.widget-user-desc Owner
@@ -90,7 +90,7 @@
 							.box.box-widget.widget-user-2
 								.widget-user-header.bg-yellow
 									.widget-user-image
-										%img.img-circle{:alt => "User Avatar", :src => "/missing.jpg"}
+										= image_tag('/missing.jpg', class: "img-circle")
 									%h3.widget-user-username
 										= @truck.driver.name
 									%h5.widget-user-desc Driver
@@ -135,7 +135,7 @@
 							.box.box-widget.widget-user-2
 								.widget-user-header.bg-yellow
 									.widget-user-image
-										%img.img-circle{:alt => "User Avatar", :src => "/missing.jpg"}
+										= image_tag('/missing.jpg', class: "img-circle")
 									%h3.widget-user-username
 										= @truck.turn_boy.name
 									%h5.widget-user-desc Turn Boy
