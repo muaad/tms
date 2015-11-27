@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :accounts
   root to: 'home#index'
   devise_for :users, :controllers => {:registrations => "users/registrations"}
+  resources :users, only: [:edit, :update, :new, :create]
 
   post "/trucks/delete_multiple" => "trucks#delete_multiple", as: "delete_multiple_trucks"
   post "/consignees/delete_multiple" => "consignees#delete_multiple", as: "delete_multiple_consignees"
