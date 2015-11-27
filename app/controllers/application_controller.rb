@@ -28,6 +28,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def after_sign_in_path_for(resource)
+    dashboard_path
+  end
+
   def resource_name
     :user
   end
@@ -38,6 +42,11 @@ class ApplicationController < ActionController::Base
 
   def devise_mapping
    @devise_mapping ||= Devise.mappings[:user]
+  end
+
+  def self.random_string
+    cs = [*'0'..'9', *'a'..'z']
+    5.times.map { cs.sample }.join.downcase
   end
 
     protected
