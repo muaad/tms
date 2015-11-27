@@ -1,4 +1,5 @@
 class ExpensesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_expense, only: [:show, :edit, :update, :destroy, :edit_diesel_expense]
 
   # GET /expenses

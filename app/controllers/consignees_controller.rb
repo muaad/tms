@@ -1,4 +1,5 @@
 class ConsigneesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_consignee, only: [:show, :edit, :update, :destroy]
 
   # GET /consignees

@@ -1,4 +1,5 @@
 class TruckOwnersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_truck_owner, only: [:show, :edit, :update, :destroy]
 
   # GET /truck_owners

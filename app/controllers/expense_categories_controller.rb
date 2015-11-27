@@ -1,4 +1,5 @@
 class ExpenseCategoriesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_expense_category, only: [:show, :edit, :update, :destroy]
 
   # GET /expense_categories

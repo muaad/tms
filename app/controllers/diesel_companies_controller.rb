@@ -1,4 +1,5 @@
 class DieselCompaniesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_diesel_company, only: [:show, :edit, :update, :destroy]
 
   # GET /diesel_companies

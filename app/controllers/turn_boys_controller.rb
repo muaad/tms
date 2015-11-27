@@ -1,4 +1,5 @@
 class TurnBoysController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_turn_boy, only: [:show, :edit, :update, :destroy]
 
   # GET /turn_boys
