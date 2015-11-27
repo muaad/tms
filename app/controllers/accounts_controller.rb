@@ -26,10 +26,13 @@ class AccountsController < ApplicationController
   # POST /accounts.json
   def create
     @account = Account.new(account_params)
+    @account.token = SecureRandom.hex
+    @account.active = true
 
     respond_to do |format|
       if @account.save
-        format.html { redirect_to @account, notice: 'Account was successfully created.' }
+        current_user.update(account: @account)
+        format.html { redirect_to dashboard_path }
         format.json { render :show, status: :created, location: @account }
       else
         format.html { render :new }
