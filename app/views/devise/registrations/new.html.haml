@@ -1,0 +1,30 @@
+.login-box
+  .login-logo
+    %a{:href => root_path}
+      %b> TMS
+  / /.login-logo
+  .login-box-body
+    %h3.login-box-msg Sign in
+    = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :role => 'form'}) do |f|
+      = devise_error_messages!
+      .form-group
+        = f.label :name
+        %input.form-control{:placeholder => "Name", :type => "text", :name => "user[name]"}
+          %span.glyphicon.glyphicon-envelope.form-control-feedback
+      .form-group
+        = f.label :email
+        %input.form-control{:placeholder => "Email", :type => "email", :name => "user[email]"}
+          %span.glyphicon.glyphicon-envelope.form-control-feedback
+      .form-group
+        = f.label :password
+        %input.form-control{:placeholder => "Password", :type => "password", :name => "user[password]"}
+          %span.glyphicon.glyphicon-lock.form-control-feedback
+      .form-group
+        = f.label :password_confirmation
+        %input.form-control{:placeholder => "Password confirmation", :type => "password", :name => "user[password_confirmation]"}
+          %span.glyphicon.glyphicon-lock.form-control-feedback
+      .row
+        .col-xs-4
+          %button.btn.btn-primary.btn-block.btn-flat{:type => "submit"} 
+            %i.fa.fa-paper-plane
+            Sign Up
