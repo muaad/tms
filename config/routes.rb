@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resources :expense_categories
   resources :accounts
   root to: 'home#index'
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => "users/registrations"}
 
   post "/trucks/delete_multiple" => "trucks#delete_multiple", as: "delete_multiple_trucks"
   post "/consignees/delete_multiple" => "consignees#delete_multiple", as: "delete_multiple_consignees"
