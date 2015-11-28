@@ -269,6 +269,11 @@
                 %span Settings
                 %i.fa.fa-angle-left.pull-right
               %ul.treeview-menu
+                - if current_user.is_admin
+                  %li
+                    %a{:href => users_path}
+                      %i.fa.fa-users
+                      Users
                 %li
                   %a{:href => expense_categories_path}
                     %i.fa.fa-tags
