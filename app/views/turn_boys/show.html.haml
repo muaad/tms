@@ -47,11 +47,11 @@
 							= @turn_boy.phone_number
 						.col-lg-4
 							%i.fa.fa-truck
-							= @turn_boy.truck.name
+							= @turn_boy.truck.name if !@turn_boy.truck.nil?
 					.row
 						.col-lg-4
 							%i.fa.fa-money
-							= @turn_boy.calculate_salary(@turn_boy.truck)
+							= @turn_boy.calculate_salary(@turn_boy.truck) if !@turn_boy.truck.nil?
 						.col-lg-4
 							Total income:
 							1,200,500

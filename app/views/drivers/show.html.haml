@@ -47,11 +47,11 @@
 							= @driver.phone_number
 						.col-lg-4
 							%i.fa.fa-truck
-							= @driver.truck.name
+							= @driver.truck.name if !@driver.truck.nil?
 					.row
 						.col-lg-4
 							%i.fa.fa-money
-							= @driver.calculate_salary(@driver.truck)
+							= @driver.calculate_salary(@driver.truck) if !@driver.truck.nil?
 						.col-lg-4
 							Total income:
 							1,200,500
