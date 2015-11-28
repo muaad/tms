@@ -26,6 +26,12 @@
             .input-group-addon
               %i.fa.fa-credit-card
             = f.text_field :id_number, class: "form-control"
+        .form-group
+          = f.label :address
+          .input-group
+            .input-group-addon
+              %i.fa.fa-map-marker
+            = f.text_field :address, class: "form-control"
   .box-footer
     .actions.pull-right
       %button.btn.btn-success.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}
