@@ -33,4 +33,9 @@ class Expense < ActiveRecord::Base
   def category
   	expense_category
   end
+
+  def entity
+    dc = diesel_expense.diesel_company if !diesel_expense.nil?
+    driver || turn_boy || product || dc
+  end
 end

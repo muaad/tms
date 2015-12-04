@@ -31,4 +31,6 @@ Rails.application.routes.draw do
   post "/drivers/delete_multiple" => "drivers#delete_multiple", as: "delete_multiple_drivers"
   post "/diesel_companies/delete_multiple" => "diesel_companies#delete_multiple", as: "delete_multiple_diesel_companies"
   post "/users/delete_multiple" => "users#delete_multiple", as: "delete_multiple_users"
+  
+  post "/expenses/inline_create" => "expenses#inline_create", as: "inline_create_expenses"
 end

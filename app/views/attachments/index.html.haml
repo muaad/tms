@@ -8,31 +8,15 @@
 				.box-body
 					.box.box-info
 						.box-body
-							%ul#lightslider
-								%li
-									%h3 First Slide
-									%p
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-										tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-										quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-										consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-										cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-										proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-								%li
-									%h3 Second Slide
-									%p
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-										tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-										quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-										consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-										cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-										proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-								%li
-									%h3 Third Slide
-									%p
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-										tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-										quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-										consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-										cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-										proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							%div{:style => "width:400px;display:block;"}
+								#slider2
+									.thumbelina-but.vert.top.disabled ˄
+									%div{:style => "position:absolute;overflow:hidden;width:100%;height:100%;"}
+										%ul.thumbelina{:style => "top: 0px;"}
+											- @attachments.each do |attachment|
+												%li{:style => "display: block;"}
+													%img.cloudzoom-gallery{"data-cloudzoom" => "\nuseZoom: '#zoom1',\nimage: #{attachment.file.url(:thumb)},\nzoomImage:#{attachment.file.url(:thumb)}\n", :src => attachment.file.url(:medium)}
+											
+									#fwd3.thumbelina-but.vert.bottom ˅
+								%div{:style => "margin-left:10px;line-height:0;display:inline-block;"}
+									%img#zoom1.cloudzoom{:alt => "Thumbelina Zoom Image", "data-cloudzoom" => "\n                 zoomImage:&quot;/sites/starplugins/images/jetzoom/large/image1.jpg&quot;,\n                 zoomPosition: &quot;inside&quot;,\n                 zoomOffsetX: 0,\n                 zoomFlyOut: false,\n                 maxMagnification: 4", :height => "370", :src => "/sites/starplugins/images/jetzoom/small/image1.jpg", :style => "-webkit-user-select: none;"}

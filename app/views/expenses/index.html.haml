@@ -17,7 +17,7 @@
                       %a{:href => "#{expenses_path}?category=#{category.id}"}
                         = category.name
               .btn-group
-                %a.btn.btn-box-tool.btn-default{href: new_expense_path}
+                %a#new-expense.btn.btn-box-tool.btn-default{href: new_expense_path}
                   %i.fa.fa-plus
                   New
                 / .btn-group
@@ -50,25 +50,39 @@
                     %tr
                       %th.no-sort
                         = check_box_tag "toggle_expenses"
+                      %th Date
                       %th LPO
-                      %th Category
-                      %th Amount
+                      %th Account
                       %th Truck
-                      / %th Trip
+                      %th Entity
+                      %th Quantity
+                      %th Price
+                      %th Total Amount
+                      / %th Discount
                       %th Description
                   %tbody.expenses_table
                     - @expenses.each do |expense|
                       %tr.gradeX
-                        %td
+                        %td{style: "width: 15px;"}
                           = check_box_tag "expense[expense.id]", expense.id
+                        %td
+                          = expense.date
                         %td
                           = link_to expense.lpo, expense_path(expense)
                         %td
                           = link_to expense.category.name, expense_category_path(expense.category) if !expense.category.nil?
                         %td
-                          = expense.amount
-                        %td
                           = link_to expense.truck.registration_number, truck_path(expense.truck) if !expense.truck.nil?
+                        %td
+                          = expense.entity.name if !expense.entity.nil?
+                        %td
+                          = expense.quantity
+                        %td
+                          = expense.unit_price
+                        %td
+                          = expense.amount
+                        / %td
+                        /   0
                         / %td
                         /   = link_to expense.trip.name, trip_path(expense.trip) if !expense.trip.nil?
                         %td

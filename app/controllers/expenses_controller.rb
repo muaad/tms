@@ -9,12 +9,12 @@ class ExpensesController < ApplicationController
       if params[:category] == '0'
         redirect_to "#{new_expense_category_path}?name=Diesel"
       else
-        @expenses = Expense.where(expense_category_id: params[:category])
+        @expenses = Expense.where(expense_category_id: params[:category]).order(created_at: :desc)
       end
     elsif !params[:truck].blank?
-      @expenses = Expense.where(truck_id: params[:truck])
+      @expenses = Expense.where(truck_id: params[:truck]).order(created_at: :desc)
     else
-      @expenses = Expense.all
+      @expenses = Expense.all.order(created_at: :desc)
     end
   end
 
@@ -40,6 +40,23 @@ class ExpensesController < ApplicationController
   end
 
   def edit_diesel_expense
+  end
+
+  def inline_create
+    @expense = Expense.new(expense_params)
+    if @expense.save
+      if @expense.category.name == "Driver Salary"
+        @expense.driver = @expense.truck.driver
+        # @expense.amount = @expense.truck.driver_salary
+      elsif @expense.category.name == "TurnBoy Salary"
+        @expense.turn_boy = @expense.truck.turn_boy
+        # @expense.amount = @expense.truck.turn_boy_salary
+      end
+      @expense.save!
+      render json: {id: @expense.id, amount: @expense.amount, lpo: @expense.lpo, description: @expense.description, truck: @expense.truck.name, expense_category: @expense.expense_category.name, unit_price: @expense.unit_price, quantity: @expense.quantity, date: @expense.date, entity: @expense.entity.name}
+    else
+      render json: {error: "Could not create!"}
+    end
   end
 
   # POST /expenses

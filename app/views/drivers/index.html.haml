@@ -7,7 +7,7 @@
 					.box-tools.pull-right
 						.btn-toolbar{role: "toolbar"}
 							.btn-group
-								%a.btn.btn-box-tool.btn-default{href: new_driver_path}
+								%a#editable-sample_new.btn.btn-box-tool.btn-default
 									%i.fa.fa-plus
 									New
 								/ .btn-group
@@ -34,7 +34,7 @@
 					.row
 						.col-md-12
 							/ start:dynamic data table
-							.adv-table
+							.adv-table.editable-table
 								%table#example.exchange-rate.display.table.table-bordered.table-striped
 									%thead
 										%tr

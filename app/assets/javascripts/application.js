@@ -18,7 +18,9 @@
 //= require jquery.slimscroll.min
 //= require jquery.dataTables
 //= require dataTables.bootstrap
+//= require editable-table
 //= require slick.min
+//= require handsontable.full
 //= require sweetalert.min
 //= require jquery.checkboxes
 //= require bootstrap-datepicker

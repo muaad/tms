@@ -18,7 +18,7 @@
           .col-sm-6
             .form-group
               %label Diesel Company
-              %select#diesel_company.form-control{name: "diesel_company"}
+              %select#diesel_company_id.form-control{name: "diesel_company"}
                 - DieselCompany.all.each do |company|
                   %option{value: company.id}
                     = company.name

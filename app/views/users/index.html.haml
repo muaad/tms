@@ -7,7 +7,7 @@
           .box-tools.pull-right
             .btn-toolbar{role: "toolbar"}
               .btn-group
-                %a.btn.btn-box-tool.btn-default{href: new_user_path}
+                %a#new-user.btn.btn-box-tool.btn-default{href: new_user_path}
                   %i.fa.fa-plus
                   New
                 / .btn-group
@@ -34,8 +34,8 @@
           .row
             .col-md-12
               / start:dynamic data table
-              .adv-table
-                %table#example.exchange-rate.display.table.table-bordered.table-striped
+              .adv-table.editable-table
+                %table#example.user-table.display.table.table-bordered.table-striped
                   %thead
                     %tr
                       %th.no-sort
