@@ -1,0 +1,25 @@
+= form_for @cash do |f|
+  - if @cash.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@cash.errors.count, "error")} prohibited this cash from being saved:"
+      %ul
+        - @cash.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :date
+    = f.date_select :date
+  .field
+    = f.label :amount_in
+    = f.text_field :amount_in
+  .field
+    = f.label :amount_out
+    = f.text_field :amount_out
+  .field
+    = f.label :balance
+    = f.text_field :balance
+  .field
+    = f.label :closed
+    = f.check_box :closed
+  .actions
+    = f.submit 'Save'

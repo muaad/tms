@@ -53,7 +53,9 @@ class ExpensesController < ApplicationController
         # @expense.amount = @expense.truck.turn_boy_salary
       end
       @expense.save!
-      render json: {id: @expense.id, amount: @expense.amount, lpo: @expense.lpo, description: @expense.description, truck: @expense.truck.name, expense_category: @expense.expense_category.name, unit_price: @expense.unit_price, quantity: @expense.quantity, date: @expense.date, entity: @expense.entity.name}
+      # cash = Cash.today.first
+      # cash.update(amount_out: (cash.amount_out + @expense.amount), balance: (cash.balance - @expense.amount))
+      render json: {id: @expense.id, amount: @expense.amount, lpo: @expense.lpo, description: @expense.description, truck: @expense.truck.name, expense_category: @expense.expense_category.name, unit_price: @expense.unit_price, quantity: @expense.quantity, date: @expense.date, entity: @expense.entity.name, balance: (Cash.sum(:amount_in) - @expense.total_before), total_expense: Expense.total}
     else
       render json: {error: "Could not create!"}
     end
@@ -75,6 +77,8 @@ class ExpensesController < ApplicationController
               DieselExpense.create! expense: @expense, diesel_company: company, litres: @expense.quantity
             end
           end
+          # cash = Cash.today.first
+          # cash.update(amount_out: (cash.amount_out + @expense.amount), balance: (cash.balance - @expense.amount))
         end
         format.html { redirect_to @expense, notice: 'Expense was successfully created.' }
         format.json { render :show, status: :created, location: @expense }

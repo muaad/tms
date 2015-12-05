@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :cashes
   resources :trips
   resources :consignees
   resources :cities

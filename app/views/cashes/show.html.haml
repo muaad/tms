@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Date:
+  = @cash.date
+%p
+  %b Amount in:
+  = @cash.amount_in
+%p
+  %b Amount out:
+  = @cash.amount_out
+%p
+  %b Balance:
+  = @cash.balance
+%p
+  %b Closed:
+  = @cash.closed
+
+= link_to 'Edit', edit_cash_path(@cash)
+\|
+= link_to 'Back', cashes_path

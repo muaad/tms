@@ -19,6 +19,8 @@
 #
 
 class Expense < ActiveRecord::Base
+  include Reportable
+
   belongs_to :expense_category
   belongs_to :product
   belongs_to :driver
@@ -34,8 +36,16 @@ class Expense < ActiveRecord::Base
   	expense_category
   end
 
+  def self.total
+    sum(:amount)
+  end
+
   def entity
     dc = diesel_expense.diesel_company if !diesel_expense.nil?
     driver || turn_boy || product || dc
+  end
+
+  def total_before
+    Expense.where('created_at <= ?', created_at).sum(:amount)
   end
 end
