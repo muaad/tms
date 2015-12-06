@@ -1,3 +1,35 @@
+function setTruckCashEditable() {
+  $('table.truck_cash_table').editableTableWidget(); 
+  var elem = null;
+  $('table.cash_table td.editable').on('change', function(evt, newValue) {
+    var token = $('meta[name=csrf-token]').attr("content");
+    var id = $(this).data('id');
+    var url = "/truck_cashes/" + id;
+    elem = $(this);
+    var data = {};
+
+    if ( elem.hasClass( "lpo" ) ) {
+    	data = { cash: { lpo: newValue }, _method:'put', authenticity_token: token}
+    }
+    else if ( elem.hasClass( "amount" ) ) {
+    	data = { cash: { amount: newValue }, _method:'put', authenticity_token: token}
+    }
+    else if ( elem.hasClass( "description" ) ) {
+    	data = { cash: { description: newValue }, _method:'put', authenticity_token: token}
+    };
+
+    $.ajax({
+      type: "PUT",
+      url: url,
+      dataType: 'json',
+      data: data,
+      success: function(data, textStatus, jqXhr) {
+        
+      }
+    });
+  });
+}
+
 function userRecord(element, data) {
 	var userType = element.split("_")[0];
 	$(element).each(function() {
@@ -147,4 +179,5 @@ $(function() {
 	        $(link).stop().animate({opacity:1});
 	    }
 	});
+	setTruckCashEditable();
 });

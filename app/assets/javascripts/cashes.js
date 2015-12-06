@@ -269,7 +269,7 @@ $(function() {
 				var date = '<td><input class="form-control datepicker" type="text" name="expense[date]" id="expense_date" style="width: 100%;"></td>'
 				var lpo = '<td><input class="form-control" type="text" name="expense[lpo]" id="expense_lpo" style="width: 80px;"></td>'
 				var category = '<td><select class="form-control" name="expense[expense_category_id]" id="expense_category"></select></td>'
-				var truck = '<td><select class="form-control" name="expense[truck_id]" id="expense_truck_id"></select></td>'
+				var truck = '<td><select class="form-control" name="expense[truck_id]" id="expense_truck_id"><option value="0">Truck</option></select></td>'
 				var entity = '<td class="expense-reason"><select class="form-control" style="width: 100%;"></select></td>'
 				var quantity = '<td><input class="form-control" type="text" name="expense[quantity]" id="expense_quantity" style="width: 80px;"></td>'
 				var unit_price = '<td><input class="form-control" type="text" name="expense[unit_price]" id="expense_unit_price" style="width: 80px;"></td>'
@@ -340,17 +340,32 @@ $(function() {
 		    	var entityKey = ""
 		    	var entityValue = ""
 
-		    	var data = {
-		    		"expense[lpo]": $('#expense_lpo').val(), 
-		    		"expense[expense_category_id]": $('#expense_category').val(), 
-		    		"expense[amount]": $('#expense_amount').val(), 
-		    		"expense[truck_id]": $('#expense_truck_id').val(), 
-		    		"expense[product_id]": $("select[id='product_id']").val(), 
-		    		"expense[description]": $('#expense_description').val(), 
-		    		"expense[date]": $('#expense_date').val(), 
-		    		"expense[quantity]": $('#expense_quantity').val(), 
-		    		"expense[unit_price]": $('#expense_unit_price').val(), 
-		    		authenticity_token: token
+		    	if ($('#expense_truck_id').val() != "0") {
+			    	var data = {
+			    		"expense[lpo]": $('#expense_lpo').val(), 
+			    		"expense[expense_category_id]": $('#expense_category').val(), 
+			    		"expense[amount]": $('#expense_amount').val(), 
+			    		"expense[truck_id]": $('#expense_truck_id').val(), 
+			    		"expense[product_id]": $("select[id='product_id']").val(), 
+			    		"expense[description]": $('#expense_description').val(), 
+			    		"expense[date]": $('#expense_date').val(), 
+			    		"expense[quantity]": $('#expense_quantity').val(), 
+			    		"expense[unit_price]": $('#expense_unit_price').val(), 
+			    		authenticity_token: token
+			    	}
+		    	}
+		    	else {
+		    		var data = {
+		    			"expense[lpo]": $('#expense_lpo').val(), 
+		    			"expense[expense_category_id]": $('#expense_category').val(), 
+		    			"expense[amount]": $('#expense_amount').val(), 
+		    			"expense[product_id]": $("select[id='product_id']").val(), 
+		    			"expense[description]": $('#expense_description').val(), 
+		    			"expense[date]": $('#expense_date').val(), 
+		    			"expense[quantity]": $('#expense_quantity').val(), 
+		    			"expense[unit_price]": $('#expense_unit_price').val(), 
+		    			authenticity_token: token
+		    		}
 		    	}
 
 		    	if (category === "Spare parts") {

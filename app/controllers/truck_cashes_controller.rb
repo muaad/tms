@@ -28,7 +28,7 @@ class TruckCashesController < ApplicationController
 
     respond_to do |format|
       if @truck_cash.save
-        format.html { redirect_to @truck_cash, notice: 'Truck cash was successfully created.' }
+        format.html { redirect_to truck_path(@truck_cash.truck), notice: 'Truck cash was successfully created.' }
         format.json { render :show, status: :created, location: @truck_cash }
       else
         format.html { render :new }

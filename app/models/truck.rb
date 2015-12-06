@@ -21,6 +21,7 @@ class Truck < ActiveRecord::Base
 	has_many :expenses
 	has_many :trips
 	has_many :attachments
+	has_many :truck_cashes
 	belongs_to :account
 	acts_as_tenant(:account)
 
@@ -46,6 +47,14 @@ class Truck < ActiveRecord::Base
 		truck_owner
 	end
 
+	def cash
+		truck_cashes
+	end
+
+	def total_cash
+		cash.sum(:amount)
+	end
+
 	def name
 		registration_number
 	end
@@ -62,11 +71,15 @@ class Truck < ActiveRecord::Base
 		trips.where(currency: "Kenya Shilling").sum(:amount)
 	end
 
+	def total_income
+		income + total_cash
+	end
+
 	def total_expenses
 		expenses.sum(:amount)
 	end
 
 	def balance
-		income - total_expenses
+		total_income - total_expenses
 	end
 end

@@ -9,6 +9,9 @@
 						.btn-toolbar{role: "toolbar"}
 							.btn-group
 								.btn-group
+									%a.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#truck_cash_in_modal"}
+										%i.fa.fa-money
+										Cash IN
 									%button.btn.btn-box-tool.dropdown-toggle.btn-default{"data-toggle" => "dropdown"}
 										%i.fa.fa-plus
 										New
@@ -186,11 +189,13 @@
 									%i.fa.fa-money
 								.info-box-content
 									%a.info-box-number{href: "#{trips_path}?truck=#{@truck.id}"}
-										= "Income #{@truck.income}"
+										= "Income: #{@truck.total_income}"
 									%a.info-box-text{href: "#{trips_path}?truck=#{@truck.id}&currency=US Dollar"}
 										= "Dollar: #{@truck.dollar_income}"
 									%a.info-box-text{href: "#{trips_path}?truck=#{@truck.id}&currency=Kenya Shilling"}
 										= "Shilling: #{@truck.shilling_income}"
+									%a.info-box-text{href: "#", "data-toggle" => "modal", "data-target" => "#truck_cash_in_list_modal"}
+										= "Cash IN: #{@truck.total_cash}"
 						.col-md-3.col-sm-6.col-xs-12
 							%a.info-box.no-link{href: "#{expenses_path}?truck=#{@truck.id}"}
 								%span.info-box-icon.bg-green
@@ -230,3 +235,71 @@
 													%b
 														%i.fa.fa-eye
 														View
+	#truck_cash_in_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+		.modal-dialog
+			.modal-content
+				.modal-header
+					%button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+						%span{"aria-hidden" => "true"} &times;
+					%h4#myModalLabel.modal-title Cash IN
+				= form_for TruckCash.new do |f|
+					.modal-body
+						= f.hidden_field :truck_id, value: @truck.id
+						.form-group
+							= f.label :amount, "Amount"
+							= f.text_field :amount, class: "form-control"
+						.form-group
+							= f.label :lpo
+							= f.text_field :lpo, class: "form-control"
+						.form-group
+							= f.label :description
+							= f.text_area :description, class: "form-control"
+					.modal-footer
+						%button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} 
+							%i.fa.fa-times
+							Cancel
+						%button.btn.btn-success{:type => "submit"} 
+							%i.fa.fa-plus
+							Add Cash
+
+	#truck_cash_in_list_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+		.modal-dialog
+			.modal-content
+				.modal-header
+					%button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+						%span{"aria-hidden" => "true"} &times;
+					%h4#myModalLabel.modal-title Cash IN
+				.modal-body
+					.row
+						.col-md-12
+							/ start:dynamic data table
+							.adv-table.table_container
+								%table#example.truck_cash_table.display.table.table-bordered.table-striped
+									%thead
+										%tr
+											/ %th.no-sort
+											/ 	= check_box_tag "toggle_cashes"
+											%th Date
+											%th LPO
+											%th Amount
+											%th Description
+									%tbody.cashes_table
+										- @truck.cash.each do |cash|
+											%tr.gradeX
+												/ %td{style: "width: 15px;"}
+												/ 	= check_box_tag "cash[cash.id]", cash.id
+												%td
+													= cash.created_at
+												%td.editable.lpo{data: { id: cash.id }}
+													= cash.lpo
+												%td.editable.amount{data: { id: cash.id }}
+													= cash.amount
+												%td.editable.description{data: { id: cash.id }}
+													= cash.description
+				/ .modal-footer
+				/ 	%button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} 
+				/ 		%i.fa.fa-times
+				/ 		Cancel
+				/ 	%button.btn.btn-success{:type => "submit"} 
+				/ 		%i.fa.fa-plus
+				/ 		Add Cash
