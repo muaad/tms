@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151206090830) do
+ActiveRecord::Schema.define(version: 20151206150457) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "name"
@@ -198,8 +198,9 @@ ActiveRecord::Schema.define(version: 20151206090830) do
     t.date     "date"
     t.string   "lpo"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "direction",   default: "IN"
   end
 
   add_index "truck_cashes", ["truck_id"], name: "index_truck_cashes_on_truck_id"
