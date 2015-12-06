@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Truck:
+  = @truck_cash.truck
+%p
+  %b Amount:
+  = @truck_cash.amount
+%p
+  %b Date:
+  = @truck_cash.date
+%p
+  %b Lpo:
+  = @truck_cash.lpo
+%p
+  %b Description:
+  = @truck_cash.description
+
+= link_to 'Edit', edit_truck_cash_path(@truck_cash)
+\|
+= link_to 'Back', truck_cashes_path

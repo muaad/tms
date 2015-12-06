@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :truck_cashes
   resources :cashes
   resources :trips
   resources :consignees

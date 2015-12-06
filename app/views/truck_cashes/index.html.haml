@@ -1,0 +1,29 @@
+%h1 Listing truck_cashes
+
+%table
+  %thead
+    %tr
+      %th Truck
+      %th Amount
+      %th Date
+      %th Lpo
+      %th Description
+      %th
+      %th
+      %th
+
+  %tbody
+    - @truck_cashes.each do |truck_cash|
+      %tr
+        %td= truck_cash.truck
+        %td= truck_cash.amount
+        %td= truck_cash.date
+        %td= truck_cash.lpo
+        %td= truck_cash.description
+        %td= link_to 'Show', truck_cash
+        %td= link_to 'Edit', edit_truck_cash_path(truck_cash)
+        %td= link_to 'Destroy', truck_cash, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Truck cash', new_truck_cash_path

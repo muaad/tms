@@ -1,0 +1,25 @@
+= form_for @truck_cash do |f|
+  - if @truck_cash.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@truck_cash.errors.count, "error")} prohibited this truck_cash from being saved:"
+      %ul
+        - @truck_cash.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :truck
+    = f.text_field :truck
+  .field
+    = f.label :amount
+    = f.text_field :amount
+  .field
+    = f.label :date
+    = f.date_select :date
+  .field
+    = f.label :lpo
+    = f.text_field :lpo
+  .field
+    = f.label :description
+    = f.text_area :description
+  .actions
+    = f.submit 'Save'
