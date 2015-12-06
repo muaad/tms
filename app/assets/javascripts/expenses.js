@@ -229,6 +229,10 @@ $(function() {
 			$('select[name="expense[product_id]"] option[value="'+ expense_product +'"]').attr('selected', 'selected').change();
 		};
 		loadDetails(editPage);
+		$('#expense_quantity, #expense_unit_price').on("propertychange change click keyup input paste", function(evt) {
+			var amount = $('#expense_quantity').val() * $('#expense_unit_price').val();
+			$('#expense_amount').val(amount);
+		})
 	}
 	if (window.location.pathname === "/diesel_expenses/new" || editDieselPage) {
 		if (window.location.pathname === "/diesel_expenses/new") {

@@ -14,11 +14,12 @@
           %span.info-box-text Cash
           %span.info-box-number
             In:
-            %small 1,200,300
+            %small
+              = Cash.total
           %span.info-box-number
             Out:
             %small
-              = Expense.sum(:amount)
+              = Expense.total
         / /.info-box-content
       / /.info-box
     / /.col

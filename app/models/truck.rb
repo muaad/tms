@@ -54,6 +54,14 @@ class Truck < ActiveRecord::Base
 		trips.sum(:amount)
 	end
 
+	def dollar_income
+		trips.where(currency: "US Dollar").sum(:amount)
+	end
+
+	def shilling_income
+		trips.where(currency: "Kenya Shilling").sum(:amount)
+	end
+
 	def total_expenses
 		expenses.sum(:amount)
 	end

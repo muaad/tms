@@ -178,43 +178,19 @@
 											%a.btn.btn-success.pull-right{href: turn_boy_path(@truck.turn_boy)}
 												%i.fa.fa-eye
 												View
-							/ .box.box-success
-							/ 	.box-header.with-border
-							/ 		%h3.box-title
-							/ 			Turn Boy
-							/ 		.box-tools.pull-right
-							/ 			.btn-toolbar{role: "toolbar"}
-							/ 				%a.btn.btn-box-tool{href: turn_boy_path(@truck.turn_boy), title: "View"}
-							/ 					%i.fa.fa-eye
-							/ 	.box-body
-							/ 		%div
-							/ 			%i.fa.fa-user
-							/ 			= @truck.turn_boy.name
-							/ 		%div
-							/ 			%i.fa.fa-phone
-							/ 			= @truck.turn_boy.phone_number
-							/ 		%div
-							/ 			%i.fa.fa-credit-card
-							/ 			= @truck.turn_boy.id_number
-							/ 		%div
-							/ 			%i.fa.fa-map-marker
-							/ 			= @truck.turn_boy.address
-							/ 		%div
-							/ 			%i.fa.fa-money
-							/ 			- if !@truck.turn_boy_salary.blank?	
-							/ 				= @truck.turn_boy_salary
-							/ 			- else
-							/ 				Not set
 					%br
 					.row
 						.col-md-3.col-sm-6.col-xs-12
-							%a.info-box.no-link{href: "#{trips_path}?truck=#{@truck.id}"}
+							.info-box
 								%span.info-box-icon.bg-aqua
 									%i.fa.fa-money
 								.info-box-content
-									%span.info-box-text Income
-									%span.info-box-number
-										= @truck.income
+									%a.info-box-number{href: "#{trips_path}?truck=#{@truck.id}"}
+										= "Income #{@truck.income}"
+									%a.info-box-text{href: "#{trips_path}?truck=#{@truck.id}&currency=US Dollar"}
+										= "Dollar: #{@truck.dollar_income}"
+									%a.info-box-text{href: "#{trips_path}?truck=#{@truck.id}&currency=Kenya Shilling"}
+										= "Shilling: #{@truck.shilling_income}"
 						.col-md-3.col-sm-6.col-xs-12
 							%a.info-box.no-link{href: "#{expenses_path}?truck=#{@truck.id}"}
 								%span.info-box-icon.bg-green

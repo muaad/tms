@@ -55,7 +55,7 @@ class ExpensesController < ApplicationController
       @expense.save!
       # cash = Cash.today.first
       # cash.update(amount_out: (cash.amount_out + @expense.amount), balance: (cash.balance - @expense.amount))
-      render json: {id: @expense.id, amount: @expense.amount, lpo: @expense.lpo, description: @expense.description, truck: @expense.truck.name, expense_category: @expense.expense_category.name, unit_price: @expense.unit_price, quantity: @expense.quantity, date: @expense.date, entity: @expense.entity.name, balance: (Cash.sum(:amount_in) - @expense.total_before), total_expense: Expense.total}
+      render json: {id: @expense.id, amount: @expense.amount, lpo: @expense.lpo, description: @expense.description, truck: @expense.truck.name, expense_category: @expense.expense_category.name, unit_price: @expense.unit_price, quantity: @expense.quantity, date: @expense.date, entity: (@expense.entity.blank? ? "" : @expense.entity.name), balance: (Cash.sum(:amount_in) - @expense.total_before), total_expense: Expense.total}
     else
       render json: {error: "Could not create!"}
     end

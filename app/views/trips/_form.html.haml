@@ -99,7 +99,11 @@
           .col-sm-6
             .form-group
               = f.label :currency
-              = f.text_field :currency, class: 'form-control'
+              %select.form-control{name: "trip[currency]"}
+                %option{value: "Kenya Shilling"}
+                  Kenya Shilling
+                %option{value: "US Dollar"}
+                  US Dollar
         .row
           .col-sm-12
             .form-group

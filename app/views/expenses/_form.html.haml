@@ -21,7 +21,7 @@
             .form-group
               = f.label :expense_category
               %select#expense_category.form-control{name: "expense[expense_category_id]"}
-                - ExpenseCategory.all.each do |expense_category|
+                - ExpenseCategory.where.not(name: "Diesel").each do |expense_category|
                   %option{value: expense_category.id}
                     = expense_category.name
           .col-sm-6
@@ -41,8 +41,8 @@
                     = product.name
           .col-sm-6
             .form-group
-              = f.label :amount
-              = f.text_field :amount, class: "form-control"
+              = f.label :lpo, "LPO"
+              = f.text_field :lpo, class: "form-control"
           / .col-sm-6
           /   .form-group
           /     = f.label :driver
@@ -53,8 +53,17 @@
         .row
           .col-sm-6
             .form-group
-              = f.label :lpo, "LPO"
-              = f.text_field :lpo, class: "form-control"          
+              = f.label :quantity
+              = f.text_field :quantity, class: "form-control"
+          .col-sm-6
+            .form-group
+              = f.label :unit_price
+              = f.text_field :unit_price, class: "form-control"
+        .row
+          .col-sm-6
+            .form-group
+              = f.label :amount
+              = f.text_field :amount, class: "form-control"
           .col-sm-6
             .form-group
               = f.label :date

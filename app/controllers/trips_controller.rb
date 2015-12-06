@@ -10,6 +10,9 @@ class TripsController < ApplicationController
     else
       @trips = Trip.all
     end
+    if !params[:currency].blank?
+      @trips = @trips.where(currency: params[:currency])
+    end
   end
 
   # GET /trips/1
