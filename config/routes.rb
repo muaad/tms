@@ -1,4 +1,20 @@
 Rails.application.routes.draw do
+  get 'reports/accounts'
+
+  get 'reports/trucks'
+
+  get 'reports/trips'
+
+  get 'reports/drivers'
+
+  get 'reports/turn_boys'
+
+  get 'reports/owners'
+
+  get 'reports/cash_in'
+
+  get 'reports/cash_out'
+
   resources :truck_cashes
   resources :cashes
   resources :trips
