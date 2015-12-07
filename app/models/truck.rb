@@ -51,8 +51,20 @@ class Truck < ActiveRecord::Base
 		truck_cashes
 	end
 
-	def total_cash
-		cash.sum(:amount)
+	def cash_in
+		cash.where(direction: "IN")
+	end
+
+	def cash_out
+		cash.where(direction: "OUT")
+	end
+
+	def total_cash_in
+		cash.where(direction: "IN").sum(:amount)
+	end
+
+	def total_cash_out
+		cash.where(direction: "OUT").sum(:amount)
 	end
 
 	def name
@@ -72,7 +84,7 @@ class Truck < ActiveRecord::Base
 	end
 
 	def total_income
-		income + total_cash
+		income + total_cash_in
 	end
 
 	def total_expenses
@@ -80,6 +92,6 @@ class Truck < ActiveRecord::Base
 	end
 
 	def balance
-		total_income - total_expenses
+		shilling_income - total_expenses
 	end
 end

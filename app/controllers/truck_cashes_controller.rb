@@ -69,6 +69,6 @@ class TruckCashesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def truck_cash_params
-      params.require(:truck_cash).permit(:truck_id, :amount, :date, :lpo, :description)
+      params.require(:truck_cash).permit(:truck_id, :amount, :date, :lpo, :description, :direction)
     end
 end
