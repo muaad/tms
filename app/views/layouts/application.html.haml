@@ -146,7 +146,7 @@
                 %span Dashboard
             %li.treeview
               %a{:href => cashes_path}
-                %i.fa.fa-dollar
+                %i.fa.fa-money
                 %span Cash
             %li.treeview
               %a{:href => "#"}
@@ -158,20 +158,20 @@
                   %a{:href => expense_categories_path}
                     %i.fa.fa-tags
                     Account
-            %li.treeview
-              %a{:href => "#"}
-                %i.fa.fa-money
-                %span Expenses
-                %i.fa.fa-angle-left.pull-right
-              %ul.treeview-menu
-                %li
-                  %a{:href => expenses_path}
-                    %i.fa.fa-circle-o
-                    All
-                %li
-                  %a{:href => new_expense_path}
-                    %i.fa.fa-plus
-                    New
+            / %li.treeview
+            /   %a{:href => "#"}
+            /     %i.fa.fa-money
+            /     %span Expenses
+            /     %i.fa.fa-angle-left.pull-right
+            /   %ul.treeview-menu
+            /     %li
+            /       %a{:href => expenses_path}
+            /         %i.fa.fa-circle-o
+            /         All
+            /     %li
+            /       %a{:href => new_expense_path}
+            /         %i.fa.fa-plus
+            /         New
             %li.treeview
               %a{:href => "#"}
                 %i.fa.fa-money
@@ -275,6 +275,10 @@
                     %a{:href => users_path}
                       %i.fa.fa-users
                       Users
+                  %li
+                    %a{:href => "#{ExchangeRate.count < 1 ? new_exchange_rate_path : edit_exchange_rate_path(ExchangeRate.first)}"}
+                      %i.fa.fa-money
+                      Exchange Rate
                 %li
                   %a{:href => expense_categories_path}
                     %i.fa.fa-tags
