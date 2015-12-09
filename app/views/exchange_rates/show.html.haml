@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Currency one:
+  = @exchange_rate.currency_one
+%p
+  %b Currency two:
+  = @exchange_rate.currency_two
+%p
+  %b Rate:
+  = @exchange_rate.rate
+
+= link_to 'Edit', edit_exchange_rate_path(@exchange_rate)
+\|
+= link_to 'Back', exchange_rates_path

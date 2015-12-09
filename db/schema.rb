@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151209115305) do
+ActiveRecord::Schema.define(version: 20151209122641) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "name"
@@ -115,6 +115,14 @@ ActiveRecord::Schema.define(version: 20151209115305) do
   end
 
   add_index "drivers", ["account_id"], name: "index_drivers_on_account_id"
+
+  create_table "exchange_rates", force: :cascade do |t|
+    t.string   "currency_one"
+    t.string   "currency_two"
+    t.float    "rate"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "expense_categories", force: :cascade do |t|
     t.string   "name"
