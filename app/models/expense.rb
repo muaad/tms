@@ -65,13 +65,7 @@ class Expense < ActiveRecord::Base
     all.select{|e| e.is_shilling?}
   end
 
-  def dollar_amount
-    if !trip.nil?
-      trip.mileage if is_dollar?
-    end
-  end
-
   def self.total_dollar
-    dollar.collect{|e| e.dollar_amount if !e.blank?}.sum
+    dollar.collect{|e| e.dollar_amount if !e.blank?}.compact.sum
   end
 end

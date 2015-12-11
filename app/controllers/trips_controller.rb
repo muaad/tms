@@ -44,12 +44,18 @@ class TripsController < ApplicationController
             amount = @trip.mileage
           end
           category = ExpenseCategory.find_or_create_by name: "Mileage"
-          Expense.create! lpo: params[:mileage_lpo], amount: amount, truck: @trip.truck, currency: @trip.currency, trip: @trip, expense_category: category, date: @trip.date, description: @trip.description
+          xp = Expense.create! lpo: params[:mileage_lpo], amount: amount, truck: @trip.truck, currency: @trip.currency, trip: @trip, expense_category: category, date: @trip.date, description: @trip.description
+          if xp.currency == "US Dollar"
+            xp.update(dollar_amount: @trip.mileage)
+          end
         end
         category = ExpenseCategory.find_or_create_by name: "Diesel"
         xp = Expense.create! lpo: params[:diesel_lpo], amount: params[:diesel_amount], truck: @trip.truck, currency: @trip.currency, trip: @trip, expense_category: category, date: @trip.date, description: @trip.description, quantity: params[:diesel_litres]
         company = DieselCompany.find(params[:diesel_company])
         DieselExpense.create! expense: xp, diesel_company: company, litres: xp.quantity
+        if xp.currency == "US Dollar"
+          xp.update(dollar_amount: (xp.amount / ExchangeRate.first.rate))
+        end
         format.html { redirect_to trips_path, notice: 'Trip was successfully created.' }
         format.json { render :show, status: :created, location: @trip }
       else
