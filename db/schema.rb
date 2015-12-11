@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151209122641) do
+ActiveRecord::Schema.define(version: 20151211112510) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "name"
@@ -151,6 +151,7 @@ ActiveRecord::Schema.define(version: 20151209122641) do
     t.float    "unit_price"
     t.integer  "account_id"
     t.string   "currency"
+    t.float    "dollar_amount"
   end
 
   add_index "expenses", ["account_id"], name: "index_expenses_on_account_id"
