@@ -1,3 +1,10 @@
+function loadDieselPrice() {
+	var company_id = $('select[id="diesel_company_id"] :selected').val()
+	$.get('/diesel_companies/' + company_id + '.json', function(data) {
+		$('#price_per_litre').val(data.price)
+	});
+}
+
 $(function() {
 	$('#toggle_trips').change(function(e) {
 	  if (this.checked) {
@@ -78,6 +85,17 @@ $(function() {
 	$('#trip_quantity, #trip_rate').on("propertychange change click keyup input paste", function(evt) {
 		var amount = $('#trip_quantity').val() * $('#trip_rate').val();
 		$('#trip_amount').val(amount);
+	})
+
+	$('#no_of_litres, #price_per_litre').on("propertychange change click keyup input paste", function(evt) {
+		var amount = $('#no_of_litres').val() * $('#price_per_litre').val();
+		$('#total_amount').val(amount);
+	})
+
+	loadDieselPrice();
+
+	$('select[id="diesel_company_id"]').change(function() {
+		loadDieselPrice()
 	})
 
 	$('#edit-trip').click(function(){

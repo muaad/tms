@@ -48,4 +48,30 @@ class Expense < ActiveRecord::Base
   def total_before
     Expense.where('created_at <= ?', created_at).sum(:amount)
   end
+
+  def is_dollar?
+    currency == "US Dollar"
+  end
+
+  def is_shilling?
+    currency == "Kenya Shilling" || currency.blank?
+  end
+
+  def self.dollar
+    all.select{|e| e.is_dollar?}
+  end
+
+  def self.shilling
+    all.select{|e| e.is_shilling?}
+  end
+
+  def dollar_amount
+    if !trip.nil?
+      trip.mileage if is_dollar?
+    end
+  end
+
+  def self.total_dollar
+    dollar.collect{|e| e.dollar_amount if !e.blank?}.sum
+  end
 end

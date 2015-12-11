@@ -105,10 +105,44 @@
                 %option{value: "US Dollar"}
                   US Dollar
         .row
-          .col-sm-12
+          .col-sm-6
             .form-group
-              = f.label :description
-              = f.text_area :description, class: 'form-control'
+              = f.label :mileage
+              = f.text_field :mileage, class: 'form-control'
+          .col-sm-6
+            .form-group
+              %label Mileage LPO
+              %input.form-control#no_of_litres{type: "text", name: "mileage_lpo"}
+        %h3 Diesel
+        %hr
+        .row
+          .col-sm-12
+            .row
+              .col-sm-6
+                .form-group
+                  %label Diesel Company
+                  %select#diesel_company_id.form-control{name: "diesel_company"}
+                    - DieselCompany.all.each do |company|
+                      %option{value: company.id}
+                        = company.name
+              .col-sm-6
+                .form-group
+                  %label Litres
+                  %input.form-control#no_of_litres{type: "text", name: "diesel_litres"}
+            .row
+              .col-sm-6
+                .form-group
+                  %label Price Per Litre
+                  %input.form-control#price_per_litre{type: "text", name: "diesel_price"}
+              .col-sm-6
+                .form-group
+                  %label Amount
+                  %input.form-control#total_amount{type: "text", name: "diesel_amount"}
+            .row
+              .col-sm-12
+                .form-group
+                  %label Diesel LPO
+                  %input.form-control#diesel_lpo{type: "text", name: "diesel_lpo"}
   .box-footer
     .actions.pull-right
       %button.btn.btn-success.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}

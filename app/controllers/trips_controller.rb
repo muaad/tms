@@ -23,6 +23,7 @@ class TripsController < ApplicationController
   # GET /trips/new
   def new
     @trip = Trip.new
+    @expense = Expense.new
   end
 
   # GET /trips/1/edit
@@ -36,7 +37,20 @@ class TripsController < ApplicationController
 
     respond_to do |format|
       if @trip.save
-        format.html { redirect_to @trip, notice: 'Trip was successfully created.' }
+        if !trip_params[:mileage].blank?
+          if @trip.currency == "US Dollar"
+            amount = ExchangeRate.first.rate * @trip.mileage
+          else
+            amount = @trip.mileage
+          end
+          category = ExpenseCategory.find_or_create_by name: "Mileage"
+          Expense.create! lpo: params[:mileage_lpo], amount: amount, truck: @trip.truck, currency: @trip.currency, trip: @trip, expense_category: category, date: @trip.date, description: @trip.description
+        end
+        category = ExpenseCategory.find_or_create_by name: "Diesel"
+        xp = Expense.create! lpo: params[:diesel_lpo], amount: params[:diesel_amount], truck: @trip.truck, currency: @trip.currency, trip: @trip, expense_category: category, date: @trip.date, description: @trip.description, quantity: params[:diesel_litres]
+        company = DieselCompany.find(params[:diesel_company])
+        DieselExpense.create! expense: xp, diesel_company: company, litres: xp.quantity
+        format.html { redirect_to trips_path, notice: 'Trip was successfully created.' }
         format.json { render :show, status: :created, location: @trip }
       else
         format.html { render :new }
@@ -50,7 +64,7 @@ class TripsController < ApplicationController
   def update
     respond_to do |format|
       if @trip.update(trip_params)
-        format.html { redirect_to @trip, notice: 'Trip was successfully updated.' }
+        format.html { redirect_to trips_path, notice: 'Trip was successfully updated.' }
         format.json { render :show, status: :ok, location: @trip }
       else
         format.html { render :edit }
@@ -86,6 +100,6 @@ class TripsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def trip_params
-      params.require(:trip).permit(:truck_id, :driver_id, :turn_boy_id, :date, :depot_id, :destination_id, :consignee_id, :product_id, :quantity, :rate, :amount, :commission, :short, :description, :currency)
+      params.require(:trip).permit(:truck_id, :driver_id, :turn_boy_id, :date, :depot_id, :destination_id, :consignee_id, :product_id, :quantity, :rate, :amount, :commission, :short, :description, :currency, :mileage)
     end
 end
