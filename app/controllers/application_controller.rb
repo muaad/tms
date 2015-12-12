@@ -1,9 +1,11 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
+  include ActionView::Helpers::NumberHelper
+
   protect_from_forgery with: :exception
   layout :layout_by_resource
-  helper_method :resource, :devise_mapping, :resource_name
+  helper_method :resource, :devise_mapping, :resource_name, :to_currency
 
   set_current_tenant_through_filter
   before_filter :filter_tenant_via_devise_or_params
@@ -26,6 +28,10 @@ class ApplicationController < ActionController::Base
     #     set_current_tenant(account)
     #   end
     end
+  end
+
+  def to_currency number, options={}
+    number_to_currency(number, options)
   end
 
   def after_sign_in_path_for(resource)
