@@ -51,28 +51,48 @@ class Truck < ActiveRecord::Base
 		truck_cashes
 	end
 
-	def cash_in
-		cash.where(direction: "IN")
+	def cash_in currency=""
+		if !currency.blank?
+			cash.where(direction: "IN", currency: currency)
+		else
+			cash.where(direction: "IN")
+		end
 	end
 
-	def cash_out
-		cash.where(direction: "OUT")
+	def cash_out currency=""
+		if !currency.blank?
+			cash.where(direction: "OUT", currency: currency)
+		else
+			cash.where(direction: "OUT")
+		end
 	end
 
-	def total_cash_in
-		cash.where(direction: "IN").sum(:amount)
+	def total_cash_in currency=""
+		if !currency.blank?
+			cash_in(currency).sum(:amount)
+		else
+			cash_in.sum(:amount)
+		end
 	end
 
-	def total_cash_out
-		cash.where(direction: "OUT").sum(:amount)
+	def total_cash_out currency=""
+		if !currency.blank?
+			cash_out(currency).sum(:amount)
+		else
+			cash_out.sum(:amount)
+		end
 	end
 
 	def name
 		registration_number
 	end
 
-	def income
-		trips.sum(:amount)
+	def income currency=""
+		if !currency.blank?
+			trips.where(currency: currency).sum(:amount)
+		else
+			trips.sum(:amount)
+		end
 	end
 
 	def dollar_income
@@ -83,15 +103,30 @@ class Truck < ActiveRecord::Base
 		trips.where(currency: "Kenya Shilling").sum(:amount)
 	end
 
-	def total_income
-		income + total_cash_in
+	def total_income currency=""
+		if !currency.blank?
+			income(currency) + total_cash_in(currency)
+		else
+			income + total_cash_in(currency)
+		end
 	end
 
-	def total_expenses
-		expenses.sum(:amount)
+	def total_expenses currency=""
+		tx = 0.0
+		if !currency.blank?
+			tx = expenses.where(currency: currency).sum(:amount) if currency == "Kenya Shilling"
+			tx = expenses.where(currency: currency).sum(:dollar_amount) if currency == "US Dollar"
+		else
+			tx = expenses.sum(:amount)
+		end
+		tx
 	end
 
-	def balance
-		shilling_income - total_expenses
+	def balance currency=""
+		if !currency.blank?
+			total_income(currency) - (total_expenses(currency) + total_cash_out(currency))
+		else
+			total_income - (total_expenses + total_cash_out)
+		end
 	end
 end
