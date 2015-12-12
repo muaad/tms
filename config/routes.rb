@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get '/dashboard' => "dashboard#index", as: "dashboard"
   get '/diesel_expenses/new' => "expenses#new_diesel_expense", as: "new_diesel_expense"
   get '/diesel_expenses/:id/edit' => "expenses#edit_diesel_expense", as: "edit_diesel_expense"
+  get '/diesel_expenses' => "expenses#diesel_expenses", as: "diesel_expenses"
 
   resources :diesel_companies, :attachments
   resources :expenses

@@ -173,19 +173,19 @@
             /         %i.fa.fa-plus
             /         New
             %li.treeview
-              %a{:href => "#"}
+              %a{:href => diesel_expenses_path}
                 %i.fa.fa-money
                 %span Diesel Expenses
-                %i.fa.fa-angle-left.pull-right
-              %ul.treeview-menu
-                %li
-                  %a{:href => "#{expenses_path}?category=#{ExpenseCategory.find_by(name: 'Diesel').nil? ? '0' : ExpenseCategory.find_by(name: 'Diesel').id}"}
-                    %i.fa.fa-circle-o
-                    All
-                %li
-                  %a{:href => new_diesel_expense_path}
-                    %i.fa.fa-plus
-                    New
+                / %i.fa.fa-angle-left.pull-right
+              / %ul.treeview-menu
+              /   %li
+              /     %a{:href => "#{expenses_path}?category=#{ExpenseCategory.find_by(name: 'Diesel').nil? ? '0' : ExpenseCategory.find_by(name: 'Diesel').id}"}
+              /       %i.fa.fa-circle-o
+              /       All
+              /   %li
+              /     %a{:href => new_diesel_expense_path}
+              /       %i.fa.fa-plus
+              /       New
             %li.treeview
               %a{:href => "#"}
                 %i.fa.fa-list

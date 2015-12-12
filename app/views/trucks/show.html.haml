@@ -192,27 +192,31 @@
 									%i.fa.fa-money
 								.info-box-content
 									%a.info-box-number{href: "#{trips_path}?truck=#{@truck.id}"}
-										= "Income: #{@truck.total_income}"
+										Income
 									%a.info-box-text{href: "#", "data-toggle" => "modal", "data-target" => "#truck_cash_in_list_modal"}
-										= "Cash IN: #{@truck.total_cash_in}"
+										= "Dollar: #{to_currency(@truck.total_cash_in('US Dollar'))}"
 									%a.info-box-text{href: "#", "data-toggle" => "modal", "data-target" => "#truck_cash_out_list_modal"}
-										= "Withdrawals: #{@truck.total_cash_out}"
+										= "Shilling: #{to_currency(@truck.total_cash_in('Kenya Shilling'), unit: '')}"
 						.col-md-3.col-sm-6.col-xs-12
 							%a.info-box.no-link{href: "#{expenses_path}?truck=#{@truck.id}"}
 								%span.info-box-icon.bg-green
 									%i.fa.fa-money
 								.info-box-content
-									%span.info-box-text Expenses
-									%span.info-box-number
-										= @truck.total_expenses
+									%span.info-box-number Expenses
+									%span.info-box-text
+										= "Dollar: #{to_currency(@truck.total_expenses('US Dollar'))}"
+									%span.info-box-text
+										= "Shilling: #{to_currency(@truck.total_expenses('Kenya Shilling'), unit: '')}"
 						.col-md-3.col-sm-6.col-xs-12
-							%a.info-box.no-link
+							.info-box.no-link
 								%span.info-box-icon.bg-yellow
 									%i.fa.fa-files-o
 								.info-box-content
-									%span.info-box-text Balance
-									%span.info-box-number
-										= @truck.balance
+									%span.info-box-number Balance
+									%span.info-box-text
+										= "Dollar: #{to_currency(@truck.balance('US Dollar'))}"
+									%span.info-box-text
+										= "Shilling: #{to_currency(@truck.balance('Kenya Shilling'), {unit: ''})}"
 						.col-md-3.col-sm-6.col-xs-12
 							.info-box
 								%span.info-box-icon.bg-red
@@ -221,11 +225,9 @@
 									%a.info-box-number{href: "#{trips_path}?truck=#{@truck.id}"}
 										= "Trips: #{@truck.trips.count}"
 									%a.info-box-text{href: "#{trips_path}?truck=#{@truck.id}&currency=US Dollar"}
-										= "Total: #{@truck.income}"
-									%a.info-box-text{href: "#{trips_path}?truck=#{@truck.id}&currency=US Dollar"}
-										= "Dollar: #{@truck.dollar_income}"
+										= "Dollar: #{to_currency(@truck.dollar_income)}"
 									%a.info-box-text{href: "#{trips_path}?truck=#{@truck.id}&currency=Kenya Shilling"}
-										= "Shilling: #{@truck.shilling_income}"
+										= "Shilling: #{to_currency(@truck.shilling_income, {unit: ''})}"
 					%br
 					.row
 						.col-lg-12
@@ -258,6 +260,13 @@
 							= f.label :lpo
 							= f.text_field :lpo, class: "form-control"
 						.form-group
+							= f.label :currency
+							%select.form-control{name: "truck_cash[currency]"}
+								%option{value: "Kenya Shilling"}
+									Kenya Shilling
+								%option{value: "US Dollar"}
+									US Dollar
+						.form-group
 							= f.label :description
 							= f.text_area :description, class: "form-control"
 					.modal-footer
@@ -285,6 +294,13 @@
 						.form-group
 							= f.label :lpo
 							= f.text_field :lpo, class: "form-control"
+						.form-group
+							= f.label :currency
+							%select.form-control{name: "truck_cash[currency]"}
+								%option{value: "Kenya Shilling"}
+									Kenya Shilling
+								%option{value: "US Dollar"}
+									US Dollar
 						.form-group
 							= f.label :description
 							= f.text_area :description, class: "form-control"
@@ -337,7 +353,7 @@
 				.modal-header
 					%button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
 						%span{"aria-hidden" => "true"} &times;
-					%h4#myModalLabel.modal-title Cash Withdrawals
+					%h4#myModalLabel.modal-title Payments
 				.modal-body
 					.row
 						.col-md-12
@@ -351,6 +367,7 @@
 											%th Date
 											%th LPO
 											%th Amount
+											%th Currency
 											%th Description
 									%tbody.cashes_table
 										- @truck.cash_out.each do |cash|
@@ -363,5 +380,7 @@
 													= cash.lpo
 												%td.editable.amount{data: { id: cash.id }}
 													= cash.amount
+												%td.editable.currency{data: { id: cash.id }}
+													= cash.currency
 												%td.editable.description{data: { id: cash.id }}
 													= cash.description
