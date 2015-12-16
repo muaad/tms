@@ -37,7 +37,7 @@
 												%td
 													= link_to expense_category.name, expense_category_path(expense_category)
 												%td
-													= expense_category.expenses.sum(:amount)
+													= expense_category.total_expenses
 	#delete_expense_category_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
 		.modal-dialog
 			.modal-content

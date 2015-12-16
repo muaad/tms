@@ -22,6 +22,7 @@ gem "paperclip"
 gem 'annotate'
 gem 'acts_as_tenant'
 gem 'rollbar'
+# gem 'groupdate'
 group :development do
   gem 'better_errors'
   gem 'html2haml'

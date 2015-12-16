@@ -19,7 +19,6 @@
 //= require jquery.dataTables
 //= require dataTables.bootstrap
 //= require slick.min
-//= require handsontable.full
 //= require sweetalert.min
 //= require jquery.checkboxes
 //= require bootstrap-datepicker
@@ -40,8 +39,8 @@ $(function() {
 	m += 1;  // JavaScript months are 0-11
 	var y = formattedDate.getFullYear();
 
-	if ($(".datepicker").val() === null) {
-		$(".datepicker").val(d + "/" + m + "/" + y);
+	if ($(".datepicker").val() === "") {
+		// $(".datepicker").val(d + "/" + m + "/" + y);
 	};
 	$('.datepicker').datepicker();
 

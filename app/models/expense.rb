@@ -68,4 +68,8 @@ class Expense < ActiveRecord::Base
   def self.total_dollar
     dollar.collect{|e| e.dollar_amount if !e.blank?}.compact.sum
   end
+
+  def self.total_shilling
+    shilling.collect{|e| e.amount if !e.blank?}.compact.sum
+  end
 end

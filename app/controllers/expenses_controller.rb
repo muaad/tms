@@ -47,8 +47,10 @@ class ExpensesController < ApplicationController
   end
 
   def inline_create
+    date = Date.strptime expense_params[:date], "%m/%d/%Y"
     @expense = Expense.new(expense_params)
     if @expense.save
+      @expense.date = date
       if params[:expense_category] == "Diesel"
         category = ExpenseCategory.find_by name: params[:expense_category]
         @expense.update(expense_category: category)

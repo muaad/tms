@@ -22,7 +22,6 @@ function refreshDieselTable(tbl, url, data) {
 	      var currency = '<td>' + data.currency + '</td>'
 	      $('#new-expenses-inline').after('<tr>' + check + date + lpo + truck + company + quantity + unit_price + amount + currency + description + '</tr>');
 	      $('#total-expense').html(data.total_expense)
-	      $('#cash-balance').html(data.balance)
       	}
   	})
 };
@@ -149,7 +148,7 @@ $(function() {
 		// })
 
 		$(document).on('keypress', '#expense_description', function(e) {
-		    if(e.which == 13) {
+		    if(e.which == 13 || e.which == 9) {
 		    	// Check category and use the selected one to get the right entity to post
 		    	var token = $('meta[name=csrf-token]').attr("content");
 		    	var data = {

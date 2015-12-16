@@ -31,7 +31,11 @@ class ApplicationController < ActionController::Base
   end
 
   def to_currency number, options={}
-    number_to_currency(number, options)
+    if !number.blank?
+      number_to_currency(number, options)
+    else
+      0.0
+    end
   end
 
   def after_sign_in_path_for(resource)
