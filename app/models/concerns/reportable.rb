@@ -2,6 +2,9 @@ module Reportable
 	extend ActiveSupport::Concern
 	included do
 		scope :created_between, lambda {|start_date, end_date| where("created_at >= ? AND created_at <= ?", start_date, end_date )}
+		scope :date_between, lambda {|start_date, end_date| 
+			where("date >= ? AND date <= ?", start_date, end_date ) if !start_date.nil? && !end_date.nil?
+		}
 		scope :last_month, lambda { where("created_at >= ? and created_at <= ?", Time.now.beginning_of_month - 1.month, (Time.now.beginning_of_month - 1.month).end_of_month )}		
 		scope :current_month, lambda { where("created_at >= ? and created_at <= ?", Time.now.beginning_of_month, Time.now.end_of_month)}
 		scope :today, lambda { where("created_at >= ? and created_at <= ?", Time.now.beginning_of_day, Time.now.end_of_day)}
