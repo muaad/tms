@@ -6,9 +6,8 @@ class ReportsController < ApplicationController
     end
 
     if !params[:from].blank? && !params[:to].blank?
-      from = Date.strptime params[:from], "%m/%d/%Y"
-      to = Date.strptime params[:to], "%m/%d/%Y"
-      @date_query = "date between #{from} and #{to}"
+      @from = Date.strptime params[:from], "%m/%d/%Y"
+      @to = Date.strptime params[:to], "%m/%d/%Y"
     end
   end
 

@@ -36,7 +36,7 @@
 				.info-box-content
 					%span.info-box-text Dollar Total
 					%span.info-box-number
-						= to_currency(Expense.where(@truck_query).where(@date_query).total_dollar)
+						= to_currency(Expense.where(@truck_query).date_between(@from, @to).total_dollar)
 		/ /.col
 		.col-md-6
 			.info-box
@@ -45,7 +45,7 @@
 				.info-box-content
 					%span.info-box-text Shilling Total
 					%span.info-box-number
-						= to_currency(Expense.where(@truck_query).where(@date_query).total_shilling, unit: "KES ")
+						= to_currency(Expense.where(@truck_query).date_between(@from, @to).total_shilling, unit: "KES ")
 	.box-info
 		- ExpenseCategory.all.in_groups_of(2).each do |group|
 			.row
@@ -69,7 +69,7 @@
 												%th Total Amount
 												%th Description
 										%tbody
-											- category.expenses.where(@truck_query).where(@date_query).each do |expense|
+											- category.expenses.where(@truck_query).date_between(@from, @to).each do |expense|
 												%tr
 													%td
 														= expense.date
