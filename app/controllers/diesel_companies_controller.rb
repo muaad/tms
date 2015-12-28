@@ -29,7 +29,7 @@ class DieselCompaniesController < ApplicationController
 
     respond_to do |format|
       if @diesel_company.save
-        format.html { redirect_to @diesel_company, notice: 'Diesel company was successfully created.' }
+        format.html { redirect_to diesel_companies_path, notice: 'Diesel company was successfully created.' }
         format.json { render :show, status: :created, location: @diesel_company }
       else
         format.html { render :new }
@@ -43,7 +43,7 @@ class DieselCompaniesController < ApplicationController
   def update
     respond_to do |format|
       if @diesel_company.update(diesel_company_params)
-        format.html { redirect_to @diesel_company, notice: 'Diesel company was successfully updated.' }
+        format.html { redirect_to diesel_companies_path, notice: 'Diesel company was successfully updated.' }
         format.json { render :show, status: :ok, location: @diesel_company }
       else
         format.html { render :edit }

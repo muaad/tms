@@ -29,7 +29,7 @@ class TurnBoysController < ApplicationController
 
     respond_to do |format|
       if @turn_boy.save
-        format.html { redirect_to @turn_boy, notice: 'Turn boy was successfully created.' }
+        format.html { redirect_to turn_boys_path, notice: 'Turn boy was successfully created.' }
         format.json { render :show, status: :created, location: @turn_boy }
       else
         format.html { render :new }
@@ -43,7 +43,7 @@ class TurnBoysController < ApplicationController
   def update
     respond_to do |format|
       if @turn_boy.update(turn_boy_params)
-        format.html { redirect_to @turn_boy, notice: 'Turn boy was successfully updated.' }
+        format.html { redirect_to turn_boys_path, notice: 'Turn boy was successfully updated.' }
         format.json { render :show, status: :ok, location: @turn_boy }
       else
         format.html { render :edit }

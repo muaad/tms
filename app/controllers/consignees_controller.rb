@@ -29,7 +29,7 @@ class ConsigneesController < ApplicationController
 
     respond_to do |format|
       if @consignee.save
-        format.html { redirect_to @consignee, notice: 'Consignee was successfully created.' }
+        format.html { redirect_to consignees_path, notice: 'Consignee was successfully created.' }
         format.json { render :show, status: :created, location: @consignee }
       else
         format.html { render :new }
@@ -43,7 +43,7 @@ class ConsigneesController < ApplicationController
   def update
     respond_to do |format|
       if @consignee.update(consignee_params)
-        format.html { redirect_to @consignee, notice: 'Consignee was successfully updated.' }
+        format.html { redirect_to consignees_path, notice: 'Consignee was successfully updated.' }
         format.json { render :show, status: :ok, location: @consignee }
       else
         format.html { render :edit }

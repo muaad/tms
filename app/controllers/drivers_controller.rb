@@ -29,7 +29,7 @@ class DriversController < ApplicationController
 
     respond_to do |format|
       if @driver.save
-        format.html { redirect_to @driver, notice: 'Driver was successfully created.' }
+        format.html { redirect_to drivers_path, notice: 'Driver was successfully created.' }
         format.json { render :show, status: :created, location: @driver }
       else
         format.html { render :new }
@@ -43,7 +43,7 @@ class DriversController < ApplicationController
   def update
     respond_to do |format|
       if @driver.update(driver_params)
-        format.html { redirect_to @driver, notice: 'Driver was successfully updated.' }
+        format.html { redirect_to drivers_path, notice: 'Driver was successfully updated.' }
         format.json { render :show, status: :ok, location: @driver }
       else
         format.html { render :edit }

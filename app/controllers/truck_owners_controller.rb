@@ -33,7 +33,7 @@ class TruckOwnersController < ApplicationController
 
     respond_to do |format|
       if @truck_owner.save
-        format.html { redirect_to @truck_owner, notice: 'Truck owner was successfully created.' }
+        format.html { redirect_to truck_owners_path, notice: 'Truck owner was successfully created.' }
         format.json { render :show, status: :created, location: @truck_owner }
       else
         format.html { render :new }
@@ -47,7 +47,7 @@ class TruckOwnersController < ApplicationController
   def update
     respond_to do |format|
       if @truck_owner.update(truck_owner_params)
-        format.html { redirect_to @truck_owner, notice: 'Truck owner was successfully updated.' }
+        format.html { redirect_to truck_owners_path, notice: 'Truck owner was successfully updated.' }
         format.json { render :show, status: :ok, location: @truck_owner }
       else
         format.html { render :edit }
