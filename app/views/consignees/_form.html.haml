@@ -23,9 +23,9 @@
             = f.text_field :phone_number, class: "form-control"
         .form-group
           = f.label :city
-          %select.form-control{name: "consignee[city]"}
+          %select.form-control{name: "consignee[city_id]"}
             - City.all.each do |city|
-              %option{value: city.name}
+              %option{value: city.id}
                 = "#{city.name}, #{city.country}"
   .box-footer
     .actions.pull-right

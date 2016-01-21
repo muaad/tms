@@ -23,11 +23,11 @@
 					%button.btn.btn-primary.range-search
 						%i.fa.fa-search
 				.btn-group
-					%button.btn.btn-success
+					%button.btn.btn-success.print-report
 						%i.fa.fa-print
 						Print
 / Main content
-%section.content
+%section.content#account-reports
 	.row
 		.col-md-6
 			.info-box
@@ -49,7 +49,7 @@
 	.box-info
 		- ExpenseCategory.all.in_groups_of(2).each do |group|
 			.row
-				- group.each do |category|
+				- group.compact.each do |category|
 					.col-md-6
 						.box.box-info
 							.box-header.with-border

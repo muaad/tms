@@ -16,4 +16,8 @@ $(function() {
 		};
 		window.location = query_param;
 	})
+
+	$('.print-report').click(function(){
+	     $("#account-reports").printThis();
+	});
 });

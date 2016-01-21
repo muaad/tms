@@ -12,6 +12,7 @@
 
 class Consignee < ActiveRecord::Base
   belongs_to :city
+  has_many :trips
   belongs_to :account
-	acts_as_tenant(:account)
+		acts_as_tenant(:account)
 end

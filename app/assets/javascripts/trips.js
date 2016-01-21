@@ -88,6 +88,7 @@ $(function() {
 	})
 
 	$('#no_of_litres, #price_per_litre').on("propertychange change click keyup input paste", function(evt) {
+		console.log("Hey")
 		var amount = $('#no_of_litres').val() * $('#price_per_litre').val();
 		$('#total_amount').val(amount);
 	})

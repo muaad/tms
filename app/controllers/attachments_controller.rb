@@ -26,7 +26,7 @@ class AttachmentsController < ApplicationController
   # POST /attachments.json
   def create
     @attachment = Attachment.new(attachment_params)
-
+    # date = Date.strptime expense_params[:date], "%m/%d/%Y"
     respond_to do |format|
       if @attachment.save
         format.html { redirect_to @attachment, notice: 'Attachment was successfully created.' }
