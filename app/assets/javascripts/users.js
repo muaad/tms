@@ -76,22 +76,22 @@ $(function() {
 	  }
 	});
 
-	$('#new-user').click(function(e) {
-		e.preventDefault();
-		var check = '<td class="sorting_1"><input type="checkbox" name="user[user.id]" id="user_user.id"></td>'
-		var name = '<td><input class="form-control" type="text" name="user[name]" id="user_name"></td>'
-		var email = '<td><input class="form-control" type="email" value="" name="user[email]" id="user_email"></td>'
-		var admin = '<td><div class="checkbox"><label><input name="user[is_admin]" id="user_is_admin" type="checkbox">Admin?</label></div></td>'
-		$('#example').prepend('<tr>' + check + name + email + admin + '</tr>');
-	})
+	// $('#new-user').click(function(e) {
+	// 	e.preventDefault();
+	// 	var check = '<td class="sorting_1"><input type="checkbox" name="user[user.id]" id="user_user.id"></td>'
+	// 	var name = '<td><input class="form-control" type="text" name="user[name]" id="user_name"></td>'
+	// 	var email = '<td><input class="form-control" type="email" value="" name="user[email]" id="user_email"></td>'
+	// 	var admin = '<td><div class="checkbox"><label><input name="user[is_admin]" id="user_is_admin" type="checkbox">Admin?</label></div></td>'
+	// 	$('#example').prepend('<tr>' + check + name + email + admin + '</tr>');
+	// })
 
-	$(document).on('keypress', '#user_email', function(e) {
-	    if(e.which == 13) {
-	    	var token = $('meta[name=csrf-token]').attr("content");
-	    	var data = {"user[name]": $('#user_name').val(), "user[email]": $('#user_email').val(), "user[is_admin]": $('#user_is_admin').val(), authenticity_token: token}
-	    	// refreshTable('#example', '/users.json', data);
-	    }
-	});
+	// $(document).on('keypress', '#user_email', function(e) {
+	//     if(e.which == 13) {
+	//     	var token = $('meta[name=csrf-token]').attr("content");
+	//     	var data = {"user[name]": $('#user_name').val(), "user[email]": $('#user_email').val(), "user[is_admin]": $('#user_is_admin').val(), authenticity_token: token}
+	//     	// refreshTable('#example', '/users.json', data);
+	//     }
+	// });
 
 	// var data = [
 	//   ["Name", "Email", "Role"],
