@@ -36,7 +36,7 @@
 				.info-box-content
 					%span.info-box-text Dollar Total
 					%span.info-box-number
-						= to_currency(Expense.where(@truck_query).date_between(@from, @to).total_dollar)
+						= to_currency(Expense.dollar.where(@truck_query).date_between(@from, @to).sum(:dollar_amount))
 		/ /.col
 		.col-md-6
 			.info-box
@@ -45,7 +45,7 @@
 				.info-box-content
 					%span.info-box-text Shilling Total
 					%span.info-box-number
-						= to_currency(Expense.where(@truck_query).date_between(@from, @to).total_shilling, unit: "KES ")
+						= to_currency(Expense.shilling.where(@truck_query).date_between(@from, @to).sum(:amount), unit: "KES ")
 	.box-info
 		- ExpenseCategory.all.in_groups_of(2).each do |group|
 			.row
@@ -54,7 +54,7 @@
 						.box.box-info
 							.box-header.with-border
 								%h3.box-title
-									= category.name
+									= link_to(category.name, reports_category_path(category))
 								.box-tools.pull-right
 									%button.btn.btn-box-tool{"data-widget" => "collapse"}
 										%i.fa.fa-minus
@@ -76,15 +76,15 @@
 													%td 
 														= expense.lpo
 													%td
-														= expense.currency
+														= expense.currency || "Kenya Shilling"
 													%td
-														= expense.amount
+														= to_currency((expense.is_shilling? ? expense.amount : expense.dollar_amount), unit: "")
 													%td
 														= expense.description
 								/ /.table-responsive
 							/ /.box-body
 							.box-footer.clearfix
 								%a.btn.btn-sm.btn-default.btn-flat
-									= "Total Dollar: #{to_currency(category.total_expenses('US Dollar', params[:truck]))}"
+									= "Total Dollar: #{to_currency(category.total_expenses('US Dollar', params[:truck], @from, @to))}"
 								%a.btn.btn-sm.btn-default.btn-flat.pull-right
-									= "Total Shilling: #{to_currency(category.total_expenses('Kenya Shilling', params[:truck]), unit: 'KES ')}"
+									= "Total Shilling: #{to_currency(category.total_expenses('Kenya Shilling', params[:truck], @from, @to), unit: 'KES ')}"

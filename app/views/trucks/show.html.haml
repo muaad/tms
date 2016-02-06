@@ -121,7 +121,7 @@
 											%a
 												Salary
 												%span.pull-right
-													= @truck.driver_salary
+													= to_currency(@truck.driver_salary, unit: "KES ")
 										%li
 											%a
 												Documents:
@@ -168,7 +168,7 @@
 											%a
 												Salary
 												%span.pull-right
-													= @truck.turn_boy_salary
+													= to_currency(@truck.turn_boy_salary, unit: "KES ")
 										%li
 											%a
 												Documents:

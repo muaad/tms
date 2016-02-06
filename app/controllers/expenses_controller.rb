@@ -57,6 +57,9 @@ class ExpensesController < ApplicationController
         company = DieselCompany.find(params[:diesel_company])
         DieselExpense.create! expense: @expense, diesel_company: company, litres: @expense.quantity
       end
+      if @expense.currency == "US Dollar"
+        @expense.dollar_amount = @expense.amount / ExchangeRate.first.rate
+      end
       if @expense.category.name == "Driver Salary"
         @expense.driver = @expense.truck.driver
         # @expense.amount = @expense.truck.driver_salary

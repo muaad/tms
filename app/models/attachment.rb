@@ -47,4 +47,14 @@ class Attachment < ActiveRecord::Base
 		end
 		{owner: owner, owner_type: owner_type}
 	end
+
+	def owner_name
+		owner_details[:owner].name if !owner_details[:owner].nil?
+	end
+
+	def owner_url
+		url = ''
+		oid = owner_details[:owner].id if !owner_details[:owner].nil?
+		url = "#{owner_details[:owner_type]}s/#{oid}" if !oid.blank?
+	end
 end

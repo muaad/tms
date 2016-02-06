@@ -25,8 +25,11 @@ class AttachmentsController < ApplicationController
   # POST /attachments
   # POST /attachments.json
   def create
+    date_of_issue = Date.strptime attachment_params[:date_of_issue], "%m/%d/%Y"
+    date_of_expiry = Date.strptime attachment_params[:date_of_expiry], "%m/%d/%Y"
     @attachment = Attachment.new(attachment_params)
-    # date = Date.strptime expense_params[:date], "%m/%d/%Y"
+    @attachment.date_of_issue = date_of_issue
+    @attachment.date_of_expiry = date_of_expiry
     respond_to do |format|
       if @attachment.save
         format.html { redirect_to @attachment, notice: 'Attachment was successfully created.' }

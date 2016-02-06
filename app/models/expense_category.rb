@@ -13,19 +13,23 @@ class ExpenseCategory < ActiveRecord::Base
 	acts_as_tenant(:account)
 	has_many :expenses
 
-	def total_expenses currency="", truck=nil
+	def total_expenses currency="", truck=nil, from="", to=""
 		# binding.pry
-		xps = self.expenses
+		xps = expenses
 		if !truck.blank?
-			xps = self.expenses.where(truck_id: truck)
+			xps = expenses.where(truck_id: truck)
+		end
+
+		if !from.blank? && !to.blank?
+			xps = xps.date_between(from, to)
 		end
 
 		if currency.blank?
 			xps.collect{|x| x.amount}.compact.sum
 		elsif currency == "US Dollar"
-			xps.dollar.collect{|x| x.dollar_amount}.compact.sum 
+			xps.where(currency: "US Dollar").sum(:dollar_amount) 
 		elsif currency == "Kenya Shilling"
-			xps.shilling.collect{|x| x.amount}.compact.sum
+			xps.where(currency: "Kenya Shilling").sum(:amount)
 		end
 	end
 end

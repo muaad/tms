@@ -1,14 +1,11 @@
 class ReportsController < ApplicationController
+  before_action :set_reports, only: [:accounts, :category, :cash]
   def accounts
-    @query = ''
-    if !params[:truck].blank?
-      @truck_query = "truck_id = #{params[:truck]}"
-    end
+    
+  end
 
-    if !params[:from].blank? && !params[:to].blank?
-      @from = Date.strptime params[:from], "%m/%d/%Y"
-      @to = Date.strptime params[:to], "%m/%d/%Y"
-    end
+  def category
+    @category = ExpenseCategory.find(params[:category])
   end
 
   def trucks
@@ -26,9 +23,18 @@ class ReportsController < ApplicationController
   def owners
   end
 
-  def cash_in
+  def cash
   end
 
-  def cash_out
-  end
+  private
+    def set_reports
+      if !params[:truck].blank?
+        @truck_query = "truck_id = #{params[:truck]}"
+      end
+
+      if !params[:from].blank? && !params[:to].blank?
+        @from = Date.strptime params[:from], "%m/%d/%Y"
+        @to = Date.strptime params[:to], "%m/%d/%Y"
+      end
+    end
 end

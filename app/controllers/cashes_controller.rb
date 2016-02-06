@@ -27,6 +27,10 @@ class CashesController < ApplicationController
   def create
     @cash = Cash.new(cash_params)
     @cash.balance = Cash.sum(:amount_in) - Expense.sum(:amount)
+    if !cash_params[:date].blank?
+      date = Date.strptime cash_params[:date], "%m/%d/%Y"
+      @cash.date = date
+    end
 
     respond_to do |format|
       if @cash.save

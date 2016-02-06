@@ -15,11 +15,11 @@
           %span.info-box-number
             In:
             %small
-              = Cash.total
+              = to_currency(Cash.total, unit: "")
           %span.info-box-number
             Out:
             %small
-              = Expense.total
+              = to_currency(Expense.total, unit: "")
         / /.info-box-content
       / /.info-box
     / /.col
@@ -86,24 +86,24 @@
                     %tr
                       %td
                         = link_to truck.registration_number, truck_path(truck)
-                      %td 
+                      %td
                         = link_to truck.owner.name, truck_owner_path(truck.owner)
                       %td
                         = link_to truck.trips.count, "#{trips_path}?truck=#{truck}"
                       %td
-                        = link_to truck.total_expenses, "#{expenses_path}?truck=#{truck}"
+                        = link_to to_currency(truck.total_expenses, unit: ''), "#{expenses_path}?truck=#{truck.id}"
                       %td
-                        = link_to truck.income, "#{trips_path}?truck=#{truck}"
+                        = link_to to_currency(truck.income, unit: ''), "#{trips_path}?truck=#{truck.id}"
                       %td
                         - if truck.balance > 0
                           %span.label.label-success
-                            = truck.balance
+                            = to_currency(truck.balance, unit: '')
                         - elsif truck.balance == 0.0
                           %span.label.label-primary
-                            = truck.balance
+                            = to_currency(truck.balance, unit: '')
                         - else
                           %span.label.label-danger
-                            = "(#{truck.balance})"
+                            = "(#{to_currency(truck.balance, unit: '')})"
             / /.table-responsive
           / /.box-body
           .box-footer.clearfix
@@ -133,7 +133,7 @@
                     %tr
                       %td
                         = link_to trip.truck.registration_number, truck_path(trip.truck)
-                      %td 
+                      %td
                         = trip.depot.name
                       %td
                         = trip.destination.name

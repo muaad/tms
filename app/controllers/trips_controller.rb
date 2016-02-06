@@ -33,7 +33,9 @@ class TripsController < ApplicationController
   # POST /trips
   # POST /trips.json
   def create
+    date = Date.strptime trip_params[:date], "%m/%d/%Y"
     @trip = Trip.new(trip_params)
+    @trip.date = date
 
     respond_to do |format|
       if @trip.save

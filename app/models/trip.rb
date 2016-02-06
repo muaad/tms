@@ -23,6 +23,8 @@
 #
 
 class Trip < ActiveRecord::Base
+  include Reportable
+
   belongs_to :truck
   belongs_to :driver
   belongs_to :turn_boy

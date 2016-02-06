@@ -13,6 +13,8 @@ class Truck < ActiveRecord::Base
 	attr_accessor :driver_salary
 	attr_accessor :turn_boy_salary
 
+	include Reportable
+
 	belongs_to :truck_owner
 	has_many :truck_drivers
 	has_many :drivers, through: :truck_drivers
@@ -47,39 +49,44 @@ class Truck < ActiveRecord::Base
 		truck_owner
 	end
 
-	def cash
-		truck_cashes
+	def cash from="", to=""
+		if from.blank? || to.blank?
+			c = truck_cashes
+		else
+			c = truck_cashes.date_between(from, to)
+		end
+		c
 	end
 
-	def cash_in currency=""
+	def cash_in currency="", from="", to=""
 		if !currency.blank?
-			cash.where(direction: "IN", currency: currency)
+			cash(from, to).where(direction: "IN", currency: currency)
 		else
-			cash.where(direction: "IN")
+			cash(from, to).where(direction: "IN")
 		end
 	end
 
-	def cash_out currency=""
+	def cash_out currency="", from="", to=""
 		if !currency.blank?
-			cash.where(direction: "OUT", currency: currency)
+			cash(from, to).where(direction: "OUT", currency: currency)
 		else
-			cash.where(direction: "OUT")
+			cash(from, to).where(direction: "OUT")
 		end
 	end
 
-	def total_cash_in currency=""
+	def total_cash_in currency="", from="", to=""
 		if !currency.blank?
-			cash_in(currency).sum(:amount)
+			cash_in(currency, from, to).sum(:amount)
 		else
-			cash_in.sum(:amount)
+			cash_in(from, to).sum(:amount)
 		end
 	end
 
-	def total_cash_out currency=""
+	def total_cash_out currency="", from="", to=""
 		if !currency.blank?
-			cash_out(currency).sum(:amount)
+			cash_out(currency, from, to).sum(:amount)
 		else
-			cash_out.sum(:amount)
+			cash_out(from, to).sum(:amount)
 		end
 	end
 
@@ -87,42 +94,54 @@ class Truck < ActiveRecord::Base
 		registration_number
 	end
 
-	def income currency=""
+	def trps from="", to=""
+		trs = trips
+		trs = trips.date_between(from, to) if !from.blank? && !to.blank?
+		trs
+	end
+
+	def income currency="", from="", to=""
 		if !currency.blank?
-			trips.where(currency: currency).sum(:amount)
+			trps(from, to).where(currency: currency).sum(:amount)
 		else
-			trips.sum(:amount)
+			trps(from, to).sum(:amount)
 		end
 	end
 
-	def dollar_income
-		trips.where(currency: "US Dollar").sum(:amount)
+	def dollar_income from="", to=""
+		trps(from, to).where(currency: "US Dollar").sum(:amount)
 	end
 
-	def shilling_income
-		trips.where(currency: "Kenya Shilling").sum(:amount)
+	def shilling_income from="", to=""
+		trps(from, to).where(currency: "Kenya Shilling").sum(:amount)
 	end
 
-	def total_income currency=""
+	def total_income currency="", from="", to=""
 		if !currency.blank?
-			income(currency) + total_cash_in(currency)
+			income(currency, from, to) + total_cash_in(currency, from, to)
 		else
-			income + total_cash_in(currency)
+			income(from, to) + total_cash_in(currency, from, to)
 		end
 	end
 
-	def total_expenses currency=""
+	def xps from="", to=""
+		x = expenses
+		x = expenses.date_between(from, to) if !from.blank? && !to.blank?
+		x
+	end
+
+	def total_expenses currency="", from="", to=""
 		tx = 0.0
 		if !currency.blank?
-			tx = expenses.where(currency: currency).sum(:amount) if currency == "Kenya Shilling"
-			tx = expenses.where(currency: currency).sum(:dollar_amount) if currency == "US Dollar"
+			tx = xps(from, to).where(currency: currency).sum(:amount) if currency == "Kenya Shilling"
+			tx = xps(from, to).where(currency: currency).sum(:dollar_amount) if currency == "US Dollar"
 		else
-			tx = expenses.sum(:amount)
+			tx = xps(from, to).sum(:amount)
 		end
 		tx
 	end
 
-	def balance currency=""
+	def balance currency="", from="", to=""
 		if !currency.blank?
 			total_income(currency) - (total_expenses(currency) + total_cash_out(currency))
 		else

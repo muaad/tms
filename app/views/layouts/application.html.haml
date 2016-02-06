@@ -159,7 +159,7 @@
                     %i.fa.fa-tags
                     Account
                 %li
-                  %a{:href => reports_cash_out_path}
+                  %a{:href => reports_cash_path}
                     %i.fa.fa-money
                     Cash
                 %li
@@ -311,6 +311,10 @@
                   %a{:href => "#{cities_path}?type=Destination"}
                     %i.fa.fa-circle-o
                     Destinations
+            %li.treeview
+              %a{:href => attachments_path}
+                %i.fa.fa-paperclip
+                %span Documents
         / /.sidebar
       / Content Wrapper. Contains page content
       .content-wrapper

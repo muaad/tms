@@ -21,6 +21,9 @@
 class Expense < ActiveRecord::Base
   include Reportable
 
+  scope :shilling, -> { where("currency = ?", "Kenya Shilling") }
+  scope :dollar, -> { where("currency = ?", "US Dollar") }
+
   belongs_to :expense_category
   belongs_to :product
   belongs_to :driver
@@ -57,13 +60,13 @@ class Expense < ActiveRecord::Base
     currency == "Kenya Shilling" || currency.blank?
   end
 
-  def self.dollar
-    all.select{|e| e.is_dollar?}
-  end
+  # def self.dollar
+  #   all.select{|e| e.is_dollar?}
+  # end
 
-  def self.shilling
-    all.select{|e| e.is_shilling?}
-  end
+  # def self.shilling
+  #   all.select{|e| e.is_shilling?}
+  # end
 
   def self.total_dollar
     dollar.collect{|e| e.dollar_amount if !e.blank?}.compact.sum

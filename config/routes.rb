@@ -12,9 +12,9 @@ Rails.application.routes.draw do
 
   get 'reports/owners'
 
-  get 'reports/cash_in'
+  get 'reports/cash'
 
-  get 'reports/cash_out'
+  get '/reports/accounts/:category' => "reports#category", as: "reports_category"
 
   resources :truck_cashes
   resources :cashes

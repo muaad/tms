@@ -1,5 +1,5 @@
 function setEditable() {
-  $('table.cash_table').editableTableWidget(); 
+  $('table.cash_table').editableTableWidget();
   var elem = null;
   $('table.cash_table td.editable').on('change', function(evt, newValue) {
     var token = $('meta[name=csrf-token]').attr("content");
@@ -97,7 +97,7 @@ function loadCombos(category) {
         // $.get(url, function(data) {
         // 	$('#expense_amount').val(data.salary)
         // });
-	} 
+	}
 	else if (category === "TurnBoy Salary"){
 		var turn_boy = '<div class="form-group"><input type="hidden" id="which-entity" value="turn_boy"><label for="expense_turn_boy" id="entity-type">Turn Boy</label><select id = "expense_turn_boy" class="form-control" name="expense[turn_boy_id]"></select></div>'
         $('.expense-reason').html(turn_boy)
@@ -125,7 +125,7 @@ function loadCombos(category) {
   //       $('#diesel_company_id').change()
   //       $('#expense_unit_price').prop('disabled', false);
   //       $('#expense_quantity').prop('disabled', false);
-	} 
+	}
 	else if (category === "Spare parts"){
 		$('#expense_unit_price').prop('disabled', false);
 		$('#expense_quantity').prop('disabled', false);
@@ -168,7 +168,7 @@ function loadDetails(editPage) {
 			loadAmount(category);
 		};
 	})
-	
+
 	$('#expense_truck_id').change(function() {
 		var category = $('select[id="expense_category"] :selected').html().trim();
 		if (!editPage) {
@@ -305,7 +305,7 @@ $(function() {
 			price(category);
 
 			if (category === "Driver Salary" || category === "TurnBoy Salary") {
-				
+
 			};
 		});
 
@@ -342,28 +342,28 @@ $(function() {
 
 		    	if ($('#expense_truck_id').val() != "0") {
 			    	var data = {
-			    		"expense[lpo]": $('#expense_lpo').val(), 
-			    		"expense[expense_category_id]": $('#expense_category').val(), 
-			    		"expense[amount]": $('#expense_amount').val(), 
-			    		"expense[truck_id]": $('#expense_truck_id').val(), 
-			    		"expense[product_id]": $("select[id='product_id']").val(), 
-			    		"expense[description]": $('#expense_description').val(), 
-			    		"expense[date]": $('#expense_date').val(), 
-			    		"expense[quantity]": $('#expense_quantity').val(), 
-			    		"expense[unit_price]": $('#expense_unit_price').val(), 
+			    		"expense[lpo]": $('#expense_lpo').val(),
+			    		"expense[expense_category_id]": $('#expense_category').val(),
+			    		"expense[amount]": $('#expense_amount').val(),
+			    		"expense[truck_id]": $('#expense_truck_id').val(),
+			    		"expense[product_id]": $("select[id='product_id']").val(),
+			    		"expense[description]": $('#expense_description').val(),
+			    		"expense[date]": $('#expense_date').val(),
+			    		"expense[quantity]": $('#expense_quantity').val(),
+			    		"expense[unit_price]": $('#expense_unit_price').val(),
 			    		authenticity_token: token
 			    	}
 		    	}
 		    	else {
 		    		var data = {
-		    			"expense[lpo]": $('#expense_lpo').val(), 
-		    			"expense[expense_category_id]": $('#expense_category').val(), 
-		    			"expense[amount]": $('#expense_amount').val(), 
-		    			"expense[product_id]": $("select[id='product_id']").val(), 
-		    			"expense[description]": $('#expense_description').val(), 
-		    			"expense[date]": $('#expense_date').val(), 
-		    			"expense[quantity]": $('#expense_quantity').val(), 
-		    			"expense[unit_price]": $('#expense_unit_price').val(), 
+		    			"expense[lpo]": $('#expense_lpo').val(),
+		    			"expense[expense_category_id]": $('#expense_category').val(),
+		    			"expense[amount]": $('#expense_amount').val(),
+		    			"expense[product_id]": $("select[id='product_id']").val(),
+		    			"expense[description]": $('#expense_description').val(),
+		    			"expense[date]": $('#expense_date').val(),
+		    			"expense[quantity]": $('#expense_quantity').val(),
+		    			"expense[unit_price]": $('#expense_unit_price').val(),
 		    			authenticity_token: token
 		    		}
 		    	}

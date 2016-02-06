@@ -24,7 +24,9 @@ class TruckCashesController < ApplicationController
   # POST /truck_cashes
   # POST /truck_cashes.json
   def create
+    date = Date.strptime truck_cash_params[:date], "%m/%d/%Y"
     @truck_cash = TruckCash.new(truck_cash_params)
+    @truck_cash.date = date
 
     respond_to do |format|
       if @truck_cash.save

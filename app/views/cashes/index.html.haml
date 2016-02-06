@@ -79,7 +79,7 @@
 												%td
 													= expense.description
 												%td
-													= Cash.sum(:amount_in) - expense.total_before
+													= to_currency(Cash.sum(:amount_in) - expense.total_before, unit: "")
 				.box-footer
 					.row
 						.col-xs-4
@@ -91,7 +91,7 @@
 										Cash In
 										%br
 										%small#total-cash
-											= Cash.sum(:amount_in)
+											= to_currency(Cash.sum(:amount_in), unit: "")
 						.col-xs-4
 							.info-box
 								%span.info-box-icon.bg-aqua
@@ -101,7 +101,7 @@
 										Cash Out
 										%br
 										%small#total-expense
-											= Expense.sum(:amount)
+											= to_currency(Expense.sum(:amount), unit: "")
 						.col-xs-4
 							.info-box
 								%span.info-box-icon.bg-aqua
@@ -111,7 +111,7 @@
 										Balance
 										%br
 										%small#cash-balance
-											= Cash.sum(:amount_in) - Expense.sum(:amount)
+											= to_currency((Cash.sum(:amount_in) - Expense.sum(:amount)), unit: "")
 	#delete_expense_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
 		.modal-dialog
 			.modal-content
@@ -145,6 +145,9 @@
 						.form-group
 							= f.label :lpo
 							= f.text_field :lpo, class: "form-control"
+						.form-group
+							= f.label :date
+							= f.text_field :date, class: "form-control datepicker"
 						.form-group
 							= f.label :description
 							= f.text_area :description, class: "form-control"
@@ -182,7 +185,7 @@
 												/ %td{style: "width: 15px;"}
 												/ 	= check_box_tag "cash[cash.id]", cash.id
 												%td
-													= cash.created_at
+													= cash.date
 												%td.editable.lpo{data: { id: cash.id }}
 													= cash.lpo
 												%td.editable.amount_in{data: { id: cash.id }}
