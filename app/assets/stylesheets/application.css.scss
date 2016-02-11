@@ -17,7 +17,7 @@
  */
 
 .no-link {
-	text-decoration: none; 
+	text-decoration: none;
 	color: black;
 }
 
@@ -25,4 +25,23 @@
 	background-image: url('/truck.jpeg');
 	background-repeat: no-repeat;
 	background-size: 100%;
+}
+
+#gadano {
+	font-size:34px;
+	font-family:"lucida calligraphy",arial,'sans serif';
+	color: green;
+}
+
+#gen-trade {
+	font-size:34px;
+	font-family: "Rockwell Extra Bold","Rockwell Bold",monospace;
+	color: red;
+}
+
+/*.company-contact {
+	font-family: TimesNewRoman, 'Times New Roman', Times, Baskerville, Georgia, serif;
+}*/
+.logo-banner {
+	/*background-image: asseturl('/truck.jpeg');*/
 }

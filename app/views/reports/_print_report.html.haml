@@ -1,0 +1,75 @@
+%section.content{style: "background: white;"}
+	%br
+	.row.logo-banner
+		= image_tag("logo-banner.png", style: "width: 100%;")
+		/ .col-md-2
+		/ 	= image_tag("gadano-logo.png", style: "width: 200px;")
+		/ .col-md-8
+		/ 	.company-name
+		/ 		%span#gadano
+		/ 			GADANO
+		/ 		%span#gen-trade
+		/ 			GENERAL TRADING CO. LTD
+		/ 	.company-contacts
+		/ 		%center
+		/ 			%h4
+		/ 				HEAD OFFICE
+		/ 			%h4
+		/ 				JOGOO ROAD PLAZA, THIRD FLOOR, SUITE 8,
+		/ 			%h4
+		/ 				P.O. BOX 407 - 00507,
+		/ 			%h4
+		/ 				NAIROBI, KENYA.
+		/ 			%h4
+		/ 				CELL: +254722145008 / +254721471744
+		/ 			%h4
+		/ 				EMAIL: info@gadanogeneraltrading.com
+
+		/ .col-md-2
+		/ 	= image_tag("gadano-truck.png", style: "width: 200px;")
+	.row{style: "border-bottom: 1px solid black;"}
+		.col-md-12
+			%center
+				%h4{style: "color: blue"}
+					= "Accounts Report"
+	.row{style: "border-bottom: 1px solid black;"}
+		.col-md-12
+			%center
+				%h4{style: "color: red"}
+					= "Accounts Statement From #{from} To #{to}"
+	.row
+		.col-md-12
+			.table-responsive
+				%table.table
+					%thead
+						%tr
+							%th Date
+							%th LPO
+							%th Currency
+							%th Total Amount
+							%th Description
+					%tbody
+						- expenses.where(@truck_query).date_between(@from, @to).each do |expense|
+							%tr
+								%td
+									= expense.date
+								%td
+									= expense.lpo
+								%td
+									= expense.currency || "Kenya Shilling"
+								%td
+									= to_currency((expense.is_shilling? ? expense.amount : expense.dollar_amount), unit: "")
+								%td
+									= expense.description
+				%table.table.no-margin{border: 1}
+					%tr
+						%td
+							Dollar Total
+						%td
+							.pull-right
+								= to_currency(expenses.dollar.sum(:dollar_amount), unit: "")
+						%td
+							Kenya Shilling Total
+						%td
+							.pull-right
+								= to_currency(expenses.shilling.sum(:amount), unit: "")

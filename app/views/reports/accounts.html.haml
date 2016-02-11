@@ -1,6 +1,6 @@
 %section.content-header
 	.box-header.with-border
-		%h1.box-title 
+		%h1.box-title
 			Reports
 			%small Accounts
 			%input.truck-selected{type: "hidden", value: params[:truck]}
@@ -27,7 +27,7 @@
 						%i.fa.fa-print
 						Print
 / Main content
-%section.content#account-reports
+%section.content
 	.row
 		.col-md-6
 			.info-box
@@ -73,7 +73,7 @@
 												%tr
 													%td
 														= expense.date
-													%td 
+													%td
 														= expense.lpo
 													%td
 														= expense.currency || "Kenya Shilling"
@@ -88,3 +88,9 @@
 									= "Total Dollar: #{to_currency(category.total_expenses('US Dollar', params[:truck], @from, @to))}"
 								%a.btn.btn-sm.btn-default.btn-flat.pull-right
 									= "Total Shilling: #{to_currency(category.total_expenses('Kenya Shilling', params[:truck], @from, @to), unit: 'KES ')}"
+#print_reports_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+	.modal-dialog
+		.modal-content
+			#account-reports
+				/ = render 'print_report'
+				= render partial: 'print_report', locals: { model_type: "Accounts", expenses: Expense.where(@truck_query).date_between(@from, @to), from: @from, to: @to }
