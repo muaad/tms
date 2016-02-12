@@ -67,7 +67,8 @@
 								%td
 									= expense.currency || "Kenya Shilling"
 								%td
-									= to_currency((expense.is_shilling? ? expense.amount : expense.dollar_amount), unit: "")
+									.pull-right
+										= to_currency((expense.is_shilling? ? expense.amount : expense.dollar_amount), unit: "")
 								%td
 									= expense.description
 				%table.table.no-margin{border: 1}
