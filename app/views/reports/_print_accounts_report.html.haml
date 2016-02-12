@@ -31,15 +31,24 @@
 		.col-md-12
 			%center
 				%h4{style: "color: blue"}
-					= "Accounts Report"
+					= "Report For #{model_type}"
 	.row{style: "border-bottom: 1px solid black;"}
 		.col-md-12
 			%center
 				%h4{style: "color: red"}
-					= "Accounts Statement From #{from} To #{to}"
+					- if from.blank? || to.blank?
+						- if !truck.blank?
+							= "Accounts Statement for #{truck}"
+						- else
+							= "Accounts Statement"
+					- else
+						- if truck.blank?
+							= "Accounts Statement From #{from} To #{to}"
+						- else
+							= "Accounts Statement From #{from} To #{to} for #{truck}"
 	.row
 		.col-md-12
-			.table-responsive
+			.table-responsive-has-a-problem-in-this-case
 				%table.table
 					%thead
 						%tr
@@ -49,7 +58,7 @@
 							%th Total Amount
 							%th Description
 					%tbody
-						- expenses.where(@truck_query).date_between(@from, @to).each do |expense|
+						- expenses.each do |expense|
 							%tr
 								%td
 									= expense.date

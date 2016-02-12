@@ -1,0 +1,81 @@
+%section.content{style: "background: white;"}
+	%br
+	.row.logo-banner
+		= image_tag("logo-banner.png", style: "width: 100%;")
+	.row{style: "border-bottom: 1px solid black;"}
+		.col-md-12
+			%center
+				%h4{style: "color: blue"}
+					- if from.blank? || to.blank?
+						- if !truck.blank?
+							= "Trip Statement By Truck"
+						- else
+							= "Trip Statement"
+					- else
+						- if truck.blank?
+							= "Trip Statement By Date Report"
+						- else
+							= "Trip Statement By Individual Truck & Date Report"
+	.row{style: "border-bottom: 1px solid black;"}
+		.col-md-12
+			%center
+				%h4{style: "color: red"}
+					- if from.blank? || to.blank?
+						- if !truck.blank?
+							= "Accounts Statement for #{truck}"
+						- else
+							= "Accounts Statement"
+					- else
+						- if truck.blank?
+							= "Accounts Statement From #{from} To #{to}"
+						- else
+							= "Statement For #{truck} of #{owner} From #{from} To #{to}"
+	.row
+		.col-md-12
+			.table-responsive-has-a-problem-in-this-case
+				%table.table
+					%thead
+						%tr
+							%th Truck
+							%th Driver
+							%th Turn boy
+							%th Date
+							%th Depot
+							%th Destination
+							%th Consignee
+							%th Product
+							%th Quantity
+							%th Rate
+							%th Amount
+					%tbody
+						- trips.each do |trip|
+							%tr.gradeX
+								%td
+									= trip.truck.registration_number if !trip.truck.blank?
+								%td
+									= trip.driver.name if !trip.driver.blank?
+								%td
+									= trip.turn_boy.name if !trip.turn_boy.blank?
+								%td
+									= trip.date
+								%td
+									= trip.depot.name if !trip.depot.blank?
+								%td
+									= trip.destination.name if !trip.destination.blank?
+								%td
+									= trip.consignee.name if !trip.consignee.blank?
+								%td
+									= trip.product.name if !trip.product.blank?
+								%td
+									= trip.quantity
+								%td
+									= trip.rate
+								%td
+									= trip.amount
+				%table.table.no-margin{border: 1}
+					%tr
+						%td
+							Total
+						%td
+							.pull-right
+								= to_currency(trips.sum(:amount), unit: "")

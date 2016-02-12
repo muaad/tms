@@ -93,4 +93,4 @@
 		.modal-content
 			#account-reports
 				/ = render 'print_report'
-				= render partial: 'print_report', locals: { model_type: "Accounts", expenses: Expense.where(@truck_query).date_between(@from, @to), from: @from, to: @to }
+				= render partial: 'print_accounts_report', locals: { model_type: "Accounts", expenses: Expense.where(@truck_query).date_between(@from, @to), from: @from, to: @to, truck: @truck_name }

@@ -1,7 +1,7 @@
 class ReportsController < ApplicationController
-  before_action :set_reports, only: [:accounts, :category, :cash]
+  before_action :set_reports, only: [:accounts, :category, :cash, :trips]
   def accounts
-    
+
   end
 
   def category
@@ -30,6 +30,8 @@ class ReportsController < ApplicationController
     def set_reports
       if !params[:truck].blank?
         @truck_query = "truck_id = #{params[:truck]}"
+        @truck_name = Truck.find(params[:truck]).name
+        @owner = Truck.find(params[:truck]).owner.name
       end
 
       if !params[:from].blank? && !params[:to].blank?
