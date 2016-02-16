@@ -260,6 +260,9 @@
 							= f.label :lpo
 							= f.text_field :lpo, class: "form-control"
 						.form-group
+							= f.label :date
+							= f.text_field :date, class: "form-control datepicker"
+						.form-group
 							= f.label :currency
 							%select.form-control{name: "truck_cash[currency]"}
 								%option{value: "Kenya Shilling"}
@@ -270,10 +273,10 @@
 							= f.label :description
 							= f.text_area :description, class: "form-control"
 					.modal-footer
-						%button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} 
+						%button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}
 							%i.fa.fa-times
 							Cancel
-						%button.btn.btn-success{:type => "submit"} 
+						%button.btn.btn-success{:type => "submit"}
 							%i.fa.fa-plus
 							Add Cash
 
@@ -295,6 +298,9 @@
 							= f.label :lpo
 							= f.text_field :lpo, class: "form-control"
 						.form-group
+							= f.label :date
+							= f.text_field :date, class: "form-control datepicker"
+						.form-group
 							= f.label :currency
 							%select.form-control{name: "truck_cash[currency]"}
 								%option{value: "Kenya Shilling"}
@@ -305,12 +311,12 @@
 							= f.label :description
 							= f.text_area :description, class: "form-control"
 					.modal-footer
-						%button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} 
+						%button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}
 							%i.fa.fa-times
 							Cancel
-						%button.btn.btn-success{:type => "submit"} 
-							%i.fa.fa-plus
-							Add Cash
+						%button.btn.btn-success{:type => "submit"}
+							%i.fa.fa-money
+							Pay Balance
 
 	#truck_cash_in_list_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
 		.modal-dialog
