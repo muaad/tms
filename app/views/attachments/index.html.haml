@@ -8,7 +8,7 @@
 				.box-body
 					- @attachments.in_groups_of(3).each do |group|
 						.row
-							- group.each do |attachment|
+							- group.compact.each do |attachment|
 								.col-md-4
 									.box
 										.box-body
