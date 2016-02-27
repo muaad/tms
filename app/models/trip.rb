@@ -44,4 +44,18 @@ class Trip < ActiveRecord::Base
   def name
   	"#{truck.registration_number} - #{date} - #{destination.name}"
   end
+
+  def next_trip
+    Trip.where("id > ?", id).first
+  end
+
+  def prev_trip
+    Trip.where("id < ?", id).last
+  end
+
+  def expenses
+    to_date = truck.expenses.last.date
+    to_date = next_trip.date if !next_trip.nil?
+    truck.expenses.date_between(date, to_date)
+  end
 end

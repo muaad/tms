@@ -29,24 +29,6 @@
 						Print
 / Main content
 %section.content
-	/ .row
-	/ 	.col-md-6
-	/ 		.info-box
-	/ 			%span.info-box-icon.bg-aqua
-	/ 				%i.fa.fa-dollar
-	/ 			.info-box-content
-	/ 				%span.info-box-text Dollar Total
-	/ 				%span.info-box-number
-	/ 					= to_currency(@category.expenses.dollar.where(@truck_query).date_between(@from, @to).sum(:dollar_amount))
-	/ 	/ /.col
-	/ 	.col-md-6
-	/ 		.info-box
-	/ 			%span.info-box-icon.bg-red
-	/ 				%i.fa.fa-money
-	/ 			.info-box-content
-	/ 				%span.info-box-text Shilling Total
-	/ 				%span.info-box-number
-	/ 					= to_currency(@category.expenses.shilling.where(@truck_query).date_between(@from, @to).sum(:amount), unit: "KES ")
 	.box.box-info
 		.box-body
 			.table-responsive
@@ -94,4 +76,4 @@
 		.modal-content
 			#account-reports
 				/ = render 'print_report'
-				= render partial: 'print_trips_report', locals: { owner: @owner, trips: Trip.where(@truck_query).date_between(@from, @to), from: @from, to: @to, truck: @truck_name }
+				= render partial: 'print_trips_report', locals: { owner: @owner, trips: Trip.where(@truck_query).date_between(@from, @to), from: @from, to: @to, truck: @truck_name, truck_expenses: trip_expenses_table(Truck.find_by(registration_number: @truck_name), @from, @to) }

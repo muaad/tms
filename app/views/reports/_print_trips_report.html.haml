@@ -32,7 +32,127 @@
 							= "Statement For #{truck} of #{owner} From #{from} To #{to}"
 	.row
 		.col-md-12
-			.table-responsive-has-a-problem-in-this-case
+			- if !from.blank? || !to.blank?
+				- if !truck.blank?
+					- truck_expenses[0..-2].each do |record|
+						%table.table.dataTable.table-bordered
+							%thead
+								%tr
+									%th{style: "width: 50%;"}
+										No.
+									%th Date
+									%th Depot
+									%th Destination
+									%th Consignee
+									%th Product
+									%th Q'Ld
+									%th Rate
+									%th Amount
+									%th Comsion
+									%th Short
+									%th Description
+									%th Account
+									%th Amt Shs
+									%th Rate
+									%th Amt $
+									%th Net Payable
+							%tbody#trip-expenses
+								%div
+									%b
+										= "Trip : - (#{truck_expenses.index(record) + 1}. )"
+								- record.each do |trip|
+									%tr.gradeX
+										%td
+											= trip[:number]
+										%td
+											= trip[:date]
+										%td
+											= trip[:depot]
+										%td
+											= trip[:destination]
+										%td
+											= trip[:consignee]
+										%td
+											= trip[:product]
+										%td
+											.pull-right
+												= trip[:quantity]
+										%td
+											.pull-right
+												= trip[:rate]
+										%td
+											.pull-right
+												= trip[:amount]
+										%td
+											.pull-right
+												= trip[:commission]
+										%td
+											.pull-right
+												= trip[:short]
+										%td
+											= trip[:description]
+										%td
+											= trip[:account]
+										%td
+											.pull-right
+												= trip[:amount_sh]
+										%td
+											.pull-right
+												= trip[:ex_rate]
+										%td
+											.pull-right
+												= trip[:amount_dol]
+										%td
+											.pull-right
+												= trip[:net_pay]
+								%tr
+									%td{colspan: 8}
+										Total
+									%td
+										.pull-right
+											= record.last[:total_amount]
+									%td
+										.pull-right
+											= record.last[:total_commission]
+									%td
+										.pull-right
+											= record.last[:total_short]
+									%td{colspan: 2}
+									%td
+										.pull-right
+											= record.last[:total_shilling]
+									%td
+									%td
+										.pull-right
+											= record.last[:total_dollar]
+									%td
+										.pull-right
+											= record.last[:total_net]
+					%table.table.no-margin{border: 1}
+						%tr
+							%td
+								Grand Total
+							%td
+								.pull-right
+									= truck_expenses.last[:grand_amount_total]
+							%td
+								.pull-right
+									= truck_expenses.last[:grand_commission_total]
+							%td
+								.pull-right
+									= truck_expenses.last[:grand_short_total]
+							%td{colspan: 2}
+							%td
+								.pull-right
+									= truck_expenses.last[:grand_shilling_total]
+							%td
+							%td
+								.pull-right
+									= truck_expenses.last[:grand_dollar_total]
+							%td
+								.pull-right
+									= truck_expenses.last[:grand_net_total]
+			- else
 				%table.table
 					%thead
 						%tr
