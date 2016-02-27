@@ -1,7 +1,7 @@
-function loadDieselPrice() {
-	var company_id = $('select[id="diesel_company_id"] :selected').val()
+function loadDieselPrice(company_id, priceField) {
+	// var company_id = $('select[id="diesel_company_id"] :selected').val()
 	$.get('/diesel_companies/' + company_id + '.json', function(data) {
-		$('#price_per_litre').val(data.price)
+		priceField.val(data.price)
 	});
 }
 
@@ -60,24 +60,24 @@ $(function() {
 			$('select[name="trip[product_id]"] option[value="'+ product_id +'"]').attr('selected', 'selected').change();
 		};
 		$.get('/trucks/' + $('select[name="trip[truck_id]"]').val() + '.json', function(data) {
-			$('select[name="trip[driver_id]"] option[value="'+ data.driver.id +'"]').attr('selected', 'selected');	
-			$('select[name="trip[turn_boy_id]"] option[value="'+ data.turn_boy.id +'"]').attr('selected', 'selected');	
+			$('select[name="trip[driver_id]"] option[value="'+ data.driver.id +'"]').attr('selected', 'selected');
+			$('select[name="trip[turn_boy_id]"] option[value="'+ data.turn_boy.id +'"]').attr('selected', 'selected');
 		})
 
 		$('select[name="trip[truck_id]"]').change(function() {
 			$.get('/trucks/' + $('select[name="trip[truck_id]"]').val() + '.json', function(data) {
-				$('select[name="trip[driver_id]"] option[value="'+ data.driver.id +'"]').attr('selected', 'selected');	
-				$('select[name="trip[turn_boy_id]"] option[value="'+ data.turn_boy.id +'"]').attr('selected', 'selected');	
+				$('select[name="trip[driver_id]"] option[value="'+ data.driver.id +'"]').attr('selected', 'selected');
+				$('select[name="trip[turn_boy_id]"] option[value="'+ data.turn_boy.id +'"]').attr('selected', 'selected');
 			})
 		})
 
 		$.get('/products/' + $('select[name="trip[product_id]"]').val() + '.json', function(data) {
-			$('#trip_rate').val(data.price);	
+			$('#trip_rate').val(data.price);
 		})
 
 		$('select[name="trip[product_id]"]').change(function() {
 			$.get('/products/' + $('select[name="trip[product_id]"]').val() + '.json', function(data) {
-				$('#trip_rate').val(data.price);	
+				$('#trip_rate').val(data.price);
 			})
 		})
 	}
@@ -87,16 +87,25 @@ $(function() {
 		$('#trip_amount').val(amount);
 	})
 
-	$('#no_of_litres, #price_per_litre').on("propertychange change click keyup input paste", function(evt) {
-		console.log("Hey")
-		var amount = $('#no_of_litres').val() * $('#price_per_litre').val();
-		$('#total_amount').val(amount);
+	$('#one_no_of_litres, #one_price_per_litre').on("propertychange change click keyup input paste", function(evt) {
+		var amount = $('#one_no_of_litres').val() * $('#one_price_per_litre').val();
+		$('#one_total_amount').val(amount);
 	})
 
-	loadDieselPrice();
+	$('#two_no_of_litres, #two_price_per_litre').on("propertychange change click keyup input paste", function(evt) {
+		var amount = $('#two_no_of_litres').val() * $('#two_price_per_litre').val();
+		$('#two_total_amount').val(amount);
+	})
 
-	$('select[id="diesel_company_id"]').change(function() {
-		loadDieselPrice()
+	loadDieselPrice($('#one_diesel_company_id').val(), $('#one_price_per_litre'))
+	loadDieselPrice($('#two_diesel_company_id').val(), $('#two_price_per_litre'))
+
+	$('#one_diesel_company_id').change(function() {
+		loadDieselPrice($('#one_diesel_company_id').val(), $('#one_price_per_litre'))
+	})
+
+	$('#two_diesel_company_id').change(function() {
+		loadDieselPrice($('#two_diesel_company_id').val(), $('#two_price_per_litre'))
 	})
 
 	$('#edit-trip').click(function(){
