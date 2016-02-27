@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :notifications
   resources :exchange_rates
   get 'reports/accounts'
 

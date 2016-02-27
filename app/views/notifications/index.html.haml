@@ -1,0 +1,27 @@
+%h1 Listing notifications
+
+%table
+  %thead
+    %tr
+      %th Attachment
+      %th Notification type
+      %th Read
+      %th Resolved
+      %th
+      %th
+      %th
+
+  %tbody
+    - @notifications.each do |notification|
+      %tr
+        %td= notification.attachment
+        %td= notification.notification_type
+        %td= notification.read
+        %td= notification.resolved
+        %td= link_to 'Show', notification
+        %td= link_to 'Edit', edit_notification_path(notification)
+        %td= link_to 'Destroy', notification, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Notification', new_notification_path

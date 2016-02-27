@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160212201717) do
+ActiveRecord::Schema.define(version: 20160227122124) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "name"
@@ -165,6 +165,17 @@ ActiveRecord::Schema.define(version: 20160212201717) do
   add_index "expenses", ["truck_id"], name: "index_expenses_on_truck_id"
   add_index "expenses", ["turn_boy_id"], name: "index_expenses_on_turn_boy_id"
   add_index "expenses", ["user_id"], name: "index_expenses_on_user_id"
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "attachment_id"
+    t.string   "notification_type"
+    t.boolean  "read",              default: false
+    t.boolean  "resolved",          default: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  add_index "notifications", ["attachment_id"], name: "index_notifications_on_attachment_id"
 
   create_table "products", force: :cascade do |t|
     t.string   "name"
