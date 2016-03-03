@@ -75,5 +75,4 @@
 	.modal-dialog
 		.modal-content
 			#account-reports
-				/ = render 'print_report'
-				= render partial: 'print_trips_report', locals: { owner: @owner, trips: Trip.where(@truck_query).date_between(@from, @to), from: @from, to: @to, truck: @truck_name, truck_expenses: trip_expenses_table(Truck.find_by(registration_number: @truck_name), @from, @to) }
+				= render partial: 'print_trips_report', locals: { owner: @owner, trips: Trip.where(@truck_query).date_between(@from, @to), from: @from, to: @to, truck: @truck_name, truck_expenses: (Truck.find_by(registration_number: @truck_name).nil? ? [] : trip_expenses_table(Truck.find_by(registration_number: @truck_name), @from, @to)) }

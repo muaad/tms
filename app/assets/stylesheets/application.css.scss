@@ -16,6 +16,12 @@
  *= require_self
  */
 
+.individual-trips {
+    table-layout:fixed;
+    width:100%;
+    font-size: 8px;
+ }
+
 .no-link {
 	text-decoration: none;
 	color: black;
