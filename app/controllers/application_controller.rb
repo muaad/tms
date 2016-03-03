@@ -43,9 +43,9 @@ class ApplicationController < ActionController::Base
         product: trip.product.name,
         quantity: trip.quantity,
         rate: trip.rate,
-        amount: trip.amount,
-        commission: trip.commission,
-        short: trip.short,
+        amount: to_currency(trip.amount, unit: ""),
+        commission: to_currency(trip.commission, unit: ""),
+        short: to_currency(trip.short, unit: ""),
         description: trip.description,
         account: "",
         amount_sh: 0.00,
@@ -61,7 +61,7 @@ class ApplicationController < ActionController::Base
         total_shilling += expense[:amount_sh].to_f
       end
 
-      total_net = to_currency(trip.amount - total_expense, unit: "")
+      total_net = trip.amount - total_expense
       total_short = trip.short.to_f
       total_commission = trip.commission.to_f
       total_amount = trip.amount.to_f
@@ -73,17 +73,17 @@ class ApplicationController < ActionController::Base
       grand_commission_total += total_commission
       grand_amount_total += total_amount
 
-      trip_xp[ind] << {total_net: total_net, total_dollar: to_currency(total_dollar, unit: ""), total_shilling: to_currency(total_shilling, unit: ""), total_short: to_currency(total_short, unit: ""), total_commission: to_currency(total_commission, unit: ""), total_amount: to_currency(total_amount, unit: "")}
+      trip_xp[ind] << {total_net: to_currency(total_net, unit: ""), total_dollar: to_currency(total_dollar, unit: ""), total_shilling: to_currency(total_shilling, unit: ""), total_short: to_currency(total_short, unit: ""), total_commission: to_currency(total_commission, unit: ""), total_amount: to_currency(total_amount, unit: "")}
       records << trip_xp[ind]
       ind += 1
     end
     records << {
-      grand_net_total: grand_net_total,
-      grand_short_total: grand_short_total,
-      grand_shilling_total: grand_shilling_total,
-      grand_dollar_total: grand_dollar_total,
-      grand_commission_total: grand_commission_total,
-      grand_amount_total: grand_amount_total
+      grand_net_total: to_currency(grand_net_total, unit: ""),
+      grand_short_total: to_currency(grand_short_total, unit: ""),
+      grand_shilling_total: to_currency(grand_shilling_total, unit: ""),
+      grand_dollar_total: to_currency(grand_dollar_total, unit: ""),
+      grand_commission_total: to_currency(grand_commission_total, unit: ""),
+      grand_amount_total: to_currency(grand_amount_total, unit: "")
     }
     records
   end
