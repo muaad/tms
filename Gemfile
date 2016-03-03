@@ -22,6 +22,8 @@ gem "paperclip"
 gem 'annotate'
 gem 'acts_as_tenant'
 gem 'rollbar'
+gem 'puma'
+gem 'redis'
 # gem 'groupdate'
 group :development do
   gem 'better_errors'
@@ -36,6 +38,7 @@ group :development, :test do
   gem 'faker'
   gem 'pry-rails'
   gem 'pry-rescue'
+  gem 'pry-nav'
   gem 'rspec-rails'
 end
 group :production do
