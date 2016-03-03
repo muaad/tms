@@ -17,6 +17,8 @@
 #
 
 class Attachment < ActiveRecord::Base
+	attr_accessor :long_name
+
   belongs_to :driver
   belongs_to :turn_boy
   belongs_to :truck_owner

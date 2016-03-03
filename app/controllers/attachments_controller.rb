@@ -69,6 +69,7 @@ class AttachmentsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_attachment
       @attachment = Attachment.find(params[:id])
+      @attachment.long_name = "#{@attachment.name} - #{@attachment.owner_name}"
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

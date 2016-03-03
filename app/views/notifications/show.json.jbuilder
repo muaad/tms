@@ -1,1 +1,1 @@
-json.extract! @notification, :id, :attachment_id, :notification_type, :read, :resolved, :created_at, :updated_at
+json.extract! @notification, :id, :attachment_id, :notification_type, :read, :resolved, :created_at, :updated_at, :attachment_name

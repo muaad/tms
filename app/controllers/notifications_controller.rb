@@ -1,4 +1,5 @@
 class NotificationsController < ApplicationController
+  include ActionController::Live
   before_action :set_notification, only: [:show, :edit, :update, :destroy]
 
   # GET /notifications
@@ -61,10 +62,39 @@ class NotificationsController < ApplicationController
     end
   end
 
+  def events
+    response.headers["Content-Type"] = "text/event-stream"
+    start = Time.zone.now
+    10.times do |n|
+      Notification.uncached do
+        Notification.where('created_at > ?', start).each do |notification|
+          # notification[:attachment_name] = notification.attachment_and_owner
+          response.stream.write "data: #{notification.to_json}\n\n"
+          start = notification.created_at
+        end
+      end
+      sleep 2
+    end
+
+    # redis = Redis.new
+    # redis.subscribe('notification.create') do |on|
+    #   on.notification do |event, data|
+    #     response.stream.write "data: #{data}\n\n"
+    #   end
+    # end
+  rescue IOError
+    logger.info "Stream closed"
+  ensure
+    response.stream.close
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_notification
       @notification = Notification.find(params[:id])
+      if !@notification.attachment.nil?
+        @notification.attachment_name = @notification.attachment_and_owner
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
