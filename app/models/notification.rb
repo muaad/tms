@@ -2,6 +2,9 @@ class Notification < ActiveRecord::Base
 	attr_accessor :attachment_name
   belongs_to :attachment
 
+  belongs_to :account
+  acts_as_tenant(:account)
+
   # scope :read, -> { where('read = ?', true) }
   # scope :resolved, -> { where('resolved = ?', true) }
   # scope :unread, -> { where('read = ?', false) }
