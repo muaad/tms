@@ -59,4 +59,16 @@ class Attachment < ActiveRecord::Base
 		oid = owner_details[:owner].id if !owner_details[:owner].nil?
 		url = "#{owner_details[:owner_type]}s/#{oid}" if !oid.blank?
 	end
+
+	def self.expiring_in period
+		Attachment.unexpired.where('date_of_expiry <= ?', period.from_now)
+	end
+
+	def self.expired
+		Attachment.where('date_of_expiry <= ?', Time.now)
+	end
+
+	def self.unexpired
+		Attachment.where('date_of_expiry > ?', Time.now)
+	end
 end
