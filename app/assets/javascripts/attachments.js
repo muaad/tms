@@ -33,4 +33,18 @@ $(function() {
 			switchOwners($('#attachment_type').val(), 0);
 		})
 	}
+
+	$('#update_expiry').click(function(e){
+		e.preventDefault();
+		$('#attachment_id').val($('#fix_expiry').data("attachment"))
+	  $.ajax({
+  	  type: "PUT",
+  	  url: "/attachments/" + $('#attachment_id').val() + ".json",
+  	  dataType: 'json',
+  	  data: {"attachment[date_of_expiry]": $('#attachment_date_of_expiry').val()},
+  	  success: function(data, textStatus, jqXhr) {
+  	    location.reload();
+  	  }
+  	});
+	});
 });

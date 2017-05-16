@@ -1,43 +1,40 @@
-%section.content
-	.row
-		.col-md-12
-			.box.box-info
-				.box-header.with-border
-					%h3.box-title Expense Categories
-					.box-tools.pull-right
-						.btn-toolbar{role: "toolbar"}
-							.btn-group
-								%a.btn.btn-box-tool.btn-default{href: new_expense_category_path}
-									%i.fa.fa-plus
-									New
-								%a#edit-expense_category.btn.btn-box-tool.btn-default
-									%i.fa.fa-edit
-									Edit
-								%a#delete-expense_categories.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#delete_expense_category_modal"}
-									%i.fa.fa-times
-									Delete
-				/ /.box-header
-				.box-body
-					.row
-						.col-md-12
-							/ start:dynamic data table
-							.adv-table
-								%table#example.exchange-rate.display.table.table-bordered.table-striped
-									%thead
-										%tr
-											%th.no-sort
-												= check_box_tag "toggle_expense_categories"
-											%th Name
-											%th Expenses
-									%tbody.expense_categories_table
-										- @expense_categories.each do |expense_category|
-											%tr.gradeX
-												%td
-													= check_box_tag "expense_category[expense_category.id]", expense_category.id
-												%td
-													= link_to expense_category.name, expense_category_path(expense_category)
-												%td
-													= expense_category.total_expenses
+.box.box-kasoko
+	.box-header.with-border
+		%h3.box-title Expense Categories
+		.box-tools.pull-right
+			.btn-toolbar{role: "toolbar"}
+				.btn-group
+					%a.btn.btn-box-tool.btn-default{href: new_expense_category_path}
+						%i.fa.fa-plus
+						New
+					%a#edit-expense_category.btn.btn-box-tool.btn-default
+						%i.fa.fa-edit
+						Edit
+					%a#delete-expense_categories.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#delete_expense_category_modal"}
+						%i.fa.fa-times
+						Delete
+	/ /.box-header
+	.box-body.kasoko-body
+		.row
+			.col-md-12
+				/ start:dynamic data table
+				.adv-table
+					%table#example.exchange-rate.display.table.table-bordered.table-striped
+						%thead
+							%tr
+								%th.no-sort
+									= check_box_tag "toggle_expense_categories"
+								%th Name
+								%th Expenses
+						%tbody.expense_categories_table
+							- @expense_categories.each do |expense_category|
+								%tr.gradeX
+									%td
+										= check_box_tag "expense_category[expense_category.id]", expense_category.id
+									%td
+										= link_to expense_category.name, expense_category_path(expense_category)
+									%td
+										= expense_category.total_expenses
 	#delete_expense_category_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
 		.modal-dialog
 			.modal-content

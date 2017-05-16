@@ -1,8 +1,5 @@
-%section.content
-	.row
-		.col-md-12
-			.box.box-info
-				.box-header.with-border
-					%h3.box-title
-						= @city.city_type.blank? ? "New City" : "New #{@city.city_type}"
-				= render 'form'
+.box.box-kasoko
+	.box-header.with-border
+		%h3.box-title
+			= @city.city_type.blank? ? "New City" : "New #{@city.city_type}"
+	= render 'form'

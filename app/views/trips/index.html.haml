@@ -1,85 +1,82 @@
-%section.content
-  .row
-    .col-md-12
-      .box.box-info
-        .box-header.with-border
-          %h3.box-title Trips
-          .box-tools.pull-right
-            .btn-toolbar{role: "toolbar"}
-              .btn-group
-                %a.btn.btn-box-tool.btn-default{href: new_trip_path}
-                  %i.fa.fa-plus
-                  New
-                %a#edit-trip.btn.btn-box-tool.btn-default
-                  %i.fa.fa-edit
-                  Edit
-                %a#delete-trips.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#delete_trip_modal"}
-                  %i.fa.fa-times
-                  Delete
-        / /.box-header
-        .box-body
-          .row
-            .col-md-12
-              / start:dynamic data table
-              .adv-table
-                %table#example.exchange-rate.display.table.table-bordered.table-striped
-                  %thead
-                    %tr
-                      %th.no-sort
-                        = check_box_tag "toggle_trips"
-                      %th Truck
-                      %th Driver
-                      %th Turn boy
-                      %th Date
-                      %th Depot
-                      %th Destination
-                      %th Consignee
-                      %th Product
-                      %th Quantity
-                      %th Rate
-                      %th Amount
-                  %tbody.trips_table
-                    - @trips.each do |trip|
-                      %tr.gradeX
-                        %td
-                          = check_box_tag "trip[trip.id]", trip.id
-                        %td
-                          = link_to trip.truck.registration_number, truck_path(trip.truck) if !trip.truck.blank?
-                        %td
-                          = link_to trip.driver.name, driver_path(trip.driver) if !trip.driver.blank?
-                        %td
-                          = link_to trip.turn_boy.name, turn_boy_path(trip.turn_boy) if !trip.turn_boy.blank?
-                        %td
-                          = trip.date
-                        %td
-                          = link_to trip.depot.name, city_path(trip.depot) if !trip.depot.blank?
-                        %td
-                          = link_to trip.destination.name, city_path(trip.destination) if !trip.destination.blank?
-                        %td
-                          = link_to trip.consignee.name, consignee_path(trip.consignee) if !trip.consignee.blank?
-                        %td
-                          = link_to trip.product.name, product_path(trip.product) if !trip.product.blank?
-                        %td
-                          = trip.quantity
-                        %td
-                          = trip.rate
-                        %td
-                          = trip.amount
-  #delete_trip_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
-    .modal-dialog
-      .modal-content
-        .modal-header
-          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-            %span{"aria-hidden" => "true"} &times;
-          %h4#myModalLabel.modal-title Delete Trips
-        = form_tag delete_multiple_trips_path do |f|
-          .modal-body
-            %label#lbl-msg
-            = hidden_field_tag 'delete_trips'
-          .modal-footer
-            %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} 
-              %i.fa.fa-times
-              Cancel
-            %button.btn.btn-danger{:type => "submit"} 
-              %i.fa.fa-trash-o
-              Delete
+.box.box-kasoko
+  .box-header.with-border
+    %h3.box-title Trips
+    .box-tools.pull-right
+      .btn-toolbar{role: "toolbar"}
+        .btn-group
+          %a.btn.btn-box-tool.btn-default{href: new_trip_path}
+            %i.fa.fa-plus
+            New
+          %a#edit-trip.btn.btn-box-tool.btn-default
+            %i.fa.fa-edit
+            Edit
+          %a#delete-trips.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#delete_trip_modal"}
+            %i.fa.fa-times
+            Delete
+  / /.box-header
+  .box-body.kasoko-body
+    .row
+      .col-md-12
+        / start:dynamic data table
+        .adv-table
+          %table#example.exchange-rate.display.table.table-bordered.table-striped
+            %thead
+              %tr
+                %th.no-sort
+                  = check_box_tag "toggle_trips"
+                %th Truck
+                %th Driver
+                %th Turn boy
+                %th Date
+                %th Depot
+                %th Destination
+                %th Consignee
+                %th Product
+                %th Quantity
+                %th Rate
+                %th Amount
+            %tbody.trips_table
+              - @trips.each do |trip|
+                %tr.gradeX
+                  %td
+                    = check_box_tag "trip[trip.id]", trip.id
+                  %td
+                    = link_to trip.truck.registration_number, truck_path(trip.truck) if !trip.truck.blank?
+                  %td
+                    = link_to trip.driver.name, driver_path(trip.driver) if !trip.driver.blank?
+                  %td
+                    = link_to trip.turn_boy.name, turn_boy_path(trip.turn_boy) if !trip.turn_boy.blank?
+                  %td
+                    = trip.date
+                  %td
+                    = link_to trip.depot.name, city_path(trip.depot) if !trip.depot.blank?
+                  %td
+                    = link_to trip.destination.name, city_path(trip.destination) if !trip.destination.blank?
+                  %td
+                    = link_to trip.consignee.name, consignee_path(trip.consignee) if !trip.consignee.blank?
+                  %td
+                    = link_to trip.product.name, product_path(trip.product) if !trip.product.blank?
+                  %td
+                    = trip.quantity
+                  %td
+                    = trip.rate
+                  %td
+                    = trip.amount
+#delete_trip_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} &times;
+        %h4#myModalLabel.modal-title Delete Trips
+      = form_tag delete_multiple_trips_path do |f|
+        .modal-body
+          %label#lbl-msg
+          = hidden_field_tag 'delete_trips'
+        .modal-footer
+          %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} 
+            %i.fa.fa-times
+            Cancel
+          %button.btn.btn-danger{:type => "submit"} 
+            %i.fa.fa-trash-o
+            Delete

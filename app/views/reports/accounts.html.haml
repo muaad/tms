@@ -1,4 +1,4 @@
-%section.content-header
+.box.box-kasoko
 	.box-header.with-border
 		%h1.box-title
 			Reports
@@ -20,74 +20,73 @@
 				.btn-group
 					%input.form-control.datepicker.to-date{type: "text", placeholder: "To"}
 				.btn-group
-					%button.btn.btn-primary.range-search
+					%button.btn.btn-kasoko.range-search
 						%i.fa.fa-search
 				.btn-group
-					%button.btn.btn-success.print-report
+					%button.btn.btn-kasoko.print-report
 						%i.fa.fa-print
 						Print
-/ Main content
-%section.content
-	.row
-		.col-md-6
-			.info-box
-				%span.info-box-icon.bg-aqua
-					%i.fa.fa-dollar
-				.info-box-content
-					%span.info-box-text Dollar Total
-					%span.info-box-number
-						= to_currency(Expense.dollar.where(@truck_query).date_between(@from, @to).sum(:dollar_amount))
-		/ /.col
-		.col-md-6
-			.info-box
-				%span.info-box-icon.bg-red
-					%i.fa.fa-money
-				.info-box-content
-					%span.info-box-text Shilling Total
-					%span.info-box-number
-						= to_currency(Expense.shilling.where(@truck_query).date_between(@from, @to).sum(:amount), unit: "KES ")
-	.box-info
-		- ExpenseCategory.all.in_groups_of(2).each do |group|
-			.row
-				- group.compact.each do |category|
-					.col-md-6
-						.box.box-info
-							.box-header.with-border
-								%h3.box-title
-									= link_to(category.name, reports_category_path(category))
-								.box-tools.pull-right
-									%button.btn.btn-box-tool{"data-widget" => "collapse"}
-										%i.fa.fa-minus
-							.box-body
-								.table-responsive
-									%table.table.no-margin
-										%thead
-											%tr
-												%th Date
-												%th LPO
-												%th Currency
-												%th Total Amount
-												%th Description
-										%tbody
-											- category.expenses.where(@truck_query).date_between(@from, @to).each do |expense|
+	.box-body.kasoko-body
+		.row
+			.col-md-6
+				.info-box
+					%span.info-box-icon.bg-aqua
+						%i.fa.fa-dollar
+					.info-box-content
+						%span.info-box-text Dollar Total
+						%span.info-box-number
+							= to_currency(Expense.dollar.where(@truck_query).date_between(@from, @to).sum(:dollar_amount))
+			/ /.col
+			.col-md-6
+				.info-box
+					%span.info-box-icon.bg-red
+						%i.fa.fa-money
+					.info-box-content
+						%span.info-box-text Shilling Total
+						%span.info-box-number
+							= to_currency(Expense.shilling.where(@truck_query).date_between(@from, @to).sum(:amount), unit: "KES ")
+		.box-kasoko
+			- ExpenseCategory.all.in_groups_of(2).each do |group|
+				.row
+					- group.compact.each do |category|
+						.col-md-6
+							.box.box-kasoko
+								.box-header.with-border
+									%h3.box-title
+										= link_to(category.name, reports_category_path(category))
+									.box-tools.pull-right
+										%button.btn.btn-box-tool{"data-widget" => "collapse"}
+											%i.fa.fa-minus
+								.box-body
+									.table-responsive
+										%table.table.no-margin
+											%thead
 												%tr
-													%td
-														= expense.date
-													%td
-														= expense.lpo
-													%td
-														= expense.currency || "Kenya Shilling"
-													%td
-														= to_currency((expense.is_shilling? ? expense.amount : expense.dollar_amount), unit: "")
-													%td
-														= expense.description
-								/ /.table-responsive
-							/ /.box-body
-							.box-footer.clearfix
-								%a.btn.btn-sm.btn-default.btn-flat
-									= "Total Dollar: #{to_currency(category.total_expenses('US Dollar', params[:truck], @from, @to))}"
-								%a.btn.btn-sm.btn-default.btn-flat.pull-right
-									= "Total Shilling: #{to_currency(category.total_expenses('Kenya Shilling', params[:truck], @from, @to), unit: 'KES ')}"
+													%th Date
+													%th LPO
+													%th Currency
+													%th Total Amount
+													%th Description
+											%tbody
+												- category.expenses.where(@truck_query).date_between(@from, @to).each do |expense|
+													%tr
+														%td
+															= expense.date
+														%td
+															= expense.lpo
+														%td
+															= expense.currency || "Kenya Shilling"
+														%td
+															= to_currency((expense.is_shilling? ? expense.amount : expense.dollar_amount), unit: "")
+														%td
+															= expense.description
+									/ /.table-responsive
+								/ /.box-body
+								.box-footer.clearfix
+									%a.btn.btn-sm.btn-default.btn-flat
+										= "Total Dollar: #{to_currency(category.total_expenses('US Dollar', params[:truck], @from, @to))}"
+									%a.btn.btn-sm.btn-default.btn-flat.pull-right
+										= "Total Shilling: #{to_currency(category.total_expenses('Kenya Shilling', params[:truck], @from, @to), unit: 'KES ')}"
 #print_reports_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
 	.modal-dialog
 		.modal-content

@@ -1,5 +1,5 @@
-= form_for @driver do |f|
-  .box-body
+= form_for @driver, html: {class: 'kasoko-form'} do |f|
+  .box-body.kasoko-body
     .row
       .col-md-12
         - if @driver.errors.any?
@@ -32,8 +32,8 @@
             .input-group-addon
               %i.fa.fa-map-marker
             = f.text_field :address, class: "form-control"
-  .box-footer
+  .box-footer.kasoko-footer
     .actions.pull-right
-      %button.btn.btn-success.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}
+      %button.btn.btn-kasoko.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}
         %i.fa.fa-save
         Save

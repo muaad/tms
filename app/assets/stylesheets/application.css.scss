@@ -16,6 +16,14 @@
  *= require_self
  */
 
+ th.no-sort {
+ 	width: 15px;
+ }
+
+form.kasoko-form {
+	height: 95%;
+}
+
 .individual-trips {
     table-layout:fixed;
     width:100%;
@@ -26,6 +34,64 @@
 	text-decoration: none;
 	color: black;
 }
+
+.panel-kasoko {
+    border-color: #E67436; 
+}
+
+ .box-body.kasoko-body {
+ 	overflow-y: auto; padding-bottom: 25px; height: calc(100% - 50px);
+ }
+
+ .box-footer.kasoko-footer {
+ 	position: absolute; bottom: 0px; width: 100%;
+ }
+
+ .box.box-kasoko {
+     border-top-color: #E67436;
+     top: 0px; 
+     height: 100%; 
+     position: relative;
+ }
+
+ .btn-kasoko {
+     color: #fff;
+     background-color: #E67436;
+     border-color: #E67436;
+     text-decoration: none;
+ }
+
+ .btn-kasoko:hover {
+     color: #E67436;
+     background-color: #fff;
+     border-color: #E67436;
+     text-decoration: none;
+ }
+
+ a {
+ 	color: #E67436;
+    text-decoration: none;
+ }
+
+ .kasoko-bg {
+     background-color: #E67436;
+ }
+
+ .nav-tabs-custom > .nav-tabs > li.active {
+     border-top-color: #E67436;
+ }
+
+ .profile-user-img {
+     border: 3px solid #E67436;
+ }
+
+ .pagination > .active > a, .pagination > .active > a:hover, .pagination > .active > a:focus, .pagination > .active > span, .pagination > .active > span:hover, .pagination > .active > span:focus {
+     z-index: 3;
+     color: #fff;
+     background-color: #E67436;
+     border-color: #E67436;
+     cursor: default;
+ }
 
 .content_wrapper {
 	background-image: url('/truck.jpeg');

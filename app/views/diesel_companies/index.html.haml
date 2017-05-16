@@ -1,59 +1,56 @@
-%section.content
-  .row
-    .col-md-12
-      .box.box-info
-        .box-header.with-border
-          %h3.box-title Diesel Companies
-          .box-tools.pull-right
-            .btn-toolbar{role: "toolbar"}
-              .btn-group
-                %a.btn.btn-box-tool.btn-default{href: new_diesel_company_path}
-                  %i.fa.fa-plus
-                  New
-                / .btn-group
-                /   %button.btn.btn-box-tool.dropdown-toggle{"data-toggle" => "dropdown"}
-                /     %i.fa.fa-wrench
-                /   %ul.dropdown-menu{:role => "menu"}
-                /     %li
-                /       %a{:href => "#"} Action
-                /     %li
-                /       %a{:href => "#"} Another action
-                /     %li
-                /       %a{:href => "#"} Something else here
-                /     %li.divider
-                /     %li
-                /       %a{:href => "#"} Separated link
-                %a#edit-diesel_company.btn.btn-box-tool.btn-default
-                  %i.fa.fa-edit
-                  Edit
-                %a#delete-diesel_companies.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#delete_diesel_company_modal"}
-                  %i.fa.fa-times
-                  Delete
-        / /.box-header
-        .box-body
-          .row
-            .col-md-12
-              / start:dynamic data table
-              .adv-table
-                %table#example.exchange-rate.display.table.table-bordered.table-striped
-                  %thead
-                    %tr
-                      %th.no-sort
-                        = check_box_tag "toggle_diesel_companies"
-                      %th Name
-                      %th Price Per Litre
-                      %th Total Amount
-                  %tbody.diesel_companies_table
-                    - @diesel_companies.each do |diesel_company|
-                      %tr.gradeX
-                        %td
-                          = check_box_tag "diesel_company[diesel_company.id]", diesel_company.id
-                        %td
-                          = link_to diesel_company.name, diesel_company_path(diesel_company)
-                        %td
-                          = diesel_company.price
-                        %td
-                          350000
+.box.box-kasoko
+  .box-header.with-border
+    %h3.box-title Diesel Companies
+    .box-tools.pull-right
+      .btn-toolbar{role: "toolbar"}
+        .btn-group
+          %a.btn.btn-box-tool.btn-default{href: new_diesel_company_path}
+            %i.fa.fa-plus
+            New
+          / .btn-group
+          /   %button.btn.btn-box-tool.dropdown-toggle{"data-toggle" => "dropdown"}
+          /     %i.fa.fa-wrench
+          /   %ul.dropdown-menu{:role => "menu"}
+          /     %li
+          /       %a{:href => "#"} Action
+          /     %li
+          /       %a{:href => "#"} Another action
+          /     %li
+          /       %a{:href => "#"} Something else here
+          /     %li.divider
+          /     %li
+          /       %a{:href => "#"} Separated link
+          %a#edit-diesel_company.btn.btn-box-tool.btn-default
+            %i.fa.fa-edit
+            Edit
+          %a#delete-diesel_companies.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#delete_diesel_company_modal"}
+            %i.fa.fa-times
+            Delete
+  / /.box-header
+  .box-body.kasoko-body
+    .row
+      .col-md-12
+        / start:dynamic data table
+        .adv-table
+          %table#example.exchange-rate.display.table.table-bordered.table-striped
+            %thead
+              %tr
+                %th.no-sort
+                  = check_box_tag "toggle_diesel_companies"
+                %th Name
+                %th Price Per Litre
+                %th Total Amount
+            %tbody.diesel_companies_table
+              - @diesel_companies.each do |diesel_company|
+                %tr.gradeX
+                  %td
+                    = check_box_tag "diesel_company[diesel_company.id]", diesel_company.id
+                  %td
+                    = link_to diesel_company.name, diesel_company_path(diesel_company)
+                  %td
+                    = diesel_company.price
+                  %td
+                    350000
   #delete_diesel_company_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
     .modal-dialog
       .modal-content

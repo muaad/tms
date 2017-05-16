@@ -1,5 +1,5 @@
-= form_for @product do |f|
-  .box-body
+= form_for @product, html: {class: 'kasoko-form'} do |f|
+  .box-body.kasoko-body
     .row
       .col-md-12
         - if @product.errors.any?
@@ -27,8 +27,8 @@
               Spare Parts
             %option{value: 'Load'}
               Load
-  .box-footer
+  .box-footer.kasoko-footer
     .actions.pull-right
-      %button.btn.btn-success.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}
+      %button.btn.btn-kasoko.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}
         %i.fa.fa-save
         Save

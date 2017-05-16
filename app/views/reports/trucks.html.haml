@@ -1,4 +1,4 @@
-%section.content-header
+.box.box-kasoko
 	.box-header.with-border
 		%h1.box-title
 			Reports
@@ -12,57 +12,56 @@
 				.btn-group
 					%input.form-control.datepicker.to-date{type: "text", placeholder: "To"}
 				.btn-group
-					%button.btn.btn-primary.range-search
+					%button.btn.btn-kasoko.range-search
 						%i.fa.fa-search
 				.btn-group
-					%button.btn.btn-success.print-report
+					%button.btn.btn-kasoko.print-report
 						%i.fa.fa-print
 						Print
-/ Main content
-%section.content#account-reports
-	/ .row
-	/ 	.col-md-4
-	/ 		.info-box
-	/ 			%span.info-box-icon.bg-aqua
-	/ 				%i.fa.fa-truck
-	/ 			.info-box-content
-	/ 				%span.info-box-text Trucks
-	/ 				%span.info-box-number
-	/ 					= Truck.count
-	.row
-		.col-lg-12
-			.box.box-info
-				.box-body
-					.table-responsive
-						%table.table.no-margin
-							%thead
-								%tr
-									%th Registration Number
-									%th Owner
-									%th Trips
-									%th Expenses
-									%th Income
-									%th Balance
-							%tbody
-								- Truck.all.each do |truck|
+	.box-body.kasoko-body#account-reports
+		/ .row
+		/ 	.col-md-4
+		/ 		.info-box
+		/ 			%span.info-box-icon.bg-aqua
+		/ 				%i.fa.fa-truck
+		/ 			.info-box-content
+		/ 				%span.info-box-text Trucks
+		/ 				%span.info-box-number
+		/ 					= Truck.count
+		.row
+			.col-lg-12
+				.box.box-default
+					.box-body
+						.table-responsive
+							%table.table.no-margin
+								%thead
 									%tr
-										%td
-											= link_to truck.registration_number, truck_path(truck)
-										%td
-											= link_to truck.owner.name, truck_owner_path(truck.owner)
-										%td
-											= link_to truck.trips.count, "#{trips_path}?truck=#{truck}"
-										%td
-											= link_to to_currency(truck.total_expenses, unit: ''), "#{expenses_path}?truck=#{truck.id}"
-										%td
-											= link_to to_currency(truck.income, unit: ''), "#{trips_path}?truck=#{truck.id}"
-										%td
-											- if truck.balance > 0
-												%span.label.label-success
-													= to_currency(truck.balance, unit: '')
-											- elsif truck.balance == 0.0
-												%span.label.label-primary
-													= to_currency(truck.balance, unit: '')
-											- else
-												%span.label.label-danger
-													= "(#{to_currency(truck.balance, unit: '')})"
+										%th Registration Number
+										%th Owner
+										%th Trips
+										%th Expenses
+										%th Income
+										%th Balance
+								%tbody
+									- Truck.all.each do |truck|
+										%tr
+											%td
+												= link_to truck.registration_number, truck_path(truck)
+											%td
+												= link_to truck.owner.name, truck_owner_path(truck.owner)
+											%td
+												= link_to truck.trips.count, "#{trips_path}?truck=#{truck}"
+											%td
+												= link_to to_currency(truck.total_expenses, unit: ''), "#{expenses_path}?truck=#{truck.id}"
+											%td
+												= link_to to_currency(truck.income, unit: ''), "#{trips_path}?truck=#{truck.id}"
+											%td
+												- if truck.balance > 0
+													%span.label.label-success
+														= to_currency(truck.balance, unit: '')
+												- elsif truck.balance == 0.0
+													%span.label.label-primary
+														= to_currency(truck.balance, unit: '')
+												- else
+													%span.label.label-danger
+														= "(#{to_currency(truck.balance, unit: '')})"

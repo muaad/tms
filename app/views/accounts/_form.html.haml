@@ -1,5 +1,5 @@
-= form_for @account do |f|
-  .box-body
+= form_for @account, html: {class: 'kasoko-form'} do |f|
+  .box-body.kasoko-body
     .row
       .col-md-12
         - if @account.errors.any?
@@ -26,8 +26,8 @@
             .input-group-addon
               %i.fa.fa-phone
             = f.text_field :phone_number, class: "form-control"
-  .box-footer
+  .box-footer.kasoko-footer
     .actions.pull-right
-      %button.btn.btn-success.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}
+      %button.btn.btn-kasoko.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}
         %i.fa.fa-save
         Save

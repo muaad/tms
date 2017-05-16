@@ -1,5 +1,5 @@
-= form_for @truck do |f|
-  .box-body
+= form_for @truck, html: {class: 'kasoko-form'} do |f|
+  .box-body.kasoko-body
     .row
       .col-md-12
         - if @truck.errors.any?
@@ -118,8 +118,8 @@
             .input-group-addon
               %i.fa.fa-money
             %input#turn_boy_salary{name: 'turn_boy_salary', class: "form-control", value: "#{@truck.turn_boy.nil?? '' : @truck.turn_boy_salary}"}
-  .box-footer
+  .box-footer.kasoko-footer
     .actions.pull-right
-      %button.btn.btn-success.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}
+      %button.btn.btn-kasoko.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}
         %i.fa.fa-save
         Save

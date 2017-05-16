@@ -1,222 +1,222 @@
-%section.content-header
-  %h1
-    Reports
-    %small Summary
-/ Main content
-%section.content
-  / Info boxes
-  .row
-    .col-md-3.col-sm-6.col-xs-12
-      .info-box
-        %span.info-box-icon.bg-aqua
-          %i.fa.fa-money
-        .info-box-content
-          %span.info-box-text Cash
-          %span.info-box-number
-            In:
-            %small
-              = to_currency(Cash.total, unit: "")
-          %span.info-box-number
-            Out:
-            %small
-              = to_currency(Expense.total, unit: "")
-        / /.info-box-content
-      / /.info-box
-    / /.col
-    .col-md-3.col-sm-6.col-xs-12
-      .info-box
-        %span.info-box-icon.bg-red
-          %i.fa.fa-truck
-        .info-box-content
-          %span.info-box-text Trucks
-          %span.info-box-number
-            = Truck.count
-        / /.info-box-content
-      / /.info-box
-    / /.col
-    / fix for small devices only
-    .clearfix.visible-sm-block
-    .col-md-3.col-sm-6.col-xs-12
-      .info-box
-        %span.info-box-icon.bg-green
-          %i.fa.fa-industry
-        .info-box-content
-          %span.info-box-text Trips
-          %span.info-box-number
-            = Trip.count
-        / /.info-box-content
-      / /.info-box
-    / /.col
-    .col-md-3.col-sm-6.col-xs-12
-      .info-box
-        %span.info-box-icon.bg-yellow
-          %i.fa.fa-users
-        .info-box-content
-          %span.info-box-text Drivers
-          %span.info-box-number
-            = Driver.count
-        / /.info-box-content
-      / /.info-box
-    / /.col
-  / /.row
-  .box-info
+.box.box-kasoko
+  .box-header
+    %h3
+      Reports
+      %small Summary
+  .box-body.kasoko-body
+    / Info boxes
     .row
-      .col-md-6
-        .box.box-info
-          .box-header.with-border
-            %h3.box-title Trucks
-            .box-tools.pull-right
-              %button.btn.btn-box-tool{"data-widget" => "collapse"}
-                %i.fa.fa-minus
-              / %button.btn.btn-box-tool{"data-widget" => "remove"}
-              /   %i.fa.fa-times
-          .box-body
-            .table-responsive
-              %table.table.no-margin
-                %thead
-                  %tr
-                    %th Registration Number
-                    %th Owner
-                    %th Trips
-                    %th Expenses
-                    %th Income
-                    %th Balance
-                %tbody
-                  - Truck.last(5).each do |truck|
+      .col-md-3.col-sm-6.col-xs-12
+        .info-box
+          %span.info-box-icon.bg-aqua
+            %i.fa.fa-money
+          .info-box-content
+            %span.info-box-text Cash
+            %span.info-box-number
+              In:
+              %small
+                = to_currency(Cash.total, unit: "")
+            %span.info-box-number
+              Out:
+              %small
+                = to_currency(Expense.total, unit: "")
+          / /.info-box-content
+        / /.info-box
+      / /.col
+      .col-md-3.col-sm-6.col-xs-12
+        .info-box
+          %span.info-box-icon.bg-red
+            %i.fa.fa-truck
+          .info-box-content
+            %span.info-box-text Trucks
+            %span.info-box-number
+              = Truck.count
+          / /.info-box-content
+        / /.info-box
+      / /.col
+      / fix for small devices only
+      .clearfix.visible-sm-block
+      .col-md-3.col-sm-6.col-xs-12
+        .info-box
+          %span.info-box-icon.bg-green
+            %i.fa.fa-industry
+          .info-box-content
+            %span.info-box-text Trips
+            %span.info-box-number
+              = Trip.count
+          / /.info-box-content
+        / /.info-box
+      / /.col
+      .col-md-3.col-sm-6.col-xs-12
+        .info-box
+          %span.info-box-icon.bg-yellow
+            %i.fa.fa-users
+          .info-box-content
+            %span.info-box-text Drivers
+            %span.info-box-number
+              = Driver.count
+          / /.info-box-content
+        / /.info-box
+      / /.col
+    / /.row
+    .box-kasoko
+      .row
+        .col-md-6
+          .box.box-kasoko
+            .box-header.with-border
+              %h3.box-title Trucks
+              .box-tools.pull-right
+                %button.btn.btn-box-tool{"data-widget" => "collapse"}
+                  %i.fa.fa-minus
+                / %button.btn.btn-box-tool{"data-widget" => "remove"}
+                /   %i.fa.fa-times
+            .box-body
+              .table-responsive
+                %table.table.no-margin
+                  %thead
                     %tr
-                      %td
-                        = link_to truck.registration_number, truck_path(truck)
-                      %td
-                        = link_to truck.owner.name, truck_owner_path(truck.owner)
-                      %td
-                        = link_to truck.trips.count, "#{trips_path}?truck=#{truck}"
-                      %td
-                        = link_to to_currency(truck.total_expenses, unit: ''), "#{expenses_path}?truck=#{truck.id}"
-                      %td
-                        = link_to to_currency(truck.income, unit: ''), "#{trips_path}?truck=#{truck.id}"
-                      %td
-                        - if truck.balance > 0
-                          %span.label.label-success
-                            = to_currency(truck.balance, unit: '')
-                        - elsif truck.balance == 0.0
-                          %span.label.label-primary
-                            = to_currency(truck.balance, unit: '')
-                        - else
-                          %span.label.label-danger
-                            = "(#{to_currency(truck.balance, unit: '')})"
-            / /.table-responsive
-          / /.box-body
-          .box-footer.clearfix
-            %a.btn.btn-sm.btn-default.btn-flat.pull-right{:href => trucks_path} View All Trucks
-      .col-md-6
-        .box.box-info
-          .box-header.with-border
-            %h3.box-title Trips
-            .box-tools.pull-right
-              %button.btn.btn-box-tool{"data-widget" => "collapse"}
-                %i.fa.fa-minus
-              / %button.btn.btn-box-tool{"data-widget" => "remove"}
-              /   %i.fa.fa-times
-          .box-body
-            .table-responsive
-              %table.table.no-margin
-                %thead
-                  %tr
-                    %th Truck
-                    %th Depot
-                    %th Destination
-                    %th Consignee
-                    %th Product
-                    %th Amount
-                %tbody
-                  - Trip.last(5).each do |trip|
+                      %th Registration Number
+                      %th Owner
+                      %th Trips
+                      %th Expenses
+                      %th Income
+                      %th Balance
+                  %tbody
+                    - Truck.last(5).each do |truck|
+                      %tr
+                        %td
+                          = link_to truck.registration_number, truck_path(truck)
+                        %td
+                          = link_to truck.owner.name, truck_owner_path(truck.owner)
+                        %td
+                          = link_to truck.trips.count, "#{trips_path}?truck=#{truck}"
+                        %td
+                          = link_to to_currency(truck.total_expenses, unit: ''), "#{expenses_path}?truck=#{truck.id}"
+                        %td
+                          = link_to to_currency(truck.income, unit: ''), "#{trips_path}?truck=#{truck.id}"
+                        %td
+                          - if truck.balance > 0
+                            %span.label.label-success
+                              = to_currency(truck.balance, unit: '')
+                          - elsif truck.balance == 0.0
+                            %span.label.label-primary
+                              = to_currency(truck.balance, unit: '')
+                          - else
+                            %span.label.label-danger
+                              = "(#{to_currency(truck.balance, unit: '')})"
+              / /.table-responsive
+            / /.box-body
+            .box-footer.clearfix
+              %a.btn.btn-sm.btn-default.btn-flat.pull-right{:href => trucks_path} View All Trucks
+        .col-md-6
+          .box.box-kasoko
+            .box-header.with-border
+              %h3.box-title Trips
+              .box-tools.pull-right
+                %button.btn.btn-box-tool{"data-widget" => "collapse"}
+                  %i.fa.fa-minus
+                / %button.btn.btn-box-tool{"data-widget" => "remove"}
+                /   %i.fa.fa-times
+            .box-body
+              .table-responsive
+                %table.table.no-margin
+                  %thead
                     %tr
-                      %td
-                        = link_to trip.truck.registration_number, truck_path(trip.truck)
-                      %td
-                        = trip.depot.name
-                      %td
-                        = trip.destination.name
-                      %td
-                        = trip.consignee.name
-                      %td
-                        = trip.product.name
-                      %td
-                        = trip.amount
-            / /.table-responsive
-          / /.box-body
-          .box-footer.clearfix
-            %a.btn.btn-sm.btn-default.btn-flat.pull-right{:href => trips_path} View All Trips
-    .row
-      .col-md-6
-        .box.box-info
-          .box-header.with-border
-            %h3.box-title Drivers
-            .box-tools.pull-right
-              %button.btn.btn-box-tool{"data-widget" => "collapse"}
-                %i.fa.fa-minus
-              / %button.btn.btn-box-tool{"data-widget" => "remove"}
-              /   %i.fa.fa-times
-          .box-body
-            .table-responsive
-              %table.table.no-margin
-                %thead
-                  %tr
-                    %th Name
-                    %th Phone Number
-                    %th ID Number
-                    %th Address
-                    %th Truck
-                %tbody
-                  - Driver.last(5).each do |driver|
+                      %th Truck
+                      %th Depot
+                      %th Destination
+                      %th Consignee
+                      %th Product
+                      %th Amount
+                  %tbody
+                    - Trip.last(5).each do |trip|
+                      %tr
+                        %td
+                          = link_to trip.truck.registration_number, truck_path(trip.truck)
+                        %td
+                          = trip.depot.name
+                        %td
+                          = trip.destination.name
+                        %td
+                          = trip.consignee.name
+                        %td
+                          = trip.product.name
+                        %td
+                          = trip.amount
+              / /.table-responsive
+            / /.box-body
+            .box-footer.clearfix
+              %a.btn.btn-sm.btn-default.btn-flat.pull-right{:href => trips_path} View All Trips
+      .row
+        .col-md-6
+          .box.box-kasoko
+            .box-header.with-border
+              %h3.box-title Drivers
+              .box-tools.pull-right
+                %button.btn.btn-box-tool{"data-widget" => "collapse"}
+                  %i.fa.fa-minus
+                / %button.btn.btn-box-tool{"data-widget" => "remove"}
+                /   %i.fa.fa-times
+            .box-body
+              .table-responsive
+                %table.table.no-margin
+                  %thead
                     %tr
-                      %td
-                        = link_to driver.name, driver_path(driver)
-                      %td
-                        = driver.phone_number
-                      %td
-                        = driver.id_number
-                      %td
-                        = driver.address
-                      %td
-                        = link_to driver.truck.registration_number, truck_path(driver.truck) if !driver.truck.nil?
-            / /.table-responsive
-          / /.box-body
-          .box-footer.clearfix
-            %a.btn.btn-sm.btn-default.btn-flat.pull-right{:href => drivers_path} View All Drivers
-      .col-md-6
-        .box.box-info
-          .box-header.with-border
-            %h3.box-title Turnboys
-            .box-tools.pull-right
-              %button.btn.btn-box-tool{"data-widget" => "collapse"}
-                %i.fa.fa-minus
-              / %button.btn.btn-box-tool{"data-widget" => "remove"}
-              /   %i.fa.fa-times
-          .box-body
-            .table-responsive
-              %table.table.no-margin
-                %thead
-                  %tr
-                    %th Name
-                    %th Phone Number
-                    %th ID Number
-                    %th Address
-                    %th Truck
-                %tbody
-                  - TurnBoy.last(5).each do |turn_boy|
+                      %th Name
+                      %th Phone Number
+                      %th ID Number
+                      %th Address
+                      %th Truck
+                  %tbody
+                    - Driver.last(5).each do |driver|
+                      %tr
+                        %td
+                          = link_to driver.name, driver_path(driver)
+                        %td
+                          = driver.phone_number
+                        %td
+                          = driver.id_number
+                        %td
+                          = driver.address
+                        %td
+                          = link_to driver.truck.registration_number, truck_path(driver.truck) if !driver.truck.nil?
+              / /.table-responsive
+            / /.box-body
+            .box-footer.clearfix
+              %a.btn.btn-sm.btn-default.btn-flat.pull-right{:href => drivers_path} View All Drivers
+        .col-md-6
+          .box.box-kasoko
+            .box-header.with-border
+              %h3.box-title Turnboys
+              .box-tools.pull-right
+                %button.btn.btn-box-tool{"data-widget" => "collapse"}
+                  %i.fa.fa-minus
+                / %button.btn.btn-box-tool{"data-widget" => "remove"}
+                /   %i.fa.fa-times
+            .box-body
+              .table-responsive
+                %table.table.no-margin
+                  %thead
                     %tr
-                      %td
-                        = link_to turn_boy.name, turn_boy_path(turn_boy)
-                      %td
-                        = turn_boy.phone_number
-                      %td
-                        = turn_boy.id_number
-                      %td
-                        = turn_boy.address
-                      %td
-                        = link_to turn_boy.truck.registration_number, truck_path(turn_boy.truck) if !turn_boy.truck.nil?
-            / /.table-responsive
-          / /.box-body
-          .box-footer.clearfix
-            %a.btn.btn-sm.btn-default.btn-flat.pull-right{:href => turn_boys_path} View All Turn Boys
+                      %th Name
+                      %th Phone Number
+                      %th ID Number
+                      %th Address
+                      %th Truck
+                  %tbody
+                    - TurnBoy.last(5).each do |turn_boy|
+                      %tr
+                        %td
+                          = link_to turn_boy.name, turn_boy_path(turn_boy)
+                        %td
+                          = turn_boy.phone_number
+                        %td
+                          = turn_boy.id_number
+                        %td
+                          = turn_boy.address
+                        %td
+                          = link_to turn_boy.truck.registration_number, truck_path(turn_boy.truck) if !turn_boy.truck.nil?
+              / /.table-responsive
+            / /.box-body
+            .box-footer.clearfix
+              %a.btn.btn-sm.btn-default.btn-flat.pull-right{:href => turn_boys_path} View All Turn Boys

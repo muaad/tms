@@ -1,4 +1,4 @@
-%section.content-header
+.box.box-kasoko
 	.box-header.with-border
 		%h1.box-title 
 			Reports
@@ -12,88 +12,87 @@
 				.btn-group
 					%input.form-control.datepicker.to-date{type: "text", placeholder: "To"}
 				.btn-group
-					%button.btn.btn-primary.range-search
+					%button.btn.btn-kasoko.range-search
 						%i.fa.fa-search
 				.btn-group
-					%button.btn.btn-success.print-report
+					%button.btn.btn-kasoko.print-report
 						%i.fa.fa-print
 						Print
-/ Main content
-%section.content#account-reports
-	.row
-		.col-md-4
-			.info-box
-				%span.info-box-icon.bg-aqua
-					%i.fa.fa-money
-				.info-box-content
-					%span.info-box-text Total Cash In
-					%span.info-box-number
-						= to_currency(Cash.sum(:amount_in), unit: "")
-		/ /.col
-		.col-md-4
-			.info-box
-				%span.info-box-icon.bg-green
-					%i.fa.fa-money
-				.info-box-content
-					%span.info-box-text Total Cash Out
-					%span.info-box-number
-						= to_currency(Expense.sum(:amount), unit: "")
-		.col-md-4
-			.info-box
-				%span.info-box-icon.bg-red
-					%i.fa.fa-money
-				.info-box-content
-					%span.info-box-text Balance
-					%span.info-box-number
-						= to_currency((Cash.sum(:amount_in) - Expense.sum(:amount)), unit: "")
-	.row
-		.col-lg-6
-			.box.box-info
-				.box-header.with-border
-					%h3.box-title
-						Cash IN
-				.box-body
-					.table-responsive
-						%table.table.no-margin
-							%thead
-								%tr
-									%th Date
-									%th LPO
-									%th Amount
-									%th Description
-							%tbody
-								- Cash.date_between(@from, @to).each do |cash|
-									%tr.gradeX
-										%td
-											= cash.created_at.to_date
-										%td.lpo
-											= cash.lpo
-										%td.amount_in
-											= cash.amount_in
-										%td.description
-											= cash.description
-		.col-lg-6
-			.box.box-info
-				.box-header.with-border
-					%h3.box-title
-						Cash OUT
-				.box-body
-					.table-responsive
-						%table.table.no-margin
-							%thead
-								%tr
-									%th Date
-									%th LPO
-									%th Amount
-									%th Description
-							%tbody
-								- Expense.date_between(@from, @to).order(created_at: :desc).each do |expense|
-									%tr.gradeX
-										%td
-											= expense.date
-										%td.lpo
-											= expense.lpo
-										%td.amount_in
-											= expense.amount
-										%td.description
-											= expense.description
+	.box-body.kasoko-body#account-reports
+		.row
+			.col-md-4
+				.info-box
+					%span.info-box-icon.bg-aqua
+						%i.fa.fa-money
+					.info-box-content
+						%span.info-box-text Total Cash In
+						%span.info-box-number
+							= to_currency(Cash.sum(:amount_in), unit: "")
+			/ /.col
+			.col-md-4
+				.info-box
+					%span.info-box-icon.bg-green
+						%i.fa.fa-money
+					.info-box-content
+						%span.info-box-text Total Cash Out
+						%span.info-box-number
+							= to_currency(Expense.sum(:amount), unit: "")
+			.col-md-4
+				.info-box
+					%span.info-box-icon.bg-red
+						%i.fa.fa-money
+					.info-box-content
+						%span.info-box-text Balance
+						%span.info-box-number
+							= to_currency((Cash.sum(:amount_in) - Expense.sum(:amount)), unit: "")
+		.row
+			.col-lg-6
+				.box.box-kasoko
+					.box-header.with-border
+						%h3.box-title
+							Cash IN
+					.box-body
+						.table-responsive
+							%table.table.no-margin
+								%thead
+									%tr
+										%th Date
+										%th LPO
+										%th Amount
+										%th Description
+								%tbody
+									- Cash.date_between(@from, @to).each do |cash|
+										%tr.gradeX
+											%td
+												= cash.created_at.to_date
+											%td.lpo
+												= cash.lpo
+											%td.amount_in
+												= cash.amount_in
+											%td.description
+												= cash.description
+			.col-lg-6
+				.box.box-kasoko
+					.box-header.with-border
+						%h3.box-title
+							Cash OUT
+					.box-body
+						.table-responsive
+							%table.table.no-margin
+								%thead
+									%tr
+										%th Date
+										%th LPO
+										%th Amount
+										%th Description
+								%tbody
+									- Expense.date_between(@from, @to).order(created_at: :desc).each do |expense|
+										%tr.gradeX
+											%td
+												= expense.date
+											%td.lpo
+												= expense.lpo
+											%td.amount_in
+												= expense.amount
+											%td.description
+												= expense.description

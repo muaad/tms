@@ -13,4 +13,8 @@
 class City < ActiveRecord::Base
 	belongs_to :account
 	acts_as_tenant(:account)
+
+	def trips
+		Trip.where('depot_id = ? OR destination_id = ?', id, id)
+	end
 end

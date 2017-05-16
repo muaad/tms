@@ -1,74 +1,70 @@
-%section.content
-	.row
-		.col-md-12
-			.box.box-info
-				.box-header.with-border
-					%h3.box-title
-						= @turn_boy.name
-					.box-tools.pull-right
-						.btn-toolbar{role: "toolbar"}
-							.btn-group
-								.btn-group
-									%button.btn.btn-box-tool.dropdown-toggle.btn-default{"data-toggle" => "dropdown"}
-										%i.fa.fa-plus
-										New
-										%i.fa.fa-caret-down
-									%ul.dropdown-menu{:role => "menu"}
-										%li
-											%a{:href => "#{new_trip_path}?turn_boy=#{@turn_boy.id}"} Trip
-										%li
-											%a{:href => "#{new_expense_path}?turn_boy=#{@turn_boy.id}"} Expense
-								/ .btn-group
-								/ 	%button.btn.btn-box-tool.dropdown-toggle.btn-default{"data-toggle" => "dropdown"}
-								/ 		%i.fa.fa-plus
-								/ 		Assign New Driver
-								/ 	%ul.dropdown-menu{:role => "menu"}
-								/ 		- Driver.all.each do |turn_boy|
-								/ 			%li
-								/ 				%a{:href => "#"}
-								/ 					= turn_boy.name
-								%a#upload-docs.btn.btn-box-tool.btn-default{href: "#{new_attachment_path}?owner_id=#{@turn_boy.id}&owner_type=turn_boys"}
-									%i.fa.fa-cloud-upload
-									Upload
-								%a.btn.btn-box-tool.btn-default{href: edit_turn_boy_path(@turn_boy)}
-									%i.fa.fa-edit
-									Edit
-								%a.btn.btn-box-tool.btn-default
-									%i.fa.fa-times
-									Delete
-				%br
-				.box-body
-					.row
-						.col-lg-4
-							%i.fa.fa-credit-card
-							= @turn_boy.id_number
-						.col-lg-4
-							%i.fa.fa-phone
-							= @turn_boy.phone_number
-						.col-lg-4
-							%i.fa.fa-truck
-							= @turn_boy.truck.name if !@turn_boy.truck.nil?
-					.row
-						.col-lg-4
-							%i.fa.fa-money
-							= @turn_boy.calculate_salary(@turn_boy.truck) if !@turn_boy.truck.nil?
-						.col-lg-4
-							Total income:
-							1,200,500
-						.col-lg-4
-							Trips:
-							14
-					.row
-						.col-lg-12
-							.box
-								%h3 Documents
-								%hr
-									%div.slick-list
-										- @turn_boy.attachments.each do |attachment|
-											.small-box.bg-aqua
-												.inner
-													= image_tag(attachment.file.url, style: "width: 100%;")
-												%a.small-box-footer{:href => attachment_path(attachment)}
-													%b
-														%i.fa.fa-eye
-														View
+.box.box-kasoko
+	.box-header.with-border
+		%h3.box-title
+			= @turn_boy.name
+		.box-tools.pull-right
+			.btn-toolbar{role: "toolbar"}
+				.btn-group
+					.btn-group
+						%button.btn.btn-box-tool.dropdown-toggle.btn-default{"data-toggle" => "dropdown"}
+							%i.fa.fa-plus
+							New
+							%i.fa.fa-caret-down
+						%ul.dropdown-menu{:role => "menu"}
+							%li
+								%a{:href => "#{new_trip_path}?turn_boy=#{@turn_boy.id}"} Trip
+							%li
+								%a{:href => "#{new_expense_path}?turn_boy=#{@turn_boy.id}"} Expense
+					/ .btn-group
+					/ 	%button.btn.btn-box-tool.dropdown-toggle.btn-default{"data-toggle" => "dropdown"}
+					/ 		%i.fa.fa-plus
+					/ 		Assign New Driver
+					/ 	%ul.dropdown-menu{:role => "menu"}
+					/ 		- Driver.all.each do |turn_boy|
+					/ 			%li
+					/ 				%a{:href => "#"}
+					/ 					= turn_boy.name
+					%a#upload-docs.btn.btn-box-tool.btn-default{href: "#{new_attachment_path}?owner_id=#{@turn_boy.id}&owner_type=turn_boys"}
+						%i.fa.fa-cloud-upload
+						Upload
+					%a.btn.btn-box-tool.btn-default{href: edit_turn_boy_path(@turn_boy)}
+						%i.fa.fa-edit
+						Edit
+					%a.btn.btn-box-tool.btn-default
+						%i.fa.fa-times
+						Delete
+	.box-body.kasoko-body
+		.row
+			.col-lg-4
+				%i.fa.fa-credit-card
+				= @turn_boy.id_number
+			.col-lg-4
+				%i.fa.fa-phone
+				= @turn_boy.phone_number
+			.col-lg-4
+				%i.fa.fa-truck
+				= @turn_boy.truck.name if !@turn_boy.truck.nil?
+		.row
+			.col-lg-4
+				%i.fa.fa-money
+				= @turn_boy.calculate_salary(@turn_boy.truck) if !@turn_boy.truck.nil?
+			.col-lg-4
+				Total income:
+				1,200,500
+			.col-lg-4
+				Trips:
+				14
+		.row
+			.col-lg-12
+				.box
+					%h3 Documents
+					%hr
+						%div.slick-list
+							- @turn_boy.attachments.each do |attachment|
+								.small-box.bg-aqua
+									.inner
+										= image_tag(attachment.file.url, style: "width: 100%;")
+									%a.small-box-footer{:href => attachment_path(attachment)}
+										%b
+											%i.fa.fa-eye
+											View

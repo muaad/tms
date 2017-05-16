@@ -1,80 +1,77 @@
-%section.content
-  .row
-    .col-md-12
-      .box.box-info
-        .box-header.with-border
-          %h3.box-title TurnBoys
-          .box-tools.pull-right
-            .btn-toolbar{role: "toolbar"}
-              .btn-group
-                %a.btn.btn-box-tool.btn-default{href: new_turn_boy_path}
-                  %i.fa.fa-plus
-                  New
-                / .btn-group
-                /   %button.btn.btn-box-tool.dropdown-toggle{"data-toggle" => "dropdown"}
-                /     %i.fa.fa-wrench
-                /   %ul.dropdown-menu{:role => "menu"}
-                /     %li
-                /       %a{:href => "#"} Action
-                /     %li
-                /       %a{:href => "#"} Another action
-                /     %li
-                /       %a{:href => "#"} Something else here
-                /     %li.divider
-                /     %li
-                /       %a{:href => "#"} Separated link
-                %a#edit-turn_boy.btn.btn-box-tool.btn-default
-                  %i.fa.fa-edit
-                  Edit
-                %a#delete-turn_boys.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#delete_turn_boy_modal"}
-                  %i.fa.fa-times
-                  Delete
-        / /.box-header
-        .box-body
-          .row
-            .col-md-12
-              / start:dynamic data table
-              .adv-table
-                %table#example.exchange-rate.display.table.table-bordered.table-striped
-                  %thead
-                    %tr
-                      %th.no-sort
-                        = check_box_tag "toggle_turn_boys"
-                      %th Name
-                      %th Phone Number
-                      %th ID Number
-                      %th Address
-                      %th Truck
-                  %tbody.turn_boys_table
-                    - @turn_boys.each do |turn_boy|
-                      %tr.gradeX
-                        %td
-                          = check_box_tag "turn_boy[turn_boy.id]", turn_boy.id
-                        %td
-                          = link_to turn_boy.name, turn_boy_path(turn_boy)
-                        %td
-                          = turn_boy.phone_number
-                        %td
-                          = turn_boy.id_number
-                        %td
-                          = turn_boy.address
-                        %td
-                          = link_to turn_boy.truck.registration_number, truck_path(turn_boy.truck) if !turn_boy.truck.nil?
-  #delete_turn_boy_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
-    .modal-dialog
-      .modal-content
-        .modal-header
-          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-            %span{"aria-hidden" => "true"} &times;
-          %h4#myModalLabel.modal-title Delete TurnBoys
-        = form_tag delete_multiple_turn_boys_path do |f|
-          .modal-body
-            %label#lbl-msg
-            = hidden_field_tag 'delete_turn_boys'
-          .modal-footer
-            %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} 
-              %i.fa.fa-times
-              Cancel
-            %button.btn.btn-danger{:type => "submit"} 
-              %i.fa.fa-trash-o
-              Delete
+.box.box-kasoko
+  .box-header.with-border
+    %h3.box-title TurnBoys
+    .box-tools.pull-right
+      .btn-toolbar{role: "toolbar"}
+        .btn-group
+          %a.btn.btn-box-tool.btn-default{href: new_turn_boy_path}
+            %i.fa.fa-plus
+            New
+          / .btn-group
+          /   %button.btn.btn-box-tool.dropdown-toggle{"data-toggle" => "dropdown"}
+          /     %i.fa.fa-wrench
+          /   %ul.dropdown-menu{:role => "menu"}
+          /     %li
+          /       %a{:href => "#"} Action
+          /     %li
+          /       %a{:href => "#"} Another action
+          /     %li
+          /       %a{:href => "#"} Something else here
+          /     %li.divider
+          /     %li
+          /       %a{:href => "#"} Separated link
+          %a#edit-turn_boy.btn.btn-box-tool.btn-default
+            %i.fa.fa-edit
+            Edit
+          %a#delete-turn_boys.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#delete_turn_boy_modal"}
+            %i.fa.fa-times
+            Delete
+  / /.box-header
+  .box-body.kasoko-body
+    .row
+      .col-md-12
+        / start:dynamic data table
+        .adv-table
+          %table#example.exchange-rate.display.table.table-bordered.table-striped
+            %thead
+              %tr
+                %th.no-sort
+                  = check_box_tag "toggle_turn_boys"
+                %th Name
+                %th Phone Number
+                %th ID Number
+                %th Address
+                %th Truck
+            %tbody.turn_boys_table
+              - @turn_boys.each do |turn_boy|
+                %tr.gradeX
+                  %td
+                    = check_box_tag "turn_boy[turn_boy.id]", turn_boy.id
+                  %td
+                    = link_to turn_boy.name, turn_boy_path(turn_boy)
+                  %td
+                    = turn_boy.phone_number
+                  %td
+                    = turn_boy.id_number
+                  %td
+                    = turn_boy.address
+                  %td
+                    = link_to turn_boy.truck.registration_number, truck_path(turn_boy.truck) if !turn_boy.truck.nil?
+#delete_turn_boy_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} &times;
+        %h4#myModalLabel.modal-title Delete TurnBoys
+      = form_tag delete_multiple_turn_boys_path do |f|
+        .modal-body
+          %label#lbl-msg
+          = hidden_field_tag 'delete_turn_boys'
+        .modal-footer
+          %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} 
+            %i.fa.fa-times
+            Cancel
+          %button.btn.btn-danger{:type => "submit"} 
+            %i.fa.fa-trash-o
+            Delete

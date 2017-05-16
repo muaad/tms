@@ -1,4 +1,4 @@
-%section.content-header
+.box.box-kasoko
 	.box-header.with-border
 		%h1.box-title
 			Reports
@@ -21,56 +21,55 @@
 				.btn-group
 					%input.form-control.datepicker.to-date{type: "text", placeholder: "To"}
 				.btn-group
-					%button.btn.btn-primary.range-search
+					%button.btn.btn-kasoko.range-search
 						%i.fa.fa-search
 				.btn-group
-					%button.btn.btn-success.print-report
+					%button.btn.btn-kasoko.print-report
 						%i.fa.fa-print
 						Print
-/ Main content
-%section.content
-	.box.box-info
-		.box-body
-			.table-responsive
-				%table.table.no-margin
-					%thead
-						%tr
-							%th Truck
-							%th Driver
-							%th Turn boy
-							%th Date
-							%th Depot
-							%th Destination
-							%th Consignee
-							%th Product
-							%th Quantity
-							%th Rate
-							%th Amount
-					%tbody
-						- Trip.where(@truck_query).date_between(@from, @to).each do |trip|
-							%tr.gradeX
-								%td
-									= link_to trip.truck.registration_number, truck_path(trip.truck) if !trip.truck.blank?
-								%td
-									= link_to trip.driver.name, driver_path(trip.driver) if !trip.driver.blank?
-								%td
-									= link_to trip.turn_boy.name, turn_boy_path(trip.turn_boy) if !trip.turn_boy.blank?
-								%td
-									= trip.date
-								%td
-									= link_to trip.depot.name, city_path(trip.depot) if !trip.depot.blank?
-								%td
-									= link_to trip.destination.name, city_path(trip.destination) if !trip.destination.blank?
-								%td
-									= link_to trip.consignee.name, consignee_path(trip.consignee) if !trip.consignee.blank?
-								%td
-									= link_to trip.product.name, product_path(trip.product) if !trip.product.blank?
-								%td
-									= trip.quantity
-								%td
-									= trip.rate
-								%td
-									= trip.amount
+	.box-body.kasoko-body
+		.box.box-default
+			.box-body
+				.table-responsive
+					%table.table.no-margin
+						%thead
+							%tr
+								%th Truck
+								%th Driver
+								%th Turn boy
+								%th Date
+								%th Depot
+								%th Destination
+								%th Consignee
+								%th Product
+								%th Quantity
+								%th Rate
+								%th Amount
+						%tbody
+							- Trip.where(@truck_query).date_between(@from, @to).each do |trip|
+								%tr.gradeX
+									%td
+										= link_to trip.truck.registration_number, truck_path(trip.truck) if !trip.truck.blank?
+									%td
+										= link_to trip.driver.name, driver_path(trip.driver) if !trip.driver.blank?
+									%td
+										= link_to trip.turn_boy.name, turn_boy_path(trip.turn_boy) if !trip.turn_boy.blank?
+									%td
+										= trip.date
+									%td
+										= link_to trip.depot.name, city_path(trip.depot) if !trip.depot.blank?
+									%td
+										= link_to trip.destination.name, city_path(trip.destination) if !trip.destination.blank?
+									%td
+										= link_to trip.consignee.name, consignee_path(trip.consignee) if !trip.consignee.blank?
+									%td
+										= link_to trip.product.name, product_path(trip.product) if !trip.product.blank?
+									%td
+										= trip.quantity
+									%td
+										= trip.rate
+									%td
+										= trip.amount
 #print_reports_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
 	.modal-dialog
 		.modal-content

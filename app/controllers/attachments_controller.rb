@@ -6,6 +6,9 @@ class AttachmentsController < ApplicationController
   # GET /attachments.json
   def index
     @attachments = Attachment.all
+    if params.has_key?(:expiring)
+      @attachments = Attachment.expiring_in(eval("#{params[:expiring]}.days"))
+    end
   end
 
   # GET /attachments/1
@@ -44,8 +47,13 @@ class AttachmentsController < ApplicationController
   # PATCH/PUT /attachments/1
   # PATCH/PUT /attachments/1.json
   def update
+    date_of_issue = Date.strptime attachment_params[:date_of_issue], "%m/%d/%Y" if !attachment_params[:date_of_issue].blank?
+    date_of_expiry = Date.strptime attachment_params[:date_of_expiry], "%m/%d/%Y"
     respond_to do |format|
       if @attachment.update(attachment_params)
+        @attachment.date_of_issue = date_of_issue
+        @attachment.date_of_expiry = date_of_expiry
+        @attachment.save!
         format.html { redirect_to @attachment, notice: 'Attachment was successfully updated.' }
         format.json { render :show, status: :ok, location: @attachment }
       else

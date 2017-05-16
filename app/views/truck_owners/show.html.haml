@@ -1,74 +1,70 @@
-%section.content
-  .row
-    .col-md-12
-      .box.box-info
-        .box-header.with-border
-          %h3.box-title
-            = @truck_owner.name
-          .box-tools.pull-right
-            .btn-toolbar{role: "toolbar"}
-              .btn-group
-                .btn-group
-                  %button.btn.btn-box-tool.dropdown-toggle.btn-default{"data-toggle" => "dropdown"}
-                    %i.fa.fa-plus
-                    New
-                    %i.fa.fa-caret-down
-                  %ul.dropdown-menu{:role => "menu"}
-                    %li
-                      %a{:href => "#{new_trip_path}?truck_owner=#{@truck_owner.id}"} Trip
-                    %li
-                      %a{:href => "#{new_expense_path}?truck_owner=#{@truck_owner.id}"} Expense
-                / .btn-group
-                /   %button.btn.btn-box-tool.dropdown-toggle.btn-default{"data-toggle" => "dropdown"}
-                /     %i.fa.fa-plus
-                /     Assign New Driver
-                /   %ul.dropdown-menu{:role => "menu"}
-                /     - Driver.all.each do |truck_owner|
-                /       %li
-                /         %a{:href => "#"}
-                /           = truck_owner.name
-                %a#upload-docs.btn.btn-box-tool.btn-default{href: "#{new_attachment_path}?owner_id=#{@truck_owner.id}&owner_type=truck_owners"}
-                  %i.fa.fa-cloud-upload
-                  Upload
-                %a.btn.btn-box-tool.btn-default{href: edit_truck_owner_path(@truck_owner)}
-                  %i.fa.fa-edit
-                  Edit
-                %a.btn.btn-box-tool.btn-default
-                  %i.fa.fa-times
-                  Delete
-        %br
-        .box-body
-          .row
-            .col-lg-4
-              %i.fa.fa-credit-card
-              = @truck_owner.id_number
-            .col-lg-4
-              %i.fa.fa-phone
-              = @truck_owner.phone_number
-            .col-lg-4
-              %i.fa.fa-truck
-              = link_to @truck_owner.trucks.count, "#{trucks_path}?owner=#{@truck_owner.id}"
-          .row
-            .col-lg-4
-              %i.fa.fa-map-marker
-              = @truck_owner.address
-            .col-lg-4
-              Total Income:
-              = @truck_owner.income
-            .col-lg-4
-              Total Balance:
-              = @truck_owner.balance
-          .row
-            .col-lg-12
-              .box
-                %h3 Documents
-                %hr
-                  %div.slick-list
-                    - @truck_owner.attachments.each do |attachment|
-                      .small-box.bg-aqua
-                        .inner
-                          = image_tag(attachment.file.url, style: "width: 100%;")
-                        %a.small-box-footer{:href => attachment_path(attachment)}
-                          %b
-                            %i.fa.fa-eye
-                            View
+.box.box-kasoko
+  .box-header.with-border
+    %h3.box-title
+      = @truck_owner.name
+    .box-tools.pull-right
+      .btn-toolbar{role: "toolbar"}
+        .btn-group
+          .btn-group
+            %button.btn.btn-box-tool.dropdown-toggle.btn-default{"data-toggle" => "dropdown"}
+              %i.fa.fa-plus
+              New
+              %i.fa.fa-caret-down
+            %ul.dropdown-menu{:role => "menu"}
+              %li
+                %a{:href => "#{new_trip_path}?truck_owner=#{@truck_owner.id}"} Trip
+              %li
+                %a{:href => "#{new_expense_path}?truck_owner=#{@truck_owner.id}"} Expense
+          / .btn-group
+          /   %button.btn.btn-box-tool.dropdown-toggle.btn-default{"data-toggle" => "dropdown"}
+          /     %i.fa.fa-plus
+          /     Assign New Driver
+          /   %ul.dropdown-menu{:role => "menu"}
+          /     - Driver.all.each do |truck_owner|
+          /       %li
+          /         %a{:href => "#"}
+          /           = truck_owner.name
+          %a#upload-docs.btn.btn-box-tool.btn-default{href: "#{new_attachment_path}?owner_id=#{@truck_owner.id}&owner_type=truck_owners"}
+            %i.fa.fa-cloud-upload
+            Upload
+          %a.btn.btn-box-tool.btn-default{href: edit_truck_owner_path(@truck_owner)}
+            %i.fa.fa-edit
+            Edit
+          %a.btn.btn-box-tool.btn-default
+            %i.fa.fa-times
+            Delete
+  .box-body.kasoko-body
+    .row
+      .col-lg-4
+        %i.fa.fa-credit-card
+        = @truck_owner.id_number
+      .col-lg-4
+        %i.fa.fa-phone
+        = @truck_owner.phone_number
+      .col-lg-4
+        %i.fa.fa-truck
+        = link_to @truck_owner.trucks.count, "#{trucks_path}?owner=#{@truck_owner.id}"
+    .row
+      .col-lg-4
+        %i.fa.fa-map-marker
+        = @truck_owner.address
+      .col-lg-4
+        Total Income:
+        = @truck_owner.income
+      .col-lg-4
+        Total Balance:
+        = @truck_owner.balance
+    .row
+      .col-lg-12
+        .box
+          %h3 Documents
+          %hr
+            %div.slick-list
+              - @truck_owner.attachments.each do |attachment|
+                .small-box.bg-aqua
+                  .inner
+                    = image_tag(attachment.file.url, style: "width: 100%;")
+                  %a.small-box-footer{:href => attachment_path(attachment)}
+                    %b
+                      %i.fa.fa-eye
+                      View

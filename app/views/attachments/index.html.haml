@@ -1,17 +1,37 @@
-%section.content
-	.row
-		.col-md-12
-			.box.box-info
-				.box-header.with-border
-					%h3.box-title
-						Attachments
-				.box-body
-					- @attachments.in_groups_of(3).each do |group|
-						.row
-							- group.compact.each do |attachment|
-								.col-md-4
-									.box
-										.box-body
-											= link_to(image_tag(attachment.file.url(:thumb)), attachment_path(attachment))
-										.box-footer
-											= link_to(attachment.owner_name, attachment.owner_url)
+.box.box-kasoko
+	.box-header.with-border
+		%h3.box-title
+			Attachments
+	.box-body.kasoko-body
+		- @attachments.in_groups_of(3).each do |group|
+			.row
+				- group.compact.each do |attachment|
+					.col-md-4
+						.box
+							.box-body
+								= link_to(image_tag(attachment.file.url(:thumb)), attachment_path(attachment))
+							.box-footer
+								= link_to(attachment.owner_name, attachment.owner_url)
+								|
+								%a#fix_expiry{"data-attachment" => attachment.id, href: "#", "data-toggle" => "modal", "data-target" => "#update_attachment_modal"}
+									Update Expiry
+
+#update_attachment_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+	.modal-dialog
+		.modal-content
+			.modal-header
+				%button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+					%span{"aria-hidden" => "true"} &times;
+				%h4#myModalLabel.modal-title Fix Expiry
+			= form_tag do
+				.modal-body
+					= hidden_field_tag 'attachment_id'
+					%label New Expiry Date
+					= text_field_tag 'attachment[date_of_expiry]', nil, id: 'attachment_date_of_expiry', class: "form-control datepicker"
+				.modal-footer
+					%button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}
+						%i.fa.fa-times
+						Cancel
+					%button.btn.btn-kasoko#update_expiry
+						%i.fa.fa-edit
+						Update

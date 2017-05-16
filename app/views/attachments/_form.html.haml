@@ -1,5 +1,5 @@
-= form_for @attachment, html: { multipart: true } do |f|
-	.box-body
+= form_for @attachment, html: { multipart: true, class: 'kasoko-form' } do |f|
+	.box-body.kasoko-body
 		.row
 			.col-md-12
 				- if @attachment.errors.any?
@@ -62,8 +62,8 @@
 								.input-group-addon
 									%i.fa.fa-calendar
 								= f.text_field :date_of_expiry, class: "form-control datepicker"
-	.box-footer
+	.box-footer.kasoko-footer
 		.actions.pull-right
-			%button.btn.btn-success.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}
+			%button.btn.btn-kasoko.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}
 				%i.fa.fa-save
 				Save

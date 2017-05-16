@@ -1,28 +1,23 @@
-%section.content
-	.row
-		.col-md-12
-			.box.box-info
-				.box-header.with-border
-					%h3.box-title
-						= @attachment.name
-				.box-body
-					.box.box-default
-						.box-body
-							.inner
-								= image_tag(@attachment.file.url, style: 'width: 100%;')
-						.box-footer.bg-aqua
-							%a.btn.btn-success{href: eval("#{@attachment.owner_details[:owner_type]}_path(@attachment.owner_details[:owner])")}
-								%i.fa.fa-user
-								Owner: 
-								= @attachment.owner_details[:owner].name
-							%a.btn.btn-success
-								%i.fa.fa-calendar
-								Date of Issue: 
-								= @attachment.date_of_issue
-							%a.btn.btn-success
-								%i.fa.fa-calendar
-								Date of Expiry: 
-								= @attachment.date_of_expiry
-							.pull-right
-								%a.btn{href: ""}
-									%i.fa.fa-trash{style: "color: white;"}
+.box.box-kasoko
+	.box-header.with-border
+		%h3.box-title
+			= @attachment.name
+	.box-body.kasoko-body
+		.inner
+			= image_tag(@attachment.file.url, style: 'width: 100%;')
+	.box-footer.kasoko-footer
+		%a.btn.btn-kasoko{href: eval("#{@attachment.owner_details[:owner_type]}_path(@attachment.owner_details[:owner])")}
+			%i.fa.fa-user
+			Owner:
+			= @attachment.owner_details[:owner].name
+		%a.btn.btn-kasoko
+			%i.fa.fa-calendar
+			Date of Issue:
+			= @attachment.date_of_issue
+		%a.btn.btn-kasoko
+			%i.fa.fa-calendar
+			Date of Expiry:
+			= @attachment.date_of_expiry
+		.pull-right
+			%a.btn{href: attachment_path(@attachment), method: 'DELETE'}
+				%i.fa.fa-trash{style: "color: white;"}

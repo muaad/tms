@@ -1,61 +1,58 @@
-%section.content
-  .row
-    .col-md-12
-      .box.box-info
-        .box-header.with-border
-          %h3.box-title Products
-          .box-tools.pull-right
-            .btn-toolbar{role: "toolbar"}
-              .btn-group
-                %a.btn.btn-box-tool.btn-default{href: new_product_path}
-                  %i.fa.fa-plus
-                  New
-                %a#edit-product.btn.btn-box-tool.btn-default
-                  %i.fa.fa-edit
-                  Edit
-                %a#delete-products.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#delete_product_modal"}
-                  %i.fa.fa-times
-                  Delete
-        / /.box-header
-        .box-body
-          .row
-            .col-md-12
-              / start:dynamic data table
-              .adv-table
-                %table#example.exchange-rate.display.table.table-bordered.table-striped
-                  %thead
-                    %tr
-                      %th.no-sort
-                        = check_box_tag "toggle_products"
-                      %th Name
-                      %th Price
-                      %th Total Amount
-                  %tbody.products_table
-                    - @products.each do |product|
-                      %tr.gradeX
-                        %td
-                          = check_box_tag "product[product.id]", product.id
-                        %td
-                          = link_to product.name, product_path(product)
-                        %td
-                          = product.price
-                        %td
-                          350000
-  #delete_product_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
-    .modal-dialog
-      .modal-content
-        .modal-header
-          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-            %span{"aria-hidden" => "true"} &times;
-          %h4#myModalLabel.modal-title Delete Products
-        = form_tag delete_multiple_products_path do |f|
-          .modal-body
-            %label#lbl-msg
-            = hidden_field_tag 'delete_products'
-          .modal-footer
-            %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} 
-              %i.fa.fa-times
-              Cancel
-            %button.btn.btn-danger{:type => "submit"} 
-              %i.fa.fa-trash-o
-              Delete
+.box.box-kasoko
+  .box-header.with-border
+    %h3.box-title Products
+    .box-tools.pull-right
+      .btn-toolbar{role: "toolbar"}
+        .btn-group
+          %a.btn.btn-box-tool.btn-default{href: new_product_path}
+            %i.fa.fa-plus
+            New
+          %a#edit-product.btn.btn-box-tool.btn-default
+            %i.fa.fa-edit
+            Edit
+          %a#delete-products.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#delete_product_modal"}
+            %i.fa.fa-times
+            Delete
+  / /.box-header
+  .box-body.kasoko-body
+    .row
+      .col-md-12
+        / start:dynamic data table
+        .adv-table
+          %table#example.exchange-rate.display.table.table-bordered.table-striped
+            %thead
+              %tr
+                %th.no-sort
+                  = check_box_tag "toggle_products"
+                %th Name
+                %th Price
+                %th Total Amount
+            %tbody.products_table
+              - @products.each do |product|
+                %tr.gradeX
+                  %td
+                    = check_box_tag "product[product.id]", product.id
+                  %td
+                    = link_to product.name, product_path(product)
+                  %td
+                    = product.price
+                  %td
+                    350000
+#delete_product_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} &times;
+        %h4#myModalLabel.modal-title Delete Products
+      = form_tag delete_multiple_products_path do |f|
+        .modal-body
+          %label#lbl-msg
+          = hidden_field_tag 'delete_products'
+        .modal-footer
+          %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} 
+            %i.fa.fa-times
+            Cancel
+          %button.btn.btn-danger{:type => "submit"} 
+            %i.fa.fa-trash-o
+            Delete

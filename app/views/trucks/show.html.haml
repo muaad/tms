@@ -1,248 +1,244 @@
-%section.content
-	.row
-		.col-md-12
-			.box.box-info
-				.box-header.with-border
-					%h3.box-title
-						= @truck.registration_number
-					.box-tools.pull-right
-						.btn-toolbar{role: "toolbar"}
-							.btn-group
-								%a.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#truck_cash_out_modal"}
-									%i.fa.fa-money
-									Pay Balance
-								%a.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#truck_cash_in_modal"}
-									%i.fa.fa-money
-									Cash IN
-							.btn-group
-								%button.btn.btn-box-tool.dropdown-toggle.btn-default{"data-toggle" => "dropdown"}
-									%i.fa.fa-plus
-									New
-									%i.fa.fa-caret-down
-								%ul.dropdown-menu{:role => "menu"}
-									%li
-										%a{:href => "#{new_trip_path}?truck=#{@truck.id}"} Trip
-									%li
-										%a{:href => "#{new_expense_path}?truck=#{@truck.id}"} Expense
-									%li
-										%a{:href => "#{new_diesel_expense_path}?truck=#{@truck.id}"} Diesel Expense
-								/ .btn-group
-								/ 	%button.btn.btn-box-tool.dropdown-toggle.btn-default{"data-toggle" => "dropdown"}
-								/ 		%i.fa.fa-plus
-								/ 		Assign New Driver
-								/ 	%ul.dropdown-menu{:role => "menu"}
-								/ 		- Driver.all.each do |driver|
-								/ 			%li
-								/ 				%a{:href => "#"}
-								/ 					= driver.name
-								%a#upload-docs.btn.btn-box-tool.btn-default{href: "#{new_attachment_path}?owner_id=#{@truck.id}&owner_type=trucks"}
-									%i.fa.fa-cloud-upload
-									Upload
-								%a.btn.btn-box-tool.btn-default{href: edit_truck_path(@truck)}
-									%i.fa.fa-edit
-									Edit
-								%a.btn.btn-box-tool.btn-default
-									%i.fa.fa-times
-									Delete
-				%br
-				.box-body
-					.row
-						.col-md-4
-							.box.box-widget.widget-user-2
-								.widget-user-header.bg-yellow
-									.widget-user-image
-										= image_tag('/missing.jpg', class: "img-circle")
-									%h3.widget-user-username
-										= @truck.owner.name
-									%h5.widget-user-desc Owner
-								.box-footer.no-padding
-									%ul.nav.nav-stacked
+.box.box-kasoko
+	.box-header.with-border
+		%h3.box-title
+			= @truck.registration_number
+		.box-tools.pull-right
+			.btn-toolbar{role: "toolbar"}
+				.btn-group
+					%a.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#truck_cash_out_modal"}
+						%i.fa.fa-money
+						Pay Balance
+					%a.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#truck_cash_in_modal"}
+						%i.fa.fa-money
+						Cash IN
+				.btn-group
+					%button.btn.btn-box-tool.dropdown-toggle.btn-default{"data-toggle" => "dropdown"}
+						%i.fa.fa-plus
+						New
+						%i.fa.fa-caret-down
+					%ul.dropdown-menu{:role => "menu"}
+						%li
+							%a{:href => "#{new_trip_path}?truck=#{@truck.id}"} Trip
+						%li
+							%a{:href => "#{new_expense_path}?truck=#{@truck.id}"} Expense
+						%li
+							%a{:href => "#{new_diesel_expense_path}?truck=#{@truck.id}"} Diesel Expense
+					/ .btn-group
+					/ 	%button.btn.btn-box-tool.dropdown-toggle.btn-default{"data-toggle" => "dropdown"}
+					/ 		%i.fa.fa-plus
+					/ 		Assign New Driver
+					/ 	%ul.dropdown-menu{:role => "menu"}
+					/ 		- Driver.all.each do |driver|
+					/ 			%li
+					/ 				%a{:href => "#"}
+					/ 					= driver.name
+					%a#upload-docs.btn.btn-box-tool.btn-default{href: "#{new_attachment_path}?owner_id=#{@truck.id}&owner_type=trucks"}
+						%i.fa.fa-cloud-upload
+						Upload
+					%a.btn.btn-box-tool.btn-default{href: edit_truck_path(@truck)}
+						%i.fa.fa-edit
+						Edit
+					%a.btn.btn-box-tool.btn-default
+						%i.fa.fa-times
+						Delete
+	.box-body.kasoko-body
+		.row
+			.col-md-4
+				.box.box-widget.widget-user-2
+					.widget-user-header.bg-yellow
+						.widget-user-image
+							= image_tag('/missing.jpg', class: "img-circle")
+						%h3.widget-user-username
+							= @truck.owner.name
+						%h5.widget-user-desc Owner
+					.box-footer.no-padding
+						%ul.nav.nav-stacked
+							%li
+								%a
+									Phone number
+									%span.pull-right
+										= @truck.owner.phone_number
+							%li
+								%a
+									ID Number
+									%span.pull-right
+										= @truck.owner.id_number
+							%li
+								%a
+									Address
+									%span.pull-right
+										= @truck.owner.address
+							%li
+								%a
+									Type
+									%span.pull-right
+										= @truck.owner.entity_type
+							%li
+								%a
+									Documents:
+							%li
+								%ul
+									- @truck.owner.attachments.each do |attachment|
 										%li
-											%a
-												Phone number
-												%span.pull-right
-													= @truck.owner.phone_number
+											%a.document-link.pull-left.badge.bg-blue{href: attachment.file.url.split("?")[0]}
+												= attachment.name
+					.box-footer.no-padding
+						%ul.nav.nav-stacked
+							%li
+								%a.btn.btn-kasoko.pull-right{href: truck_owner_path(@truck.truck_owner)}
+									%i.fa.fa-eye
+									View
+			.col-md-4
+				.box.box-widget.widget-user-2
+					.widget-user-header.bg-yellow
+						.widget-user-image
+							= image_tag('/missing.jpg', class: "img-circle")
+						%h3.widget-user-username
+							= @truck.driver.name
+						%h5.widget-user-desc Driver
+					.box-footer.no-padding
+						%ul.nav.nav-stacked
+							%li
+								%a
+									Phone number
+									%span.pull-right
+										= @truck.driver.phone_number
+							%li
+								%a
+									ID Number
+									%span.pull-right
+										= @truck.driver.id_number
+							%li
+								%a
+									Address
+									%span.pull-right
+										= @truck.driver.address
+							%li
+								%a
+									Salary
+									%span.pull-right
+										= to_currency(@truck.driver_salary, unit: "KES ")
+							%li
+								%a
+									Documents:
+							%li
+								%ul
+									- @truck.driver.attachments.each do |attachment|
 										%li
-											%a
-												ID Number
-												%span.pull-right
-													= @truck.owner.id_number
-										%li
-											%a
-												Address
-												%span.pull-right
-													= @truck.owner.address
-										%li
-											%a
-												Type
-												%span.pull-right
-													= @truck.owner.entity_type
-										%li
-											%a
-												Documents:
-										%li
-											%ul
-												- @truck.owner.attachments.each do |attachment|
-													%li
-														%a.document-link.pull-left.badge.bg-blue{href: attachment.file.url.split("?")[0]}
-															= attachment.name
-								.box-footer.no-padding
-									%ul.nav.nav-stacked
-										%li
-											%a.btn.btn-success.pull-right{href: truck_owner_path(@truck.truck_owner)}
-												%i.fa.fa-eye
-												View
-						.col-md-4
-							.box.box-widget.widget-user-2
-								.widget-user-header.bg-yellow
-									.widget-user-image
-										= image_tag('/missing.jpg', class: "img-circle")
-									%h3.widget-user-username
-										= @truck.driver.name
-									%h5.widget-user-desc Driver
-								.box-footer.no-padding
-									%ul.nav.nav-stacked
-										%li
-											%a
-												Phone number
-												%span.pull-right
-													= @truck.driver.phone_number
-										%li
-											%a
-												ID Number
-												%span.pull-right
-													= @truck.driver.id_number
-										%li
-											%a
-												Address
-												%span.pull-right
-													= @truck.driver.address
-										%li
-											%a
-												Salary
-												%span.pull-right
-													= to_currency(@truck.driver_salary, unit: "KES ")
-										%li
-											%a
-												Documents:
-										%li
-											%ul
-												- @truck.driver.attachments.each do |attachment|
-													%li
-														%a.document-link.pull-left.badge.bg-blue{href: attachment.file.url.split("?")[0]}
-															= attachment.name
-								.box-footer.no-padding
-									%ul.nav.nav-stacked
-										%li
-											%a.btn.btn-success.pull-right{href: driver_path(@truck.driver)}
-												%i.fa.fa-eye
-												View
-						.col-md-4
-							.box.box-widget.widget-user-2
-								.widget-user-header.bg-yellow
-									.widget-user-image
-										= image_tag('/missing.jpg', class: "img-circle")
-									%h3.widget-user-username
-										= @truck.turn_boy.name
-									%h5.widget-user-desc Turn Boy
+											%a.document-link.pull-left.badge.bg-blue{href: attachment.file.url.split("?")[0]}
+												= attachment.name
+					.box-footer.no-padding
+						%ul.nav.nav-stacked
+							%li
+								%a.btn.btn-kasoko.pull-right{href: driver_path(@truck.driver)}
+									%i.fa.fa-eye
+									View
+			.col-md-4
+				.box.box-widget.widget-user-2
+					.widget-user-header.bg-yellow
+						.widget-user-image
+							= image_tag('/missing.jpg', class: "img-circle")
+						%h3.widget-user-username
+							= @truck.turn_boy.name
+						%h5.widget-user-desc Turn Boy
 
 
-								.box-footer.no-padding
-									%ul.nav.nav-stacked
+					.box-footer.no-padding
+						%ul.nav.nav-stacked
+							%li
+								%a
+									Phone number
+									%span.pull-right
+										= @truck.turn_boy.phone_number
+							%li
+								%a
+									ID Number
+									%span.pull-right
+										= @truck.turn_boy.id_number
+							%li
+								%a
+									Address
+									%span.pull-right
+										= @truck.turn_boy.address
+							%li
+								%a
+									Salary
+									%span.pull-right
+										= to_currency(@truck.turn_boy_salary, unit: "KES ")
+							%li
+								%a
+									Documents:
+							%li
+								%ul
+									- @truck.turn_boy.attachments.each do |attachment|
 										%li
-											%a
-												Phone number
-												%span.pull-right
-													= @truck.turn_boy.phone_number
-										%li
-											%a
-												ID Number
-												%span.pull-right
-													= @truck.turn_boy.id_number
-										%li
-											%a
-												Address
-												%span.pull-right
-													= @truck.turn_boy.address
-										%li
-											%a
-												Salary
-												%span.pull-right
-													= to_currency(@truck.turn_boy_salary, unit: "KES ")
-										%li
-											%a
-												Documents:
-										%li
-											%ul
-												- @truck.turn_boy.attachments.each do |attachment|
-													%li
-														%a.document-link.pull-left.badge.bg-blue{href: attachment.file.url.split("?")[0]}
-															= attachment.name
-								.box-footer.no-padding
-									%ul.nav.nav-stacked
-										%li
-											%a.btn.btn-success.pull-right{href: turn_boy_path(@truck.turn_boy)}
-												%i.fa.fa-eye
-												View
-					%br
-					.row
-						.col-md-3.col-sm-6.col-xs-12
-							.info-box
-								%span.info-box-icon.bg-aqua
-									%i.fa.fa-money
-								.info-box-content
-									%a.info-box-number{href: "#{trips_path}?truck=#{@truck.id}"}
-										Income
-									%a.info-box-text{href: "#", "data-toggle" => "modal", "data-target" => "#truck_cash_in_list_modal"}
-										= "Dollar: #{to_currency(@truck.total_cash_in('US Dollar'))}"
-									%a.info-box-text{href: "#", "data-toggle" => "modal", "data-target" => "#truck_cash_out_list_modal"}
-										= "Shilling: #{to_currency(@truck.total_cash_in('Kenya Shilling'), unit: '')}"
-						.col-md-3.col-sm-6.col-xs-12
-							%a.info-box.no-link{href: "#{expenses_path}?truck=#{@truck.id}"}
-								%span.info-box-icon.bg-green
-									%i.fa.fa-money
-								.info-box-content
-									%span.info-box-number Expenses
-									%span.info-box-text
-										= "Dollar: #{to_currency(@truck.total_expenses('US Dollar'))}"
-									%span.info-box-text
-										= "Shilling: #{to_currency(@truck.total_expenses('Kenya Shilling'), unit: '')}"
-						.col-md-3.col-sm-6.col-xs-12
-							.info-box.no-link
-								%span.info-box-icon.bg-yellow
-									%i.fa.fa-files-o
-								.info-box-content
-									%span.info-box-number Balance
-									%span.info-box-text
-										= "Dollar: #{to_currency(@truck.balance('US Dollar'))}"
-									%span.info-box-text
-										= "Shilling: #{to_currency(@truck.balance('Kenya Shilling'), {unit: ''})}"
-						.col-md-3.col-sm-6.col-xs-12
-							.info-box
-								%span.info-box-icon.bg-red
-									%i.fa.fa-truck
-								.info-box-content
-									%a.info-box-number{href: "#{trips_path}?truck=#{@truck.id}"}
-										= "Trips: #{@truck.trips.count}"
-									%a.info-box-text{href: "#{trips_path}?truck=#{@truck.id}&currency=US Dollar"}
-										= "Dollar: #{to_currency(@truck.dollar_income)}"
-									%a.info-box-text{href: "#{trips_path}?truck=#{@truck.id}&currency=Kenya Shilling"}
-										= "Shilling: #{to_currency(@truck.shilling_income, {unit: ''})}"
-					%br
-					.row
-						.col-lg-12
-							.box
-								%h3 Documents
-								%hr
-									%div.slick-list
-										- @truck.attachments.each do |attachment|
-											.small-box.bg-aqua
-												.inner
-													= image_tag(attachment.file.url, style: "width: 100%;")
-												%a.small-box-footer{:href => attachment_path(attachment)}
-													%b
-														%i.fa.fa-eye
-														View
+											%a.document-link.pull-left.badge.bg-blue{href: attachment.file.url.split("?")[0]}
+												= attachment.name
+					.box-footer.no-padding
+						%ul.nav.nav-stacked
+							%li
+								%a.btn.btn-kasoko.pull-right{href: turn_boy_path(@truck.turn_boy)}
+									%i.fa.fa-eye
+									View
+		%br
+		.row
+			.col-md-3.col-sm-6.col-xs-12
+				.info-box
+					%span.info-box-icon.bg-aqua
+						%i.fa.fa-money
+					.info-box-content
+						%a.info-box-number{href: "#{trips_path}?truck=#{@truck.id}"}
+							Income
+						%a.info-box-text{href: "#", "data-toggle" => "modal", "data-target" => "#truck_cash_in_list_modal"}
+							= "Dollar: #{to_currency(@truck.total_cash_in('US Dollar'))}"
+						%a.info-box-text{href: "#", "data-toggle" => "modal", "data-target" => "#truck_cash_out_list_modal"}
+							= "Shilling: #{to_currency(@truck.total_cash_in('Kenya Shilling'), unit: '')}"
+			.col-md-3.col-sm-6.col-xs-12
+				%a.info-box.no-link{href: "#{expenses_path}?truck=#{@truck.id}"}
+					%span.info-box-icon.bg-green
+						%i.fa.fa-money
+					.info-box-content
+						%span.info-box-number Expenses
+						%span.info-box-text
+							= "Dollar: #{to_currency(@truck.total_expenses('US Dollar'))}"
+						%span.info-box-text
+							= "Shilling: #{to_currency(@truck.total_expenses('Kenya Shilling'), unit: '')}"
+			.col-md-3.col-sm-6.col-xs-12
+				.info-box.no-link
+					%span.info-box-icon.bg-yellow
+						%i.fa.fa-files-o
+					.info-box-content
+						%span.info-box-number Balance
+						%span.info-box-text
+							= "Dollar: #{to_currency(@truck.balance('US Dollar'))}"
+						%span.info-box-text
+							= "Shilling: #{to_currency(@truck.balance('Kenya Shilling'), {unit: ''})}"
+			.col-md-3.col-sm-6.col-xs-12
+				.info-box
+					%span.info-box-icon.bg-red
+						%i.fa.fa-truck
+					.info-box-content
+						%a.info-box-number{href: "#{trips_path}?truck=#{@truck.id}"}
+							= "Trips: #{@truck.trips.count}"
+						%a.info-box-text{href: "#{trips_path}?truck=#{@truck.id}&currency=US Dollar"}
+							= "Dollar: #{to_currency(@truck.dollar_income)}"
+						%a.info-box-text{href: "#{trips_path}?truck=#{@truck.id}&currency=Kenya Shilling"}
+							= "Shilling: #{to_currency(@truck.shilling_income, {unit: ''})}"
+		%br
+		.row
+			.col-lg-12
+				.box
+					%h3 Documents
+					%hr
+						%div.slick-list
+							- @truck.attachments.each do |attachment|
+								.small-box.bg-aqua
+									.inner
+										= image_tag(attachment.file.url, style: "width: 100%;")
+									%a.small-box-footer{:href => attachment_path(attachment)}
+										%b
+											%i.fa.fa-eye
+											View
 	#truck_cash_in_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
 		.modal-dialog
 			.modal-content
@@ -276,117 +272,117 @@
 						%button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}
 							%i.fa.fa-times
 							Cancel
-						%button.btn.btn-success{:type => "submit"}
+						%button.btn.btn-kasoko{:type => "submit"}
 							%i.fa.fa-plus
 							Add Cash
 
-	#truck_cash_out_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
-		.modal-dialog
-			.modal-content
-				.modal-header
-					%button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-						%span{"aria-hidden" => "true"} &times;
-					%h4#myModalLabel.modal-title Pay Balance
-				= form_for TruckCash.new do |f|
-					.modal-body
-						= f.hidden_field :truck_id, value: @truck.id
-						= f.hidden_field :direction, value: "OUT"
-						.form-group
-							= f.label :amount, "Amount"
-							= f.text_field :amount, class: "form-control"
-						.form-group
-							= f.label :lpo
-							= f.text_field :lpo, class: "form-control"
-						.form-group
-							= f.label :date
-							= f.text_field :date, class: "form-control datepicker"
-						.form-group
-							= f.label :currency
-							%select.form-control{name: "truck_cash[currency]"}
-								%option{value: "Kenya Shilling"}
-									Kenya Shilling
-								%option{value: "US Dollar"}
-									US Dollar
-						.form-group
-							= f.label :description
-							= f.text_area :description, class: "form-control"
-					.modal-footer
-						%button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}
-							%i.fa.fa-times
-							Cancel
-						%button.btn.btn-success{:type => "submit"}
-							%i.fa.fa-money
-							Pay Balance
-
-	#truck_cash_in_list_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
-		.modal-dialog
-			.modal-content
-				.modal-header
-					%button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-						%span{"aria-hidden" => "true"} &times;
-					%h4#myModalLabel.modal-title Cash IN
+#truck_cash_out_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+	.modal-dialog
+		.modal-content
+			.modal-header
+				%button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+					%span{"aria-hidden" => "true"} &times;
+				%h4#myModalLabel.modal-title Pay Balance
+			= form_for TruckCash.new do |f|
 				.modal-body
-					.row
-						.col-md-12
-							/ start:dynamic data table
-							.adv-table.table_container
-								%table#example.truck_cash_table.display.table.table-bordered.table-striped
-									%thead
-										%tr
-											/ %th.no-sort
-											/ 	= check_box_tag "toggle_cashes"
-											%th Date
-											%th LPO
-											%th Amount
-											%th Description
-									%tbody.cashes_table
-										- @truck.cash_in.each do |cash|
-											%tr.gradeX
-												/ %td{style: "width: 15px;"}
-												/ 	= check_box_tag "cash[cash.id]", cash.id
-												%td
-													= cash.created_at
-												%td.editable.lpo{data: { id: cash.id }}
-													= cash.lpo
-												%td.editable.amount{data: { id: cash.id }}
-													= cash.amount
-												%td.editable.description{data: { id: cash.id }}
-													= cash.description
+					= f.hidden_field :truck_id, value: @truck.id
+					= f.hidden_field :direction, value: "OUT"
+					.form-group
+						= f.label :amount, "Amount"
+						= f.text_field :amount, class: "form-control"
+					.form-group
+						= f.label :lpo
+						= f.text_field :lpo, class: "form-control"
+					.form-group
+						= f.label :date
+						= f.text_field :date, class: "form-control datepicker"
+					.form-group
+						= f.label :currency
+						%select.form-control{name: "truck_cash[currency]"}
+							%option{value: "Kenya Shilling"}
+								Kenya Shilling
+							%option{value: "US Dollar"}
+								US Dollar
+					.form-group
+						= f.label :description
+						= f.text_area :description, class: "form-control"
+				.modal-footer
+					%button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}
+						%i.fa.fa-times
+						Cancel
+					%button.btn.btn-kasoko{:type => "submit"}
+						%i.fa.fa-money
+						Pay Balance
 
-	#truck_cash_out_list_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
-		.modal-dialog
-			.modal-content
-				.modal-header
-					%button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-						%span{"aria-hidden" => "true"} &times;
-					%h4#myModalLabel.modal-title Payments
-				.modal-body
-					.row
-						.col-md-12
-							/ start:dynamic data table
-							.adv-table.table_container
-								%table#example.truck_cash_table.display.table.table-bordered.table-striped
-									%thead
-										%tr
-											/ %th.no-sort
-											/ 	= check_box_tag "toggle_cashes"
-											%th Date
-											%th LPO
-											%th Amount
-											%th Currency
-											%th Description
-									%tbody.cashes_table
-										- @truck.cash_out.each do |cash|
-											%tr.gradeX
-												/ %td{style: "width: 15px;"}
-												/ 	= check_box_tag "cash[cash.id]", cash.id
-												%td
-													= cash.created_at
-												%td.editable.lpo{data: { id: cash.id }}
-													= cash.lpo
-												%td.editable.amount{data: { id: cash.id }}
-													= cash.amount
-												%td.editable.currency{data: { id: cash.id }}
-													= cash.currency
-												%td.editable.description{data: { id: cash.id }}
-													= cash.description
+#truck_cash_in_list_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+	.modal-dialog
+		.modal-content
+			.modal-header
+				%button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+					%span{"aria-hidden" => "true"} &times;
+				%h4#myModalLabel.modal-title Cash IN
+			.modal-body
+				.row
+					.col-md-12
+						/ start:dynamic data table
+						.adv-table.table_container
+							%table#example.truck_cash_table.display.table.table-bordered.table-striped
+								%thead
+									%tr
+										/ %th.no-sort
+										/ 	= check_box_tag "toggle_cashes"
+										%th Date
+										%th LPO
+										%th Amount
+										%th Description
+								%tbody.cashes_table
+									- @truck.cash_in.each do |cash|
+										%tr.gradeX
+											/ %td{style: "width: 15px;"}
+											/ 	= check_box_tag "cash[cash.id]", cash.id
+											%td
+												= cash.created_at
+											%td.editable.lpo{data: { id: cash.id }}
+												= cash.lpo
+											%td.editable.amount{data: { id: cash.id }}
+												= cash.amount
+											%td.editable.description{data: { id: cash.id }}
+												= cash.description
+
+#truck_cash_out_list_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+	.modal-dialog
+		.modal-content
+			.modal-header
+				%button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+					%span{"aria-hidden" => "true"} &times;
+				%h4#myModalLabel.modal-title Payments
+			.modal-body
+				.row
+					.col-md-12
+						/ start:dynamic data table
+						.adv-table.table_container
+							%table#example.truck_cash_table.display.table.table-bordered.table-striped
+								%thead
+									%tr
+										/ %th.no-sort
+										/ 	= check_box_tag "toggle_cashes"
+										%th Date
+										%th LPO
+										%th Amount
+										%th Currency
+										%th Description
+								%tbody.cashes_table
+									- @truck.cash_out.each do |cash|
+										%tr.gradeX
+											/ %td{style: "width: 15px;"}
+											/ 	= check_box_tag "cash[cash.id]", cash.id
+											%td
+												= cash.created_at
+											%td.editable.lpo{data: { id: cash.id }}
+												= cash.lpo
+											%td.editable.amount{data: { id: cash.id }}
+												= cash.amount
+											%td.editable.currency{data: { id: cash.id }}
+												= cash.currency
+											%td.editable.description{data: { id: cash.id }}
+												= cash.description

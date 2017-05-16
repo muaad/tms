@@ -33,6 +33,22 @@ $(function() {
 	    } ]
 	} );
 
+	// var neg = $('.main-header').outerHeight() + $('.main-footer').outerHeight();
+	// var window_height = $(window).height();
+	// $(".content-area, .content-wrapper").css('height', window_height - neg);
+	// $(window).bind('resize', function(event) {
+	// 	var window_height = $(window).height();
+	// 	$(".content-area, .content-wrapper").css('height', window_height - neg);
+	// });
+
+	var neg = $('.main-header').outerHeight() + $('.main-footer').outerHeight();
+	var window_height = $(window).height();
+	$(".content-area, .content-wrapper").css('height', window_height - neg);
+	$(window).bind('resize', function(event) {
+		var window_height = $(window).height();
+		$(".content-area, .content-wrapper").css('height', window_height - neg);
+	});
+
 	var formattedDate = new Date();
 	var d = formattedDate.getDate();
 	var m =  formattedDate.getMonth();

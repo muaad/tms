@@ -1,89 +1,86 @@
-%section.content
-  .row
-    .col-md-12
-      .box.box-info
-        .box-header.with-border
-          %h3.box-title Diesel Expenses
-          .box-tools.pull-right
-            .btn-toolbar{role: "toolbar"}
-              .btn-group
-                %a#new-diesel-expense.btn.btn-box-tool.btn-default{href: new_diesel_expense_path}
-                  %i.fa.fa-plus
-                  New
-                %a#edit-expense.btn.btn-box-tool.btn-default
-                  %i.fa.fa-edit
-                  Edit
-                %a#delete-expenses.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#delete_expense_modal"}
-                  %i.fa.fa-times
-                  Delete
-        / /.box-header
-        .box-body
-          .row
-            .col-md-12
-              / start:dynamic data table
-              .adv-table
-                %table#example.exchange-rate.display.table.table-bordered.table-striped
-                  %thead
-                    %tr
-                      %th.no-sort
-                        = check_box_tag "toggle_expenses"
-                      %th Date
-                      %th LPO
-                      %th Truck
-                      %th Company
-                      %th Litres
-                      %th Price
-                      %th Total Amount
-                      / %th Discount
-                      %th Currency
-                      %th Description
-                  %tbody.expenses_table
-                    - @expenses.each do |expense|
-                      %tr.gradeX
-                        %td{style: "width: 15px;"}
-                          = check_box_tag "expense[expense.id]", expense.id
-                        %td
-                          = expense.date
-                        %td
-                          = link_to expense.lpo, expense_path(expense)
-                        %td
-                          = link_to expense.truck.registration_number, truck_path(expense.truck) if !expense.truck.nil?
-                        %td
-                          = expense.entity.name if !expense.entity.nil?
-                        %td
-                          = expense.quantity
-                        %td
-                          = expense.unit_price
-                        %td
-                          = expense.amount
-                        / %td
-                        /   0
-                        %td
-                          = expense.currency
-                        %td
-                          = expense.description
-        .box-footer
-          .row
-            .col-xs-6
-              .info-box{href: "#", "data-toggle" => "modal", "data-target" => "#cash_in_list_modal"}
-                %span.info-box-icon.bg-aqua
-                  %i.fa.fa-flask
-                .info-box-content
-                  %span.info-box-text 
-                    Litres
-                    %br
-                    %small#total-cash
-                      = @expenses.sum(:quantity)
-            .col-xs-6
-              .info-box
-                %span.info-box-icon.bg-aqua
-                  %i.fa.fa-money
-                .info-box-content
-                  %span.info-box-text
-                    Diesel Expense Total
-                    %br
-                    %small#total-expense
-                      = to_currency(@expenses.sum(:amount), unit: "KES ")
+.box.box-kasoko
+  .box-header.with-border
+    %h3.box-title Diesel Expenses
+    .box-tools.pull-right
+      .btn-toolbar{role: "toolbar"}
+        .btn-group
+          %a#new-diesel-expense.btn.btn-box-tool.btn-default{href: new_diesel_expense_path}
+            %i.fa.fa-plus
+            New
+          %a#edit-expense.btn.btn-box-tool.btn-default
+            %i.fa.fa-edit
+            Edit
+          %a#delete-expenses.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#delete_expense_modal"}
+            %i.fa.fa-times
+            Delete
+  / /.box-header
+  .box-body.kasoko-body
+    .row
+      .col-md-12
+        / start:dynamic data table
+        .adv-table
+          %table#example.exchange-rate.display.table.table-bordered.table-striped
+            %thead
+              %tr
+                %th.no-sort
+                  = check_box_tag "toggle_expenses"
+                %th Date
+                %th LPO
+                %th Truck
+                %th Company
+                %th Litres
+                %th Price
+                %th Total Amount
+                / %th Discount
+                %th Currency
+                %th Description
+            %tbody.expenses_table
+              - @expenses.each do |expense|
+                %tr.gradeX
+                  %td{style: "width: 15px;"}
+                    = check_box_tag "expense[expense.id]", expense.id
+                  %td
+                    = expense.date
+                  %td
+                    = link_to expense.lpo, expense_path(expense)
+                  %td
+                    = link_to expense.truck.registration_number, truck_path(expense.truck) if !expense.truck.nil?
+                  %td
+                    = expense.entity.name if !expense.entity.nil?
+                  %td
+                    = expense.quantity
+                  %td
+                    = expense.unit_price
+                  %td
+                    = expense.amount
+                  / %td
+                  /   0
+                  %td
+                    = expense.currency
+                  %td
+                    = expense.description
+  .box-footer.kasoko-footer
+    .row
+      .col-xs-6
+        .info-box{href: "#", "data-toggle" => "modal", "data-target" => "#cash_in_list_modal"}
+          %span.info-box-icon.bg-aqua
+            %i.fa.fa-flask
+          .info-box-content
+            %span.info-box-text 
+              Litres
+              %br
+              %small#total-cash
+                = @expenses.sum(:quantity)
+      .col-xs-6
+        .info-box
+          %span.info-box-icon.bg-aqua
+            %i.fa.fa-money
+          .info-box-content
+            %span.info-box-text
+              Diesel Expense Total
+              %br
+              %small#total-expense
+                = to_currency(@expenses.sum(:amount), unit: "KES ")
   #delete_expense_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
     .modal-dialog
       .modal-content

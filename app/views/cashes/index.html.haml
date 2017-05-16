@@ -1,201 +1,198 @@
-%section.content
-	.row
-		.col-md-12
-			.box.box-info
-				.box-header.with-border
-					%h3.box-title Cash IN/OUT
-					.box-tools.pull-right
-						.btn-toolbar{role: "toolbar"}
-							/ .btn-group
-							/ 	%button.btn.btn-box-tool.dropdown-toggle.btn-default{"data-toggle" => "dropdown"}
-							/ 		%i.fa.fa-plus
-							/ 		New
-							/ 		%i.fa.fa-caret-down
-							/ 	%ul.dropdown-menu{:role => "menu"}
-							/ 		%li
-							/ 			%a{:href => ""}
-							/ 				Cash
-							.btn-group
-								%a#cash-out.btn.btn-box-tool.btn-default
-									%i.fa.fa-mail-reply
-									Cash OUT
-							.btn-group
-								%a#cash-in.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#cash_in_modal"}
-									%i.fa.fa-mail-forward
-									Cash IN
-								%a#edit-expense.btn.btn-box-tool.btn-default
-									%i.fa.fa-edit
-									Edit
-								%a#delete-expenses.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#delete_expense_modal"}
-									%i.fa.fa-times
-									Delete
-				/ /.box-header
-				.box-body
-					.row
-						.col-md-12
-							/ start:dynamic data table
-							.adv-table
-								%table#example.exchange-rate.display.table.table-bordered.table-striped
-									%thead
-										%tr
-											%th.no-sort
-												= check_box_tag "toggle_expenses"
-											%th Date
-											%th LPO
-											%th Account
-											%th Truck
-											%th Entity
-											%th Quantity
-											%th Price
-											%th Total Amount
-											/ %th Discount
-											%th Description
-											%th Balance
-									%tbody.expenses_table
-										- Expense.all.order(created_at: :desc).each do |expense|
-											%tr.gradeX
-												%td{style: "width: 15px;"}
-													= check_box_tag "expense[expense.id]", expense.id
-												%td
-													= expense.date
-												%td
-													= link_to expense.lpo, expense_path(expense)
-												%td
-													= link_to expense.category.name, expense_category_path(expense.category) if !expense.category.nil?
-												%td
-													= link_to expense.truck.registration_number, truck_path(expense.truck) if !expense.truck.nil?
-												%td
-													= expense.entity.name if !expense.entity.nil?
-												%td
-													= expense.quantity
-												%td
-													= expense.unit_price
-												%td
-													= expense.amount
-												/ %td
-												/   0
-												/ %td
-												/   = link_to expense.trip.name, trip_path(expense.trip) if !expense.trip.nil?
-												%td
-													= expense.description
-												%td
-													= to_currency(Cash.sum(:amount_in) - expense.total_before, unit: "")
-				.box-footer
-					.row
-						.col-xs-4
-							.info-box{href: "#", "data-toggle" => "modal", "data-target" => "#cash_in_list_modal"}
-								%span.info-box-icon.bg-aqua
-									%i.fa.fa-money
-								.info-box-content
-									%span.info-box-text 
-										Cash In
-										%br
-										%small#total-cash
-											= to_currency(Cash.sum(:amount_in), unit: "")
-						.col-xs-4
-							.info-box
-								%span.info-box-icon.bg-aqua
-									%i.fa.fa-money
-								.info-box-content
-									%span.info-box-text
-										Cash Out
-										%br
-										%small#total-expense
-											= to_currency(Expense.sum(:amount), unit: "")
-						.col-xs-4
-							.info-box
-								%span.info-box-icon.bg-aqua
-									%i.fa.fa-money
-								.info-box-content
-									%span.info-box-text
-										Balance
-										%br
-										%small#cash-balance
-											= to_currency((Cash.sum(:amount_in) - Expense.sum(:amount)), unit: "")
-	#delete_expense_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
-		.modal-dialog
-			.modal-content
-				.modal-header
-					%button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-						%span{"aria-hidden" => "true"} &times;
-					%h4#myModalLabel.modal-title Delete Expenses
-				= form_tag delete_multiple_expenses_path do |f|
-					.modal-body
-						%label#lbl-msg
-						= hidden_field_tag 'delete_expenses'
-					.modal-footer
-						%button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} 
-							%i.fa.fa-times
-							Cancel
-						%button.btn.btn-danger{:type => "submit"} 
-							%i.fa.fa-trash-o
-							Delete
-	#cash_in_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
-		.modal-dialog
-			.modal-content
-				.modal-header
-					%button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-						%span{"aria-hidden" => "true"} &times;
-					%h4#myModalLabel.modal-title Cash IN
-				= form_for @cash do |f|
-					.modal-body
-						.form-group
-							= f.label :amount_in, "Amount"
-							= f.text_field :amount_in, class: "form-control"
-						.form-group
-							= f.label :lpo
-							= f.text_field :lpo, class: "form-control"
-						.form-group
-							= f.label :date
-							= f.text_field :date, class: "form-control datepicker"
-						.form-group
-							= f.label :description
-							= f.text_area :description, class: "form-control"
-					.modal-footer
-						%button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} 
-							%i.fa.fa-times
-							Cancel
-						%button.btn.btn-success{:type => "submit"} 
-							%i.fa.fa-plus
-							Add Cash
-	#cash_in_list_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
-		.modal-dialog
-			.modal-content
-				.modal-header
-					%button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-						%span{"aria-hidden" => "true"} &times;
-					%h4#myModalLabel.modal-title Cash IN
-				.modal-body
-					.row
-						.col-md-12
-							/ start:dynamic data table
-							.adv-table.table_container
-								%table#example.cash_table.display.table.table-bordered.table-striped
-									%thead
-										%tr
-											/ %th.no-sort
-											/ 	= check_box_tag "toggle_cashes"
-											%th Date
-											%th LPO
-											%th Amount
-											%th Description
-									%tbody.cashes_table
-										- Cash.all.each do |cash|
-											%tr.gradeX
-												/ %td{style: "width: 15px;"}
-												/ 	= check_box_tag "cash[cash.id]", cash.id
-												%td
-													= cash.date
-												%td.editable.lpo{data: { id: cash.id }}
-													= cash.lpo
-												%td.editable.amount_in{data: { id: cash.id }}
-													= cash.amount_in
-												%td.editable.description{data: { id: cash.id }}
-													= cash.description
-				/ .modal-footer
-				/ 	%button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} 
-				/ 		%i.fa.fa-times
-				/ 		Cancel
-				/ 	%button.btn.btn-success{:type => "submit"} 
+.box.box-kasoko
+	.box-header.with-border
+		%h3.box-title Cash IN/OUT
+		.box-tools.pull-right
+			.btn-toolbar{role: "toolbar"}
+				/ .btn-group
+				/ 	%button.btn.btn-box-tool.dropdown-toggle.btn-default{"data-toggle" => "dropdown"}
 				/ 		%i.fa.fa-plus
-				/ 		Add Cash
+				/ 		New
+				/ 		%i.fa.fa-caret-down
+				/ 	%ul.dropdown-menu{:role => "menu"}
+				/ 		%li
+				/ 			%a{:href => ""}
+				/ 				Cash
+				.btn-group
+					%a#cash-out.btn.btn-box-tool.btn-default
+						%i.fa.fa-mail-reply
+						Cash OUT
+				.btn-group
+					%a#cash-in.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#cash_in_modal"}
+						%i.fa.fa-mail-forward
+						Cash IN
+					%a#edit-expense.btn.btn-box-tool.btn-default
+						%i.fa.fa-edit
+						Edit
+					%a#delete-expenses.btn.btn-box-tool.btn-default{href: "#", "data-toggle" => "modal", "data-target" => "#delete_expense_modal"}
+						%i.fa.fa-times
+						Delete
+	/ /.box-header
+	.box-body.kasoko-body
+		.row
+			.col-md-12
+				/ start:dynamic data table
+				.adv-table
+					%table#example.exchange-rate.display.table.table-bordered.table-striped
+						%thead
+							%tr
+								%th.no-sort
+									= check_box_tag "toggle_expenses"
+								%th Date
+								%th LPO
+								%th Account
+								%th Truck
+								%th Entity
+								%th Quantity
+								%th Price
+								%th Total Amount
+								/ %th Discount
+								%th Description
+								%th Balance
+						%tbody.expenses_table
+							- Expense.all.order(created_at: :desc).each do |expense|
+								%tr.gradeX
+									%td{style: "width: 15px;"}
+										= check_box_tag "expense[expense.id]", expense.id
+									%td
+										= expense.date
+									%td
+										= link_to expense.lpo, expense_path(expense)
+									%td
+										= link_to expense.category.name, expense_category_path(expense.category) if !expense.category.nil?
+									%td
+										= link_to expense.truck.registration_number, truck_path(expense.truck) if !expense.truck.nil?
+									%td
+										= expense.entity.name if !expense.entity.nil?
+									%td
+										= expense.quantity
+									%td
+										= expense.unit_price
+									%td
+										= expense.amount
+									/ %td
+									/   0
+									/ %td
+									/   = link_to expense.trip.name, trip_path(expense.trip) if !expense.trip.nil?
+									%td
+										= expense.description
+									%td
+										= to_currency(Cash.sum(:amount_in) - expense.total_before, unit: "")
+	.box-footer.kasoko-footer
+		.row
+			.col-xs-4
+				.info-box{href: "#", "data-toggle" => "modal", "data-target" => "#cash_in_list_modal"}
+					%span.info-box-icon.bg-aqua
+						%i.fa.fa-money
+					.info-box-content
+						%span.info-box-text 
+							Cash In
+							%br
+							%small#total-cash
+								= to_currency(Cash.sum(:amount_in), unit: "")
+			.col-xs-4
+				.info-box
+					%span.info-box-icon.bg-aqua
+						%i.fa.fa-money
+					.info-box-content
+						%span.info-box-text
+							Cash Out
+							%br
+							%small#total-expense
+								= to_currency(Expense.sum(:amount), unit: "")
+			.col-xs-4
+				.info-box
+					%span.info-box-icon.bg-aqua
+						%i.fa.fa-money
+					.info-box-content
+						%span.info-box-text
+							Balance
+							%br
+							%small#cash-balance
+								= to_currency((Cash.sum(:amount_in) - Expense.sum(:amount)), unit: "")
+#delete_expense_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+	.modal-dialog
+		.modal-content
+			.modal-header
+				%button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+					%span{"aria-hidden" => "true"} &times;
+				%h4#myModalLabel.modal-title Delete Expenses
+			= form_tag delete_multiple_expenses_path do |f|
+				.modal-body
+					%label#lbl-msg
+					= hidden_field_tag 'delete_expenses'
+				.modal-footer
+					%button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} 
+						%i.fa.fa-times
+						Cancel
+					%button.btn.btn-danger{:type => "submit"} 
+						%i.fa.fa-trash-o
+						Delete
+#cash_in_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+	.modal-dialog
+		.modal-content
+			.modal-header
+				%button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+					%span{"aria-hidden" => "true"} &times;
+				%h4#myModalLabel.modal-title Cash IN
+			= form_for @cash do |f|
+				.modal-body
+					.form-group
+						= f.label :amount_in, "Amount"
+						= f.text_field :amount_in, class: "form-control"
+					.form-group
+						= f.label :lpo
+						= f.text_field :lpo, class: "form-control"
+					.form-group
+						= f.label :date
+						= f.text_field :date, class: "form-control datepicker"
+					.form-group
+						= f.label :description
+						= f.text_area :description, class: "form-control"
+				.modal-footer
+					%button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} 
+						%i.fa.fa-times
+						Cancel
+					%button.btn.btn-kasoko{:type => "submit"} 
+						%i.fa.fa-plus
+						Add Cash
+#cash_in_list_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+	.modal-dialog
+		.modal-content
+			.modal-header
+				%button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+					%span{"aria-hidden" => "true"} &times;
+				%h4#myModalLabel.modal-title Cash IN
+			.modal-body
+				.row
+					.col-md-12
+						/ start:dynamic data table
+						.adv-table.table_container
+							%table#example.cash_table.display.table.table-bordered.table-striped
+								%thead
+									%tr
+										/ %th.no-sort
+										/ 	= check_box_tag "toggle_cashes"
+										%th Date
+										%th LPO
+										%th Amount
+										%th Description
+								%tbody.cashes_table
+									- Cash.all.each do |cash|
+										%tr.gradeX
+											/ %td{style: "width: 15px;"}
+											/ 	= check_box_tag "cash[cash.id]", cash.id
+											%td
+												= cash.date
+											%td.editable.lpo{data: { id: cash.id }}
+												= cash.lpo
+											%td.editable.amount_in{data: { id: cash.id }}
+												= cash.amount_in
+											%td.editable.description{data: { id: cash.id }}
+												= cash.description
+			/ .modal-footer
+			/ 	%button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} 
+			/ 		%i.fa.fa-times
+			/ 		Cancel
+			/ 	%button.btn.btn-kasoko{:type => "submit"} 
+			/ 		%i.fa.fa-plus
+			/ 		Add Cash
