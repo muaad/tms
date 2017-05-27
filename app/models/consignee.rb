@@ -10,7 +10,7 @@
 #  updated_at   :datetime         not null
 #
 
-class Consignee < ActiveRecord::Base
+class Consignee < ApplicationRecord
   belongs_to :city
   has_many :trips
   belongs_to :account

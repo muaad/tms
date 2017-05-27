@@ -137,7 +137,8 @@ $.AdminLTE.options = {
  * functions and plugins as specified by the
  * options above.
  */
-$(function () {
+// $(function () {
+document.addEventListener("turbolinks:load", function() {
   "use strict";
 
   //Fix for IE page transitions

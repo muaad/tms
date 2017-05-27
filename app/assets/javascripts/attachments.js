@@ -20,7 +20,8 @@ function switchOwners(ownerType, ownerID) {
 	};
 }
 
-$(function() {
+// $(function() {
+document.addEventListener("turbolinks:load", function() {
 	var editPage = window.location.pathname.indexOf("edit") >= 0 && window.location.pathname.indexOf("attachments") >= 0
 	var ownerType = $('#ownerType').val();
 	var ownerID = $('#ownerID').val();

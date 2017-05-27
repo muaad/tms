@@ -1,4 +1,5 @@
-$(function() {
+// $(function() {
+document.addEventListener("turbolinks:load", function() {
 	$('#toggle_cities').change(function(e) {
 	  if (this.checked) {
 	    $('.cities_table').checkboxes('check');

@@ -6,6 +6,8 @@
         %title Kasoko | Transportation
         / Tell the browser to be responsive to screen width
         %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no", :name => "viewport"}
+        %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Kasoko Truck Management System'}"}
+        %link{href: "/kasoko.ico", rel: "shortcut icon", type: "image/x-icon"}
         = stylesheet_link_tag 'application', media: 'all'
         = javascript_include_tag 'application'
         = csrf_meta_tags
@@ -16,11 +18,13 @@
         %nav.navbar.navbar-static-top
           .container
             .navbar-header
-              %a.navbar-brand{:href => root_path}
-                %i.fa.fa-truck
-                %b> TMS
-              %button.navbar-toggle.collapsed{"data-target" => "#navbar-collapse", "data-toggle" => "collapse", :type => "button"}
-                %i.fa.fa-bars
+              %a.logo{:href => '/'}
+                / mini logo for sidebar mini 50x50 pixels
+                %span.logo-mini
+                  = image_tag('icon.png', style: "width: 45px; height: 45px; float: left; padding-top: 5px;")
+                / logo for regular state and mobile devices
+                %span.logo-lg
+                  = image_tag('logo3.png', style: "width: 200px; float: left; padding-top: 5px;")
             / Collect the nav links, forms, and other content for toggling
             #navbar-collapse.collapse.navbar-collapse.pull-right
               %ul.nav.navbar-nav
@@ -41,7 +45,7 @@
             Copyright &copy;
             = Time.now.year
             = succeed "." do
-              %a{:href => "http://kasoko.co.ke"} Kasoko
+              %a{:href => "https://kasoko.co.ke"} Kasoko
           All rights reserved.
         / /.container
     / ./wrapper

@@ -9,8 +9,8 @@
         %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Kasoko Truck Management System'}"}
         %link{href: "/kasoko.ico", rel: "shortcut icon", type: "image/x-icon"}
           / Bootstrap 3.3.5
-        = stylesheet_link_tag 'application', media: 'all'
-        = javascript_include_tag 'application'
+        = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => 'reload'
+        = javascript_include_tag 'application', 'data-turbolinks-track' => 'reload'
         = csrf_meta_tags
   %body.hold-transition.skin-black-light.sidebar-mini.fixed
     .wrapper
@@ -31,31 +31,6 @@
           / Navbar Right Menu
           .navbar-custom-menu
             %ul.nav.navbar-nav
-              / %li.dropdown.tasks-menu
-              /   %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-              /     %i.fa.fa-bell
-              /     - if Notification.unread.count > 0
-              /       %span.label.label-danger#unread-count
-              /         = Notification.unread.count
-              /   %ul.dropdown-menu
-              /     %li.header
-              /       = "You have #{pluralize(Notification.unresolved.count, "notification")}"
-              /     %li
-              /       / inner menu: contains the actual data
-              /       %ul.menu#notification-list
-              /         - Notification.unresolved.last(5).reverse.each do |notification|
-              /           %li
-              /             / Task item
-              /             %a{:href => notification_path(notification)}
-              /               %h3
-              /                 = "#{notification.attachment.name} - #{notification.attachment.owner_name}"
-              /                 %small.pull-right
-              /                   %i{class: "fa fa-#{notification.read ? 'circle-thin' : 'circle'}"}
-              /               %small
-              /                 %em
-              /                   = notification.notification_type
-              /     %li.footer
-              /       %a{:href => notifications_path} View all notifications
               / User Account: style can be found in dropdown.less
               %li.dropdown.user.user-menu
                 %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
@@ -293,7 +268,7 @@
       .content-wrapper
         / Content Header (Page header)
         %section.content.content-area
-          = render 'layouts/messages'
+          / = render 'layouts/messages'
           = yield
       %footer.main-footer
         .pull-right.hidden-xs

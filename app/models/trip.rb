@@ -22,7 +22,7 @@
 #  updated_at     :datetime         not null
 #
 
-class Trip < ActiveRecord::Base
+class Trip < ApplicationRecord
   include Reportable
 
   belongs_to :truck

@@ -12,7 +12,7 @@
 #  updated_at   :datetime         not null
 #
 
-class TruckOwner < ActiveRecord::Base
+class TruckOwner < ApplicationRecord
 	has_many :trucks
 	has_many :attachments
 	belongs_to :account

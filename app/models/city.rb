@@ -10,7 +10,7 @@
 #  updated_at :datetime         not null
 #
 
-class City < ActiveRecord::Base
+class City < ApplicationRecord
 	belongs_to :account
 	acts_as_tenant(:account)
 

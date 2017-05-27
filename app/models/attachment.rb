@@ -16,7 +16,7 @@
 #  file_updated_at   :datetime
 #
 
-class Attachment < ActiveRecord::Base
+class Attachment < ApplicationRecord
 	attr_accessor :long_name
 
   belongs_to :driver

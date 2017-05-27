@@ -32,7 +32,8 @@ function price() {
 	});
 }
 
-$(function() {
+// $(function() {
+document.addEventListener("turbolinks:load", function() {
 	// $('#toggle_expenses').change(function(e) {
 	//   if (this.checked) {
 	//     $('.expenses_table').checkboxes('check');

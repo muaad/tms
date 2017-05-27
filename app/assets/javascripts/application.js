@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
-//= require app
 //= require trucks
 //= require jquery.slimscroll.min
 //= require jquery.dataTables
@@ -22,16 +21,20 @@
 //= require sweetalert.min
 //= require jquery.checkboxes
 //= require bootstrap-datepicker
+//= require turbolinks
+//= require app
 //= require_tree .
 //= require_self
 
-$(function() {
+document.addEventListener("turbolinks:load", function() {
 	$('#example').dataTable( {
 	    "aoColumnDefs" : [ {
 	        "bSortable" : false,
 	        "aTargets" : [ "no-sort" ]
 	    } ]
 	} );
+
+	$.AdminLTE.tree('.sidebar');
 
 	// var neg = $('.main-header').outerHeight() + $('.main-footer').outerHeight();
 	// var window_height = $(window).height();

@@ -1,4 +1,5 @@
-$(function() {
+// $(function() {
+document.addEventListener("turbolinks:load", function() {
 	$('#toggle_consignees').change(function(e) {
 	  if (this.checked) {
 	    $('.consignees_table').checkboxes('check');

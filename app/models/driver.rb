@@ -11,7 +11,7 @@
 #  updated_at   :datetime         not null
 #
 
-class Driver < ActiveRecord::Base
+class Driver < ApplicationRecord
 	attr_accessor :salary
 	has_many :truck_drivers
 	has_many :trucks, through: :truck_drivers

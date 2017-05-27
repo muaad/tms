@@ -5,7 +5,8 @@ function loadDieselPrice(company_id, priceField) {
 	});
 }
 
-$(function() {
+// $(function() {
+document.addEventListener("turbolinks:load", function() {
 	$('#toggle_trips').change(function(e) {
 	  if (this.checked) {
 	    $('.trips_table').checkboxes('check');

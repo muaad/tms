@@ -1,4 +1,5 @@
-$(function() {
+// $(function() {
+document.addEventListener("turbolinks:load", function() {
 	$('#toggle_turn_boys').change(function(e) {
 	  if (this.checked) {
 	    $('.turn_boys_table').checkboxes('check');

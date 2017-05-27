@@ -11,7 +11,7 @@
 #  updated_at   :datetime         not null
 #
 
-class TurnBoy < ActiveRecord::Base
+class TurnBoy < ApplicationRecord
 	attr_accessor :salary
 	has_many :truck_turn_boys
 	has_many :trucks, through: :truck_turn_boys

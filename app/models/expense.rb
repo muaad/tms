@@ -18,7 +18,7 @@
 #  trip_id             :integer
 #
 
-class Expense < ActiveRecord::Base
+class Expense < ApplicationRecord
   include Reportable
 
   scope :shilling, -> { where("currency = ?", "Kenya Shilling") }

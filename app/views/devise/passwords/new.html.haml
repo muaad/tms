@@ -1,0 +1,19 @@
+.login-box
+  .login-logo
+    %a{:href => root_path, style: 'color: #E67436;'}
+      %b> Kasoko TMS
+  / /.login-logo
+  .login-box-body
+    %h3.login-box-msg Forgot your password?
+    = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :role => 'form'}) do |f|
+      = devise_error_messages!
+      %p We'll send password reset instructions.
+      .form-group
+        = f.label :email
+        %input.form-control{:placeholder => "Email", :type => "email", :name => "user[email]", autofocus: true}
+          %span.glyphicon.glyphicon-envelope.form-control-feedback
+      .row
+        .col-sm-12
+        %button.btn.btn-kasoko.btn-block.btn-flat{:type => "submit"} 
+          %i.fa.fa-edit
+          Reset Password

@@ -9,7 +9,7 @@
 #  updated_at :datetime         not null
 #
 
-class DieselCompany < ActiveRecord::Base
+class DieselCompany < ApplicationRecord
 	has_many :diesel_expenses
 	belongs_to :account
 	acts_as_tenant(:account)

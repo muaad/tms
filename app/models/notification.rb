@@ -1,4 +1,4 @@
-class Notification < ActiveRecord::Base
+class Notification < ApplicationRecord
 	attr_accessor :attachment_name
   belongs_to :attachment
 

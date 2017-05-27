@@ -9,7 +9,7 @@
 #  truck_owner_id      :integer
 #
 
-class Truck < ActiveRecord::Base
+class Truck < ApplicationRecord
 	attr_accessor :driver_salary
 	attr_accessor :turn_boy_salary
 

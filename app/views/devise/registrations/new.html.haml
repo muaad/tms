@@ -1,7 +1,7 @@
 .login-box
   .login-logo
-    %a{:href => root_path}
-      %b> TMS
+    %a{:href => root_path, style: 'color: #E67436;'}
+      %b> Kasoko TMS
   / /.login-logo
   .login-box-body
     %h3.login-box-msg Sign in
@@ -24,7 +24,12 @@
         %input.form-control{:placeholder => "Password confirmation", :type => "password", :name => "user[password_confirmation]"}
           %span.glyphicon.glyphicon-lock.form-control-feedback
       .row
-        .col-xs-4
+        .col-sm-12
           %button.btn.btn-kasoko.btn-block.btn-flat{:type => "submit"} 
             %i.fa.fa-paper-plane
             Sign Up
+    %br
+    - if devise_mapping.recoverable?
+      = link_to "Forgot password?", new_password_path(resource_name), class: 'right'
+    %br
+      = link_to 'Sign In', new_session_path(resource_name), class: 'right'

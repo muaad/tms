@@ -11,7 +11,7 @@
 #  updated_at  :datetime         not null
 #
 
-class TruckTurnBoy < ActiveRecord::Base
+class TruckTurnBoy < ApplicationRecord
   belongs_to :truck
   belongs_to :turn_boy
   belongs_to :account

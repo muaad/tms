@@ -8,7 +8,7 @@
 #  updated_at :datetime         not null
 #
 
-class ExpenseCategory < ActiveRecord::Base
+class ExpenseCategory < ApplicationRecord
 	belongs_to :account
 	acts_as_tenant(:account)
 	has_many :expenses

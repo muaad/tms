@@ -1,4 +1,5 @@
-$(function() {
+// $(function() {
+document.addEventListener("turbolinks:load", function() {
 	$('#toggle_truck_owners').change(function(e) {
 	  if (this.checked) {
 	    $('.truck_owners_table').checkboxes('check');

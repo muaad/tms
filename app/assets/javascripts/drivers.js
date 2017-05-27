@@ -1,4 +1,5 @@
-$(function() {
+// $(function() {
+document.addEventListener("turbolinks:load", function() {
 	$('#toggle_drivers').change(function(e) {
 	  if (this.checked) {
 	    $('.drivers_table').checkboxes('check');

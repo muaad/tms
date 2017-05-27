@@ -1,4 +1,4 @@
-class Cash < ActiveRecord::Base
+class Cash < ApplicationRecord
 	include Reportable
 	attr_accessor :total_cash
 

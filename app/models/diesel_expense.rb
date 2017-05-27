@@ -10,7 +10,7 @@
 #  updated_at        :datetime         not null
 #
 
-class DieselExpense < ActiveRecord::Base
+class DieselExpense < ApplicationRecord
   belongs_to :diesel_company
   belongs_to :expense
 end

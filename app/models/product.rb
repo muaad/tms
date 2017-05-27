@@ -10,7 +10,7 @@
 #  product_type :string
 #
 
-class Product < ActiveRecord::Base
+class Product < ApplicationRecord
 	has_many :expenses
 	belongs_to :account
 	acts_as_tenant(:account)
