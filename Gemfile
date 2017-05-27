@@ -24,6 +24,7 @@ gem 'acts_as_tenant'
 gem 'rollbar'
 gem 'puma'
 gem 'redis'
+gem 'serviceworker-rails'
 # gem 'groupdate'
 group :development do
   gem 'better_errors'

@@ -99,4 +99,4 @@ $(function() {
 	// $('#owner_phone_number').select2();
 	// $('#driver_phone_number').select2();
 	// $('#turn_boy_phone_number').select2();
-})
+})//= require serviceworker-companion
