@@ -1,8 +1,10 @@
 function loadDieselPrice(company_id, priceField) {
 	// var company_id = $('select[id="diesel_company_id"] :selected').val()
-	$.get('/diesel_companies/' + company_id + '.json', function(data) {
-		priceField.val(data.price)
-	});
+	if (company_id !== undefined) {
+		$.get('/diesel_companies/' + company_id + '.json', function(data) {
+			priceField.val(data.price)
+		});
+	}
 }
 
 // $(function() {

@@ -27,9 +27,11 @@ function refreshDieselTable(tbl, url, data) {
 };
 function price() {
 	var company_id = $('select[id="diesel_companies"] :selected').val()
-	$.get('/diesel_companies/' + company_id + '.json', function(data) {
-		$('#expense_unit_price').val(data.price)
-	});
+	if (company_id !== undefined) {
+		$.get('/diesel_companies/' + company_id + '.json', function(data) {
+			$('#expense_unit_price').val(data.price)
+		});
+	}
 }
 
 // $(function() {
@@ -133,9 +135,11 @@ document.addEventListener("turbolinks:load", function() {
 
 		$(document).on('change', 'select[id="diesel_companies"]', function(e) {
 			var company_id = $('select[id="diesel_companies"] :selected').val()
-			$.get('/diesel_companies/' + company_id + '.json', function(data) {
-				$('#expense_unit_price').val(data.price)
-			});
+			if (company_id !== undefined) {
+				$.get('/diesel_companies/' + company_id + '.json', function(data) {
+					$('#expense_unit_price').val(data.price)
+				});
+			}
 		});
 
 		$(document).on('propertychange change click keyup input paste', '#expense_quantity, #expense_unit_price', function(e) {
