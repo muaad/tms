@@ -1,5 +1,8 @@
-.box.box-kasoko
-	.box-header.with-border
-		%h3.box-title
-			Company Details
-	= render 'form'
+.login-box
+  .login-logo
+    %a{:href => root_path, style: 'color: #E67436;'}
+      %b> Kasoko TMS
+  / /.login-logo
+  .login-box-body
+    %h3.login-box-msg New Account Details
+    = render 'form'

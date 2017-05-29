@@ -2,4 +2,36 @@
 	.box-header.with-border
 		%h3.box-title
 			Edit Company Details
-	= render 'form'
+	= form_for @account, html: {class: 'kasoko-form', remote: true} do |f|
+		.box-body.kasoko-body
+			.row
+				.col-md-12
+					- if @account.errors.any?
+						#error_explanation
+							%h2= "#{pluralize(@account.errors.count, "error")} prohibited this account from being saved:"
+							%ul
+								- @account.errors.full_messages.each do |msg|
+									%li= msg
+					.form-group
+						= f.label :name
+						.input-group
+							.input-group-addon
+								%i.fa.fa-institution
+							= f.text_field :name, class: "form-control"
+					.form-group
+						= f.label :email
+						.input-group
+							.input-group-addon
+								%i.fa.fa-envelope
+							= f.email_field :email, class: "form-control"
+					.form-group
+						= f.label :phone_number
+						.input-group
+							.input-group-addon
+								%i.fa.fa-phone
+							= f.text_field :phone_number, class: "form-control"
+		.box-footer.kasoko-footer
+			.actions.pull-right
+				%button.btn.btn-kasoko.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}
+					%i.fa.fa-save
+					Save
