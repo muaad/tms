@@ -1,5 +1,4 @@
-// $(function() {
-document.addEventListener("turbolinks:load", function() {
+$(function() {
 	$('#toggle_products').change(function(e) {
 	  if (this.checked) {
 	    $('.products_table').checkboxes('check');

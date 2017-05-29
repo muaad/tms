@@ -1,5 +1,4 @@
-// $(function() {
-document.addEventListener("turbolinks:load", function() {
+$(function() {
 	$('#toggle_diesel_companies').change(function(e) {
 	  if (this.checked) {
 	    $('.diesel_companies_table').checkboxes('check');

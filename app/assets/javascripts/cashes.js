@@ -192,8 +192,7 @@ function price(category) {
 	}
 }
 
-// $(function() {
-document.addEventListener("turbolinks:load", function() {
+$(function() {
 	$('#toggle_expenses').change(function(e) {
 	  if (this.checked) {
 	    $('.expenses_table').checkboxes('check');

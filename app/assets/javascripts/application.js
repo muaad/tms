@@ -21,12 +21,12 @@
 //= require sweetalert.min
 //= require jquery.checkboxes
 //= require bootstrap-datepicker
-//= require turbolinks
+// require turbolinks
 //= require app
 //= require_tree .
 //= require_self
 
-document.addEventListener("turbolinks:load", function() {
+$(function() {
 	$('#example').dataTable( {
 	    "aoColumnDefs" : [ {
 	        "bSortable" : false,
@@ -34,7 +34,9 @@ document.addEventListener("turbolinks:load", function() {
 	    } ]
 	} );
 
-	$.AdminLTE.tree('.sidebar');
+	// $(document).on('click', '.treeview', function(e) {
+	// 	$.AdminLTE.tree('.sidebar');
+	// })
 
 	// var neg = $('.main-header').outerHeight() + $('.main-footer').outerHeight();
 	// var window_height = $(window).height();
@@ -102,4 +104,4 @@ document.addEventListener("turbolinks:load", function() {
 	// $('#owner_phone_number').select2();
 	// $('#driver_phone_number').select2();
 	// $('#turn_boy_phone_number').select2();
-})
+})//= require serviceworker-companion

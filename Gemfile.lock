@@ -234,6 +234,8 @@ GEM
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
+    serviceworker-rails (0.5.5)
+      railties (>= 3.1)
     sexp_processor (4.9.0)
     slop (3.6.0)
     spring (2.0.2)
@@ -309,6 +311,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails
   selenium-webdriver
+  serviceworker-rails
   spring
   spring-commands-rspec
   sqlite3

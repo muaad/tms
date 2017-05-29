@@ -17,8 +17,7 @@
 // };
   
 
-// $(function() {
-document.addEventListener("turbolinks:load", function() {
+$(function() {
 	$('#toggle_users').change(function(e) {
 	  if (this.checked) {
 	    $('.users_table').checkboxes('check');

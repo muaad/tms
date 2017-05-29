@@ -78,8 +78,7 @@ function userRecord(element, data) {
 	});
 }
 
-// $(function() {
-document.addEventListener("turbolinks:load", function() {
+$(function() {
 	$('#toggle_trucks').change(function(e) {
 	  if (this.checked) {
 	    $('.trucks_table').checkboxes('check');

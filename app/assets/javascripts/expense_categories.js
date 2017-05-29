@@ -1,5 +1,4 @@
-// $(function() {
-document.addEventListener("turbolinks:load", function() {
+$(function() {
 	$('#toggle_expense_categories').change(function(e) {
 	  if (this.checked) {
 	    $('.expense_categories_table').checkboxes('check');

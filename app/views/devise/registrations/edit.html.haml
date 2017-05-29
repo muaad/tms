@@ -2,7 +2,7 @@
   .box-header.with-border
     %h3.box-title Edit User
   .authform
-    = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :role => 'form', class: 'kasoko-form', remote: true}) do |f|
+    = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :role => 'form', class: 'kasoko-form'}) do |f|
       = devise_error_messages!
       .box-body
         .row

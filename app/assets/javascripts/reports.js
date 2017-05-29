@@ -1,5 +1,4 @@
-// $(function() {
-document.addEventListener("turbolinks:load", function() {
+$(function() {
 	$('.from-date').val($('.from-selected').val())
 	$('.to-date').val($('.to-selected').val())
 	$('.filter-by-truck option[value="'+ $('.truck-selected').val() +'"]').attr('selected', 'selected');
