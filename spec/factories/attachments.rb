@@ -14,6 +14,9 @@
 #  file_content_type :string
 #  file_file_size    :integer
 #  file_updated_at   :datetime
+#  date_of_issue     :date
+#  date_of_expiry    :date
+#  account_id        :integer
 #
 
 FactoryGirl.define do

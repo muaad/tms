@@ -8,6 +8,7 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  product_type :string
+#  account_id   :integer
 #
 
 FactoryGirl.define do

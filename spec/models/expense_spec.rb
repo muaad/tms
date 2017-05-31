@@ -16,6 +16,11 @@
 #  updated_at          :datetime         not null
 #  date                :date
 #  trip_id             :integer
+#  quantity            :integer
+#  unit_price          :float
+#  account_id          :integer
+#  currency            :string           default("Kenya Shilling")
+#  dollar_amount       :float
 #
 
 require 'rails_helper'

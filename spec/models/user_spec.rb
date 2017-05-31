@@ -16,6 +16,8 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  name                   :string
+#  account_id             :integer
+#  is_admin               :boolean          default(FALSE)
 #
 
 describe User do
