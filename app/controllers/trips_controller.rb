@@ -24,6 +24,7 @@ class TripsController < ApplicationController
   def new
     @trip = Trip.new
     @expense = Expense.new
+    session[:index] = 1
   end
 
   # GET /trips/1/edit
@@ -39,41 +40,55 @@ class TripsController < ApplicationController
 
     respond_to do |format|
       if @trip.save
-        if !trip_params[:mileage].blank?
-          if @trip.currency == "US Dollar"
-            amount = ExchangeRate.first.rate * @trip.mileage
+        if !params[:exchange_rate].blank?
+          if ExchangeRate.first.nil?
+            ExchangeRate.create(rate: params[:exchange_rate])
           else
-            amount = @trip.mileage
+            ExchangeRate.first.update(rate: params[:exchange_rate])
           end
+        end
+        if !trip_params[:mileage].blank?
+          # if @trip.currency == "US Dollar"
+          #   amount = ExchangeRate.first.rate * @trip.mileage
+          # else
+          #   amount = @trip.mileage
+          # end
           category = ExpenseCategory.find_or_create_by name: "Mileage"
-          xp = Expense.create! lpo: params[:mileage_lpo], amount: amount, truck: @trip.truck, currency: @trip.currency, trip: @trip, expense_category: category, date: @trip.date, description: @trip.description
-          if xp.currency == "US Dollar"
-            xp.update(dollar_amount: @trip.mileage)
+          xp = Expense.create! lpo: params[:mileage_lpo], amount: @trip.mileage, truck: @trip.truck, currency: 'Kenya Shilling', trip: @trip, expense_category: category, date: @trip.date, description: @trip.description
+          if @trip.currency == "US Dollar"
+            xp.update(dollar_amount: @trip.mileage / ExchangeRate.first.rate)
           end
         end
         category = ExpenseCategory.find_or_create_by name: "Diesel"
 
-        xp = Expense.create! lpo: params[:one_diesel_lpo], amount: params[:one_diesel_amount], truck: @trip.truck, currency: @trip.currency, trip: @trip, expense_category: category, date: @trip.date, description: @trip.description, quantity: params[:one_diesel_litres]
-        company = DieselCompany.find(params[:one_diesel_company])
-        DieselExpense.create! expense: xp, diesel_company: company, litres: xp.quantity
-        if xp.currency == "US Dollar"
-          xp.update(dollar_amount: (xp.amount / ExchangeRate.first.rate))
+        params[:diesel_expense].values.each do |dx|
+          xp = Expense.create! lpo: dx[:diesel_lpo], amount: dx[:diesel_amount], truck: @trip.truck, currency: 'Kenya Shilling', trip: @trip, expense_category: category, date: @trip.date, description: @trip.description, quantity: dx[:diesel_litres]
+          company = DieselCompany.find(dx[:diesel_company])
+          DieselExpense.create! expense: xp, diesel_company: company, litres: xp.quantity
+          if xp.currency == "US Dollar"
+            xp.update(dollar_amount: (xp.amount / ExchangeRate.first.rate))
+          end
         end
 
-        xp = Expense.create! lpo: params[:two_diesel_lpo], amount: params[:two_diesel_amount], truck: @trip.truck, currency: @trip.currency, trip: @trip, expense_category: category, date: @trip.date, description: @trip.description, quantity: params[:two_diesel_litres]
-        company = DieselCompany.find(params[:two_diesel_company])
-        DieselExpense.create! expense: xp, diesel_company: company, litres: xp.quantity
-        if xp.currency == "US Dollar"
-          xp.update(dollar_amount: (xp.amount / ExchangeRate.first.rate))
-        end
+        # xp = Expense.create! lpo: params[:two_diesel_lpo], amount: params[:two_diesel_amount], truck: @trip.truck, currency: @trip.currency, trip: @trip, expense_category: category, date: @trip.date, description: @trip.description, quantity: params[:two_diesel_litres]
+        # company = DieselCompany.find(params[:two_diesel_company])
+        # DieselExpense.create! expense: xp, diesel_company: company, litres: xp.quantity
+        # if xp.currency == "US Dollar"
+        #   xp.update(dollar_amount: (xp.amount / ExchangeRate.first.rate))
+        # end
 
-        format.html { redirect_to trips_path, notice: 'Trip was successfully created.' }
+        format.html { redirect_to @trip, notice: 'Trip was successfully created.' }
         format.json { render :show, status: :created, location: @trip }
       else
         format.html { render :new }
         format.json { render json: @trip.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def diesel_expense
+    session[:index] = session[:index] + 1
+    render partial: 'trips/diesel_expense', locals: {index: session[:index]}
   end
 
   # PATCH/PUT /trips/1

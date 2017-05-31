@@ -19,28 +19,13 @@ Rails.application.routes.draw do
 
   get '/reports/accounts/:category' => "reports#category", as: "reports_category"
 
-  resources :truck_cashes
-  resources :cashes
-  resources :trips
-  resources :consignees
-  resources :cities
   get '/dashboard' => "dashboard#index", as: "dashboard"
   get '/diesel_expenses/new' => "expenses#new_diesel_expense", as: "new_diesel_expense"
   get '/diesel_expenses/:id/edit' => "expenses#edit_diesel_expense", as: "edit_diesel_expense"
   get '/diesel_expenses' => "expenses#diesel_expenses", as: "diesel_expenses"
+  get '/trips/diesel_expense' => "trips#diesel_expense"
 
-  resources :diesel_companies, :attachments
-  resources :expenses
-  resources :products
-  resources :trucks
-  resources :turn_boys
-  resources :drivers
-  resources :truck_owners
-  resources :expense_categories
-  resources :accounts
   root to: 'home#index'
-  devise_for :users, :controllers => {:registrations => "users/registrations"}
-  resources :users, except: [:delete]
 
   post "/trucks/delete_multiple" => "trucks#delete_multiple", as: "delete_multiple_trucks"
   post "/consignees/delete_multiple" => "consignees#delete_multiple", as: "delete_multiple_consignees"
@@ -56,4 +41,8 @@ Rails.application.routes.draw do
   post "/users/delete_multiple" => "users#delete_multiple", as: "delete_multiple_users"
 
   post "/expenses/inline_create" => "expenses#inline_create", as: "inline_create_expenses"
+
+  devise_for :users, :controllers => {:registrations => "users/registrations"}
+  resources :users, except: [:delete]
+  resources :diesel_companies, :attachments, :expenses, :products, :trucks, :turn_boys, :drivers, :truck_owners, :expense_categories, :accounts, :truck_cashes, :cashes, :trips, :consignees, :cities
 end

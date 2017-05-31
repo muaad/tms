@@ -1,0 +1,37 @@
+%div{id: "row_#{(@index || index)}"}
+  %h4
+    Diesel Expense
+    - if (@index || index) != 1
+      %span
+        %a.remove_diesel_row{href: "#", data: {index: (@index || index)}}
+          %i.fa.fa-trash
+          Remove
+  %hr
+  .row
+    .col-sm-12
+      .row
+        .col-sm-6
+          .form-group
+            %label Diesel Company
+            %select.diesel_company_id.form-control{name: "diesel_expense[item_#{(@index || index)}][diesel_company]", data: {index: (@index || index)}}
+              - DieselCompany.all.each do |company|
+                %option{value: company.id}
+                  = company.name
+        .col-sm-6
+          .form-group
+            %label Litres
+            %input.form-control.no_of_litres{type: "text", name: "diesel_expense[item_#{(@index || index)}][diesel_litres]", data: {index: (@index || index)}}
+      .row
+        .col-sm-6
+          .form-group
+            %label Price Per Litre
+            %input.form-control.price_per_litre{type: "text", name: "diesel_expense[item_#{(@index || index)}][diesel_price]", data: {index: (@index || index)}}
+        .col-sm-6
+          .form-group
+            %label Amount
+            %input.form-control.total_amount{type: "text", name: "diesel_expense[item_#{(@index || index)}][diesel_amount]", data: {index: (@index || index)}}
+      .row
+        .col-sm-12
+          .form-group
+            %label Diesel LPO
+            %input.form-control.diesel_lpo{type: "text", name: "diesel_expense[item_#{(@index || index)}][diesel_lpo]", data: {index: (@index || index)}}

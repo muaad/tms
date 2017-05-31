@@ -89,26 +89,53 @@ $(function() {
 		$('#trip_amount').val(amount);
 	})
 
-	$('#one_no_of_litres, #one_price_per_litre').on("propertychange change click keyup input paste", function(evt) {
-		var amount = $('#one_no_of_litres').val() * $('#one_price_per_litre').val();
-		$('#one_total_amount').val(amount);
+	$(document).on('click', '#add_diesel', function() {
+		var id = $(this).data('index') + 1
+		$.get('/trips/diesel_expense', function(data) {
+			$('#add_diesel').data('index', id)
+			$('#diesel_expenses_section').append(data)
+			var company_id = $(".diesel_company_id[data-index='" + id + "']").val()
+			var priceField = $(".price_per_litre[data-index='" + id + "']")
+			loadDieselPrice(company_id, priceField)
+		})
 	})
 
-	$('#two_no_of_litres, #two_price_per_litre').on("propertychange change click keyup input paste", function(evt) {
-		var amount = $('#two_no_of_litres').val() * $('#two_price_per_litre').val();
-		$('#two_total_amount').val(amount);
+	$(document).on('click', '.remove_diesel_row', function() {
+		var id = $(this).data('index')
+		$('#row_' + id).hide('slow', function(){ $('#row_' + id).remove(); });
 	})
 
-	loadDieselPrice($('#one_diesel_company_id').val(), $('#one_price_per_litre'))
-	loadDieselPrice($('#two_diesel_company_id').val(), $('#two_price_per_litre'))
-
-	$('#one_diesel_company_id').change(function() {
-		loadDieselPrice($('#one_diesel_company_id').val(), $('#one_price_per_litre'))
+	$(document).on("propertychange change click keyup input paste", '.no_of_litres, .price_per_litre', function(evt) {
+		var index = $(evt.target).data('index')
+		var litres = $(".no_of_litres[data-index='" + index + "']").val()
+		var price = $(".price_per_litre[data-index='" + index + "']").val()
+		var amount = litres * price
+		$(".total_amount[data-index='" + index + "']").val(amount)
 	})
 
-	$('#two_diesel_company_id').change(function() {
-		loadDieselPrice($('#two_diesel_company_id').val(), $('#two_price_per_litre'))
+	// $('#two_no_of_litres, #two_price_per_litre').on("propertychange change click keyup input paste", function(evt) {
+	// 	var amount = $('#two_no_of_litres').val() * $('#two_price_per_litre').val();
+	// 	$('#two_total_amount').val(amount);
+	// })
+	var company_id = $('.diesel_company_id').val()
+	var index = $('.diesel_company_id').data('index')
+	var priceField = $(".price_per_litre[data-index='" + index + "']")
+	loadDieselPrice(company_id, priceField)
+	$(document).on('change', '.diesel_company_id', function() {
+		var company_id = $(this).val()
+		var index = $(this).data('index')
+		var priceField = $(".price_per_litre[data-index='" + index + "']")
+		loadDieselPrice(company_id, priceField)
 	})
+	// loadDieselPrice($('#two_diesel_company_id').val(), $('#two_price_per_litre'))
+
+	// $('#one_diesel_company_id').change(function() {
+	// 	loadDieselPrice($('#one_diesel_company_id').val(), $('#one_price_per_litre'))
+	// })
+
+	// $('#two_diesel_company_id').change(function() {
+	// 	loadDieselPrice($('#two_diesel_company_id').val(), $('#two_price_per_litre'))
+	// })
 
 	$('#edit-trip').click(function(){
 	  if ($(".trips_table input:checked").length < 1)

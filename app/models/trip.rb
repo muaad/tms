@@ -30,6 +30,7 @@ class Trip < ApplicationRecord
   belongs_to :turn_boy
   belongs_to :consignee
   belongs_to :product
+  # has_many :expenses
   belongs_to :account
   acts_as_tenant(:account)
 
@@ -57,5 +58,12 @@ class Trip < ApplicationRecord
     to_date = truck.expenses.last.date
     to_date = next_trip.date if !next_trip.nil?
     truck.expenses.date_between(date, to_date)
+  end
+
+  def diesel_expenses
+    # exp = Expense.where(trip: self)
+    ex = []
+    expenses.each{|e| ex << e.diesel_expense}
+    ex.uniq.compact
   end
 end

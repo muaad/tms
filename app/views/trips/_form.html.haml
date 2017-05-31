@@ -8,171 +8,169 @@
             %ul
               - @trip.errors.full_messages.each do |msg|
                 %li= msg
-        - if !@trip.new_record?
-          %input#trip-truck{type: 'hidden', value: "#{@trip.truck.blank? ? '' : @trip.truck.id}"}
-          %input#trip-depot{type: 'hidden', value: "#{@trip.depot.blank? ? '' : @trip.depot.id}"}
-          %input#trip-destination{type: 'hidden', value: "#{@trip.destination.blank? ? '' : @trip.destination.id}"}
-          %input#trip-consignee{type: 'hidden', value: "#{@trip.consignee.blank? ? '' : @trip.consignee.id}"}
-          %input#trip-product{type: 'hidden', value: "#{@trip.product.blank? ? '' : @trip.product.id}"}
-        - else
-          %input#trip-truck{type: 'hidden', value: params[:truck]}
-        .row
-          .col-sm-6
-            .form-group
-              = f.label :truck
-              %select.form-control{name: "trip[truck_id]"}
-                - Truck.all.each do |truck|
-                  %option{value: truck.id}
-                    = truck.registration_number
-          .col-sm-6
-            .form-group
-              = f.label :driver
-              %select.form-control{name: "trip[driver_id]"}
-                - Driver.all.each do |driver|
-                  %option{value: driver.id}
-                    = driver.name
-        .row
-          .col-sm-6
-            .form-group
-              = f.label :turn_boy
-              %select.form-control{name: "trip[turn_boy_id]"}
-                - TurnBoy.all.each do |turn_boy|
-                  %option{value: turn_boy.id}
-                    = turn_boy.name
-          .col-sm-6
-            .form-group
-              = f.label :date
-              = f.text_field :date, class: "form-control datepicker"
-        .row
-          .col-sm-6
-            .form-group
-              = f.label :depot_id
-              %select.form-control{name: "trip[depot_id]"}
-                - City.where(city_type: 'Depot').each do |depot|
-                  %option{value: depot.id}
-                    = depot.name
-          .col-sm-6
-            .form-group
-              = f.label :destination_id
-              %select.form-control{name: "trip[destination_id]"}
-                - City.where(city_type: 'Destination').each do |destination|
-                  %option{value: destination.id}
-                    = destination.name
-        .row
-          .col-sm-6
-            .form-group
-              = f.label :consignee
-              %select.form-control{name: "trip[consignee_id]"}
-                - Consignee.all.each do |consignee|
-                  %option{value: consignee.id}
-                    = consignee.name
-          .col-sm-6
-            .form-group
-              = f.label :product
-              %select.form-control{name: "trip[product_id]"}
-                - Product.where(product_type: 'Load').each do |product|
-                  %option{value: product.id}
-                    = product.name
-        .row
-          .col-sm-6
-            .form-group
-              = f.label :quantity
-              = f.number_field :quantity, class: 'form-control'
-          .col-sm-6
-            .form-group
-              = f.label :rate
-              = f.text_field :rate, class: 'form-control'
-        .row
-          .col-sm-6
-            .form-group
-              = f.label :amount
-              = f.text_field :amount, class: 'form-control'
-          .col-sm-6
-            .form-group
-              = f.label :commission
-              = f.text_field :commission, class: 'form-control'
-        .row
-          .col-sm-6
-            .form-group
-              = f.label :short
-              = f.text_field :short, class: 'form-control'
-          .col-sm-6
-            .form-group
-              = f.label :currency
-              %select.form-control{name: "trip[currency]"}
-                %option{value: "Kenya Shilling"}
-                  Kenya Shilling
-                %option{value: "US Dollar"}
-                  US Dollar
-        .row
-          .col-sm-6
-            .form-group
-              = f.label :mileage
-              = f.text_field :mileage, class: 'form-control'
-          .col-sm-6
-            .form-group
-              %label Mileage LPO
-              %input.form-control.mileage_lpo{type: "text", name: "one_mileage_lpo"}
-        %h3 Diesel 1
-        %hr
-        .row
-          .col-sm-12
+        .nav-tabs-custom
+          %ul.nav.nav-tabs
+            %li.header
+              %i.fa.fa-truck
+              %strong Trip Details
+          .tab-content
+            - if !@trip.new_record?
+              %input#trip-truck{type: 'hidden', value: "#{@trip.truck.blank? ? '' : @trip.truck.id}"}
+              %input#trip-depot{type: 'hidden', value: "#{@trip.depot.blank? ? '' : @trip.depot.id}"}
+              %input#trip-destination{type: 'hidden', value: "#{@trip.destination.blank? ? '' : @trip.destination.id}"}
+              %input#trip-consignee{type: 'hidden', value: "#{@trip.consignee.blank? ? '' : @trip.consignee.id}"}
+              %input#trip-product{type: 'hidden', value: "#{@trip.product.blank? ? '' : @trip.product.id}"}
+            - else
+              %input#trip-truck{type: 'hidden', value: params[:truck]}
             .row
               .col-sm-6
                 .form-group
-                  %label Diesel Company
-                  %select#one_diesel_company_id.form-control{name: "one_diesel_company"}
-                    - DieselCompany.all.each do |company|
-                      %option{value: company.id}
-                        = company.name
+                  = f.label :truck
+                  %select.form-control{name: "trip[truck_id]"}
+                    - Truck.all.each do |truck|
+                      %option{value: truck.id}
+                        = truck.registration_number
               .col-sm-6
                 .form-group
-                  %label Litres
-                  %input.form-control#one_no_of_litres{type: "text", name: "one_diesel_litres"}
+                  = f.label :driver
+                  %select.form-control{name: "trip[driver_id]"}
+                    - Driver.all.each do |driver|
+                      %option{value: driver.id}
+                        = driver.name
             .row
               .col-sm-6
                 .form-group
-                  %label Price Per Litre
-                  %input.form-control#one_price_per_litre{type: "text", name: "one_diesel_price"}
+                  = f.label :turn_boy
+                  %select.form-control{name: "trip[turn_boy_id]"}
+                    - TurnBoy.all.each do |turn_boy|
+                      %option{value: turn_boy.id}
+                        = turn_boy.name
               .col-sm-6
                 .form-group
-                  %label Amount
-                  %input.form-control#one_total_amount{type: "text", name: "one_diesel_amount"}
+                  = f.label :date
+                  = f.text_field :date, class: "form-control datepicker"
+            .row
+              .col-sm-6
+                .form-group
+                  = f.label :depot_id
+                  %select.form-control{name: "trip[depot_id]"}
+                    - City.where(city_type: 'Depot').each do |depot|
+                      %option{value: depot.id}
+                        = depot.name
+              .col-sm-6
+                .form-group
+                  = f.label :destination_id
+                  %select.form-control{name: "trip[destination_id]"}
+                    - City.where(city_type: 'Destination').each do |destination|
+                      %option{value: destination.id}
+                        = destination.name
+            .row
+              .col-sm-6
+                .form-group
+                  = f.label :consignee
+                  %select.form-control{name: "trip[consignee_id]"}
+                    - Consignee.all.each do |consignee|
+                      %option{value: consignee.id}
+                        = consignee.name
+              .col-sm-6
+                .form-group
+                  = f.label :product
+                  %select.form-control{name: "trip[product_id]"}
+                    - Product.where(product_type: 'Load').each do |product|
+                      %option{value: product.id}
+                        = product.name
+            .row
+              .col-sm-6
+                .form-group
+                  = f.label :quantity
+                  = f.number_field :quantity, class: 'form-control'
+              .col-sm-6
+                .form-group
+                  = f.label :rate
+                  = f.text_field :rate, class: 'form-control'
+            .row
+              .col-sm-6
+                .form-group
+                  = f.label :amount
+                  = f.text_field :amount, class: 'form-control'
+              .col-sm-6
+                .form-group
+                  = f.label :commission
+                  = f.text_field :commission, class: 'form-control'
             .row
               .col-sm-12
                 .form-group
-                  %label Diesel LPO
-                  %input.form-control#one_diesel_lpo{type: "text", name: "one_diesel_lpo"}
-        %h3 Diesel 2
-        %hr
-        .row
-          .col-sm-12
+                  = f.label :short
+                  = f.text_field :short, class: 'form-control'
             .row
               .col-sm-6
                 .form-group
-                  %label Diesel Company
-                  %select#two_diesel_company_id.form-control{name: "two_diesel_company"}
-                    - DieselCompany.all.each do |company|
-                      %option{value: company.id}
-                        = company.name
+                  = f.label :currency
+                  %select.form-control{name: "trip[currency]"}
+                    %option{value: "Kenya Shilling"}
+                      Kenya Shilling
+                    %option{value: "US Dollar"}
+                      US Dollar
               .col-sm-6
                 .form-group
-                  %label Litres
-                  %input.form-control#two_no_of_litres{type: "text", name: "two_diesel_litres"}
+                  = label_tag :exchange_rate
+                  = text_field_tag :exchange_rate, ExchangeRate.first.try(:rate), class: 'form-control'
+        .nav-tabs-custom
+          %ul.nav.nav-tabs
+            %li.header
+              %i.fa.fa-user
+              %strong Mileage (Kenya Shilling)
+          .tab-content
             .row
               .col-sm-6
                 .form-group
-                  %label Price Per Litre
-                  %input.form-control#two_price_per_litre{type: "text", name: "two_diesel_price"}
+                  = f.label :mileage
+                  = f.text_field :mileage, class: 'form-control'
               .col-sm-6
                 .form-group
-                  %label Amount
-                  %input.form-control#two_total_amount{type: "text", name: "two_diesel_amount"}
-            .row
-              .col-sm-12
-                .form-group
-                  %label Diesel LPO
-                  %input.form-control#two_diesel_lpo{type: "text", name: "two_diesel_lpo"}
+                  %label Mileage LPO
+                  %input.form-control.mileage_lpo{type: "text", name: "mileage_lpo"}
+        .nav-tabs-custom
+          %ul.nav.nav-tabs
+            %li.header
+              %i.fa.fa-industry
+              %strong Diesel Expenses
+            %li.pull-right
+              %a.btn.btn-default#add_diesel{href: "#", data: {index: session[:index]}}
+                %i.fa.fa-plus
+                Add Another
+          .tab-content#diesel_expenses_section
+            = render partial: 'diesel_expense'
+            / %h3 Diesel 2
+            / %hr
+            / .row
+            /   .col-sm-12
+            /     .row
+            /       .col-sm-6
+            /         .form-group
+            /           %label Diesel Company
+            /           %select#two_diesel_company_id.form-control{name: "two_diesel_company"}
+            /             - DieselCompany.all.each do |company|
+            /               %option{value: company.id}
+            /                 = company.name
+            /       .col-sm-6
+            /         .form-group
+            /           %label Litres
+            /           %input.form-control#two_no_of_litres{type: "text", name: "two_diesel_litres"}
+            /     .row
+            /       .col-sm-6
+            /         .form-group
+            /           %label Price Per Litre
+            /           %input.form-control#two_price_per_litre{type: "text", name: "two_diesel_price"}
+            /       .col-sm-6
+            /         .form-group
+            /           %label Amount
+            /           %input.form-control#two_total_amount{type: "text", name: "two_diesel_amount"}
+            /     .row
+            /       .col-sm-12
+            /         .form-group
+            /           %label Diesel LPO
+            /           %input.form-control#two_diesel_lpo{type: "text", name: "two_diesel_lpo"}
   .box-footer.kasoko-footer
     .actions.pull-right
       %button.btn.btn-kasoko.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}
