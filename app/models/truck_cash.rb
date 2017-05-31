@@ -12,9 +12,12 @@
 #  updated_at  :datetime         not null
 #  direction   :string           default("IN")
 #  currency    :string
+#  account_id  :integer
 #
 
 class TruckCash < ApplicationRecord
 	include Reportable
   belongs_to :truck
+  belongs_to :account
+  acts_as_tenant(:account)
 end

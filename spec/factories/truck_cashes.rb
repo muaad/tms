@@ -12,6 +12,7 @@
 #  updated_at  :datetime         not null
 #  direction   :string           default("IN")
 #  currency    :string
+#  account_id  :integer
 #
 
 FactoryGirl.define do

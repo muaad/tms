@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160307090508) do
+ActiveRecord::Schema.define(version: 20170531122801) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "name"
@@ -38,13 +37,12 @@ ActiveRecord::Schema.define(version: 20160307090508) do
     t.date     "date_of_issue"
     t.date     "date_of_expiry"
     t.integer  "account_id"
+    t.index ["account_id"], name: "index_attachments_on_account_id"
+    t.index ["driver_id"], name: "index_attachments_on_driver_id"
+    t.index ["truck_id"], name: "index_attachments_on_truck_id"
+    t.index ["truck_owner_id"], name: "index_attachments_on_truck_owner_id"
+    t.index ["turn_boy_id"], name: "index_attachments_on_turn_boy_id"
   end
-
-  add_index "attachments", ["account_id"], name: "index_attachments_on_account_id"
-  add_index "attachments", ["driver_id"], name: "index_attachments_on_driver_id"
-  add_index "attachments", ["truck_id"], name: "index_attachments_on_truck_id"
-  add_index "attachments", ["truck_owner_id"], name: "index_attachments_on_truck_owner_id"
-  add_index "attachments", ["turn_boy_id"], name: "index_attachments_on_turn_boy_id"
 
   create_table "cashes", force: :cascade do |t|
     t.date     "date"
@@ -57,9 +55,8 @@ ActiveRecord::Schema.define(version: 20160307090508) do
     t.string   "lpo"
     t.text     "description"
     t.integer  "account_id"
+    t.index ["account_id"], name: "index_cashes_on_account_id"
   end
-
-  add_index "cashes", ["account_id"], name: "index_cashes_on_account_id"
 
   create_table "cities", force: :cascade do |t|
     t.string   "name"
@@ -68,9 +65,8 @@ ActiveRecord::Schema.define(version: 20160307090508) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "account_id"
+    t.index ["account_id"], name: "index_cities_on_account_id"
   end
-
-  add_index "cities", ["account_id"], name: "index_cities_on_account_id"
 
   create_table "consignees", force: :cascade do |t|
     t.string   "name"
@@ -79,10 +75,9 @@ ActiveRecord::Schema.define(version: 20160307090508) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "account_id"
+    t.index ["account_id"], name: "index_consignees_on_account_id"
+    t.index ["city_id"], name: "index_consignees_on_city_id"
   end
-
-  add_index "consignees", ["account_id"], name: "index_consignees_on_account_id"
-  add_index "consignees", ["city_id"], name: "index_consignees_on_city_id"
 
   create_table "diesel_companies", force: :cascade do |t|
     t.string   "name"
@@ -90,9 +85,8 @@ ActiveRecord::Schema.define(version: 20160307090508) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "account_id"
+    t.index ["account_id"], name: "index_diesel_companies_on_account_id"
   end
-
-  add_index "diesel_companies", ["account_id"], name: "index_diesel_companies_on_account_id"
 
   create_table "diesel_expenses", force: :cascade do |t|
     t.integer  "litres"
@@ -101,11 +95,10 @@ ActiveRecord::Schema.define(version: 20160307090508) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "account_id"
+    t.index ["account_id"], name: "index_diesel_expenses_on_account_id"
+    t.index ["diesel_company_id"], name: "index_diesel_expenses_on_diesel_company_id"
+    t.index ["expense_id"], name: "index_diesel_expenses_on_expense_id"
   end
-
-  add_index "diesel_expenses", ["account_id"], name: "index_diesel_expenses_on_account_id"
-  add_index "diesel_expenses", ["diesel_company_id"], name: "index_diesel_expenses_on_diesel_company_id"
-  add_index "diesel_expenses", ["expense_id"], name: "index_diesel_expenses_on_expense_id"
 
   create_table "drivers", force: :cascade do |t|
     t.string   "name"
@@ -115,9 +108,8 @@ ActiveRecord::Schema.define(version: 20160307090508) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "account_id"
+    t.index ["account_id"], name: "index_drivers_on_account_id"
   end
-
-  add_index "drivers", ["account_id"], name: "index_drivers_on_account_id"
 
   create_table "exchange_rates", force: :cascade do |t|
     t.string   "currency_one"
@@ -125,6 +117,8 @@ ActiveRecord::Schema.define(version: 20160307090508) do
     t.float    "rate"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "account_id"
+    t.index ["account_id"], name: "index_exchange_rates_on_account_id"
   end
 
   create_table "expense_categories", force: :cascade do |t|
@@ -132,9 +126,8 @@ ActiveRecord::Schema.define(version: 20160307090508) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "account_id"
+    t.index ["account_id"], name: "index_expense_categories_on_account_id"
   end
-
-  add_index "expense_categories", ["account_id"], name: "index_expense_categories_on_account_id"
 
   create_table "expenses", force: :cascade do |t|
     t.integer  "expense_category_id"
@@ -155,16 +148,15 @@ ActiveRecord::Schema.define(version: 20160307090508) do
     t.integer  "account_id"
     t.string   "currency",            default: "Kenya Shilling"
     t.float    "dollar_amount"
+    t.index ["account_id"], name: "index_expenses_on_account_id"
+    t.index ["driver_id"], name: "index_expenses_on_driver_id"
+    t.index ["expense_category_id"], name: "index_expenses_on_expense_category_id"
+    t.index ["product_id"], name: "index_expenses_on_product_id"
+    t.index ["trip_id"], name: "index_expenses_on_trip_id"
+    t.index ["truck_id"], name: "index_expenses_on_truck_id"
+    t.index ["turn_boy_id"], name: "index_expenses_on_turn_boy_id"
+    t.index ["user_id"], name: "index_expenses_on_user_id"
   end
-
-  add_index "expenses", ["account_id"], name: "index_expenses_on_account_id"
-  add_index "expenses", ["driver_id"], name: "index_expenses_on_driver_id"
-  add_index "expenses", ["expense_category_id"], name: "index_expenses_on_expense_category_id"
-  add_index "expenses", ["product_id"], name: "index_expenses_on_product_id"
-  add_index "expenses", ["trip_id"], name: "index_expenses_on_trip_id"
-  add_index "expenses", ["truck_id"], name: "index_expenses_on_truck_id"
-  add_index "expenses", ["turn_boy_id"], name: "index_expenses_on_turn_boy_id"
-  add_index "expenses", ["user_id"], name: "index_expenses_on_user_id"
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "attachment_id"
@@ -174,10 +166,9 @@ ActiveRecord::Schema.define(version: 20160307090508) do
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.integer  "account_id"
+    t.index ["account_id"], name: "index_notifications_on_account_id"
+    t.index ["attachment_id"], name: "index_notifications_on_attachment_id"
   end
-
-  add_index "notifications", ["account_id"], name: "index_notifications_on_account_id"
-  add_index "notifications", ["attachment_id"], name: "index_notifications_on_attachment_id"
 
   create_table "products", force: :cascade do |t|
     t.string   "name"
@@ -186,9 +177,8 @@ ActiveRecord::Schema.define(version: 20160307090508) do
     t.datetime "updated_at",   null: false
     t.string   "product_type"
     t.integer  "account_id"
+    t.index ["account_id"], name: "index_products_on_account_id"
   end
-
-  add_index "products", ["account_id"], name: "index_products_on_account_id"
 
   create_table "trips", force: :cascade do |t|
     t.integer  "truck_id"
@@ -210,14 +200,13 @@ ActiveRecord::Schema.define(version: 20160307090508) do
     t.datetime "updated_at",     null: false
     t.integer  "account_id"
     t.float    "mileage"
+    t.index ["account_id"], name: "index_trips_on_account_id"
+    t.index ["consignee_id"], name: "index_trips_on_consignee_id"
+    t.index ["driver_id"], name: "index_trips_on_driver_id"
+    t.index ["product_id"], name: "index_trips_on_product_id"
+    t.index ["truck_id"], name: "index_trips_on_truck_id"
+    t.index ["turn_boy_id"], name: "index_trips_on_turn_boy_id"
   end
-
-  add_index "trips", ["account_id"], name: "index_trips_on_account_id"
-  add_index "trips", ["consignee_id"], name: "index_trips_on_consignee_id"
-  add_index "trips", ["driver_id"], name: "index_trips_on_driver_id"
-  add_index "trips", ["product_id"], name: "index_trips_on_product_id"
-  add_index "trips", ["truck_id"], name: "index_trips_on_truck_id"
-  add_index "trips", ["turn_boy_id"], name: "index_trips_on_turn_boy_id"
 
   create_table "truck_cashes", force: :cascade do |t|
     t.integer  "truck_id"
@@ -229,9 +218,10 @@ ActiveRecord::Schema.define(version: 20160307090508) do
     t.datetime "updated_at",                 null: false
     t.string   "direction",   default: "IN"
     t.string   "currency"
+    t.integer  "account_id"
+    t.index ["account_id"], name: "index_truck_cashes_on_account_id"
+    t.index ["truck_id"], name: "index_truck_cashes_on_truck_id"
   end
-
-  add_index "truck_cashes", ["truck_id"], name: "index_truck_cashes_on_truck_id"
 
   create_table "truck_drivers", force: :cascade do |t|
     t.integer  "truck_id"
@@ -241,11 +231,10 @@ ActiveRecord::Schema.define(version: 20160307090508) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.integer  "account_id"
+    t.index ["account_id"], name: "index_truck_drivers_on_account_id"
+    t.index ["driver_id"], name: "index_truck_drivers_on_driver_id"
+    t.index ["truck_id"], name: "index_truck_drivers_on_truck_id"
   end
-
-  add_index "truck_drivers", ["account_id"], name: "index_truck_drivers_on_account_id"
-  add_index "truck_drivers", ["driver_id"], name: "index_truck_drivers_on_driver_id"
-  add_index "truck_drivers", ["truck_id"], name: "index_truck_drivers_on_truck_id"
 
   create_table "truck_owners", force: :cascade do |t|
     t.string   "name"
@@ -256,9 +245,8 @@ ActiveRecord::Schema.define(version: 20160307090508) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "account_id"
+    t.index ["account_id"], name: "index_truck_owners_on_account_id"
   end
-
-  add_index "truck_owners", ["account_id"], name: "index_truck_owners_on_account_id"
 
   create_table "truck_turn_boys", force: :cascade do |t|
     t.integer  "truck_id"
@@ -268,11 +256,10 @@ ActiveRecord::Schema.define(version: 20160307090508) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "account_id"
+    t.index ["account_id"], name: "index_truck_turn_boys_on_account_id"
+    t.index ["truck_id"], name: "index_truck_turn_boys_on_truck_id"
+    t.index ["turn_boy_id"], name: "index_truck_turn_boys_on_turn_boy_id"
   end
-
-  add_index "truck_turn_boys", ["account_id"], name: "index_truck_turn_boys_on_account_id"
-  add_index "truck_turn_boys", ["truck_id"], name: "index_truck_turn_boys_on_truck_id"
-  add_index "truck_turn_boys", ["turn_boy_id"], name: "index_truck_turn_boys_on_turn_boy_id"
 
   create_table "trucks", force: :cascade do |t|
     t.string   "registration_number"
@@ -280,10 +267,9 @@ ActiveRecord::Schema.define(version: 20160307090508) do
     t.datetime "updated_at",          null: false
     t.integer  "truck_owner_id"
     t.integer  "account_id"
+    t.index ["account_id"], name: "index_trucks_on_account_id"
+    t.index ["truck_owner_id"], name: "index_trucks_on_truck_owner_id"
   end
-
-  add_index "trucks", ["account_id"], name: "index_trucks_on_account_id"
-  add_index "trucks", ["truck_owner_id"], name: "index_trucks_on_truck_owner_id"
 
   create_table "turn_boys", force: :cascade do |t|
     t.string   "name"
@@ -293,9 +279,8 @@ ActiveRecord::Schema.define(version: 20160307090508) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "account_id"
+    t.index ["account_id"], name: "index_turn_boys_on_account_id"
   end
-
-  add_index "turn_boys", ["account_id"], name: "index_turn_boys_on_account_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -313,10 +298,9 @@ ActiveRecord::Schema.define(version: 20160307090508) do
     t.string   "name"
     t.integer  "account_id"
     t.boolean  "is_admin",               default: false
+    t.index ["account_id"], name: "index_users_on_account_id"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
-
-  add_index "users", ["account_id"], name: "index_users_on_account_id"
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end
