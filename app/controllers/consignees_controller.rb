@@ -29,7 +29,7 @@ class ConsigneesController < ApplicationController
 
     respond_to do |format|
       if @consignee.save
-        format.html { redirect_to consignees_path, notice: 'Consignee was successfully created.' }
+        format.html { redirect_to new_consignee_path, notice: 'Consignee was successfully created.' }
         format.json { render :show, status: :created, location: @consignee }
       else
         format.html { render :new }

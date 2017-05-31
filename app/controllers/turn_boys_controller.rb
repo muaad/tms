@@ -29,7 +29,7 @@ class TurnBoysController < ApplicationController
 
     respond_to do |format|
       if @turn_boy.save
-        format.html { redirect_to turn_boys_path, notice: 'Turn boy was successfully created.' }
+        format.html { redirect_to new_turn_boy_path, notice: 'Turn boy was successfully created.' }
         format.json { render :show, status: :created, location: @turn_boy }
       else
         format.html { render :new }

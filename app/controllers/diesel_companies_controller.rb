@@ -29,7 +29,7 @@ class DieselCompaniesController < ApplicationController
 
     respond_to do |format|
       if @diesel_company.save
-        format.html { redirect_to diesel_companies_path, notice: 'Diesel company was successfully created.' }
+        format.html { redirect_to new_diesel_company_path, notice: 'Diesel company was successfully created.' }
         format.json { render :show, status: :created, location: @diesel_company }
       else
         format.html { render :new }

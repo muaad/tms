@@ -55,7 +55,7 @@ class TrucksController < ApplicationController
         truck_driver.update(active: true, salary: params[:driver_salary])
         truck_turn_boy = TruckTurnBoy.find_or_create_by! turn_boy: turn_boy, truck: @truck
         truck_turn_boy.update(active: true, salary: params[:turn_boy_salary])
-        format.html { redirect_to @truck, notice: 'Truck was successfully created.' }
+        format.html { redirect_to new_truck_path, notice: 'Truck was successfully created.' }
         format.json { render :show, status: :created, location: @truck }
       else
         format.html { render :new }
