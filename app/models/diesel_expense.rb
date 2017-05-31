@@ -14,4 +14,6 @@
 class DieselExpense < ApplicationRecord
   belongs_to :diesel_company
   belongs_to :expense
+  belongs_to :account
+  acts_as_tenant(:account)
 end

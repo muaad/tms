@@ -29,6 +29,7 @@ class TripsController < ApplicationController
 
   # GET /trips/1/edit
   def edit
+    session[:index] = @trip.diesel_expenses.last.id
   end
 
   # POST /trips
@@ -62,8 +63,9 @@ class TripsController < ApplicationController
         category = ExpenseCategory.find_or_create_by name: "Diesel"
 
         params[:diesel_expense].values.each do |dx|
-          xp = Expense.create! lpo: dx[:diesel_lpo], amount: dx[:diesel_amount], truck: @trip.truck, currency: 'Kenya Shilling', trip: @trip, expense_category: category, date: @trip.date, description: @trip.description, quantity: dx[:diesel_litres]
+          xp = Expense.create! lpo: dx[:diesel_lpo], amount: dx[:diesel_amount], truck: @trip.truck, currency: 'Kenya Shilling', trip: @trip, expense_category: category, date: @trip.date, description: @trip.description, quantity: dx[:diesel_litres], unit_price: dx[:diesel_price]
           company = DieselCompany.find(dx[:diesel_company])
+          company.update(price: dx[:diesel_price])
           DieselExpense.create! expense: xp, diesel_company: company, litres: xp.quantity
           if xp.currency == "US Dollar"
             xp.update(dollar_amount: (xp.amount / ExchangeRate.first.rate))
@@ -88,7 +90,7 @@ class TripsController < ApplicationController
 
   def diesel_expense
     session[:index] = session[:index] + 1
-    render partial: 'trips/diesel_expense', locals: {index: session[:index]}
+    render partial: 'trips/diesel_expense', locals: {index: session[:index], first: false, diesel_expense: nil, new_record: true}
   end
 
   # PATCH/PUT /trips/1
@@ -96,7 +98,50 @@ class TripsController < ApplicationController
   def update
     respond_to do |format|
       if @trip.update(trip_params)
-        format.html { redirect_to trips_path, notice: 'Trip was successfully updated.' }
+        if !params[:exchange_rate].blank?
+          if ExchangeRate.first.nil?
+            ExchangeRate.create(rate: params[:exchange_rate])
+          else
+            ExchangeRate.first.update(rate: params[:exchange_rate])
+          end
+        end
+        if !trip_params[:mileage].blank?
+          category = ExpenseCategory.find_or_create_by name: "Mileage"
+          xp = @trip.mileage_expense
+          if !xp.nil?
+            xp.update(lpo: params[:mileage_lpo], amount: @trip.mileage, truck: @trip.truck, date: @trip.date, description: @trip.description)
+          else
+            xp = Expense.create! lpo: params[:mileage_lpo], amount: @trip.mileage, truck: @trip.truck, currency: 'Kenya Shilling', trip: @trip, expense_category: category, date: @trip.date, description: @trip.description
+          end
+          if @trip.currency == "US Dollar"
+            xp.update(dollar_amount: @trip.mileage / ExchangeRate.first.rate)
+          end
+        end
+        category = ExpenseCategory.find_or_create_by name: "Diesel"
+
+        params[:diesel_expense].each do |k, v|
+          id = k.gsub('item_', '')
+          dx = DieselExpense.find_by(id: id)
+          if dx.nil?
+            xp = Expense.create! lpo: v[:diesel_lpo], amount: v[:diesel_amount], truck: @trip.truck, currency: 'Kenya Shilling', trip: @trip, expense_category: category, date: @trip.date, description: @trip.description, quantity: v[:diesel_litres], unit_price: v[:diesel_price]
+            company = DieselCompany.find(v[:diesel_company])
+            company.update(price: v[:diesel_price])
+            DieselExpense.create! expense: xp, diesel_company: company, litres: xp.quantity
+            if xp.currency == "US Dollar"
+              xp.update(dollar_amount: (xp.amount / ExchangeRate.first.rate))
+            end
+          else
+            company = DieselCompany.find(v[:diesel_company])
+            company.update(price: v[:diesel_price])
+            dx.update(diesel_company: company, litres: xp.quantity)
+            xp = dx.expense
+            xp.update(lpo: v[:diesel_lpo], amount: v[:diesel_amount], truck: @trip.truck, expense_category: category, date: @trip.date, description: @trip.description, quantity: v[:diesel_litres], unit_price: v[:diesel_price])
+            if xp.currency == "US Dollar"
+              xp.update(dollar_amount: (xp.amount / ExchangeRate.first.rate))
+            end
+          end
+        end
+        format.html { redirect_to @trip, notice: 'Trip was successfully updated.' }
         format.json { render :show, status: :ok, location: @trip }
       else
         format.html { render :edit }

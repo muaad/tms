@@ -127,6 +127,15 @@ $(function() {
 		var priceField = $(".price_per_litre[data-index='" + index + "']")
 		loadDieselPrice(company_id, priceField)
 	})
+
+	$(document).on('change', '#selectCurrency', function() {
+		if ($(this).val() === 'US Dollar') {
+			$('#exchange_rate').prop('disabled', false)
+		}
+		else {
+			$('#exchange_rate').prop('disabled', true)
+		}
+	})
 	// loadDieselPrice($('#two_diesel_company_id').val(), $('#two_price_per_litre'))
 
 	// $('#one_diesel_company_id').change(function() {

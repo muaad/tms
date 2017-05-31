@@ -98,23 +98,28 @@
                   = f.label :commission
                   = f.text_field :commission, class: 'form-control'
             .row
+              .col-sm-6
+                .form-group
+                  = f.label :currency
+                  %select.form-control#selectCurrency{name: "trip[currency]"}
+                    %option{value: "Kenya Shilling", selected: @trip.currency == "Kenya Shilling"}
+                      Kenya Shilling
+                    %option{value: "US Dollar", selected: @trip.currency == "US Dollar"}
+                      US Dollar
+              .col-sm-6
+                .form-group
+                  = label_tag :exchange_rate
+                  = text_field_tag :exchange_rate, ExchangeRate.first.try(:rate), class: 'form-control', disabled: true
+            .row
               .col-sm-12
                 .form-group
                   = f.label :short
                   = f.text_field :short, class: 'form-control'
             .row
-              .col-sm-6
+              .col-sm-12
                 .form-group
-                  = f.label :currency
-                  %select.form-control{name: "trip[currency]"}
-                    %option{value: "Kenya Shilling"}
-                      Kenya Shilling
-                    %option{value: "US Dollar"}
-                      US Dollar
-              .col-sm-6
-                .form-group
-                  = label_tag :exchange_rate
-                  = text_field_tag :exchange_rate, ExchangeRate.first.try(:rate), class: 'form-control'
+                  = f.label :description
+                  = f.text_area :description, class: 'form-control'
         .nav-tabs-custom
           %ul.nav.nav-tabs
             %li.header
@@ -129,7 +134,7 @@
               .col-sm-6
                 .form-group
                   %label Mileage LPO
-                  %input.form-control.mileage_lpo{type: "text", name: "mileage_lpo"}
+                  %input.form-control.mileage_lpo{type: "text", name: "mileage_lpo", value: @trip.new_record? ? nil : @trip.mileage_expense.try(:lpo)}
         .nav-tabs-custom
           %ul.nav.nav-tabs
             %li.header
@@ -140,37 +145,11 @@
                 %i.fa.fa-plus
                 Add Another
           .tab-content#diesel_expenses_section
-            = render partial: 'diesel_expense'
-            / %h3 Diesel 2
-            / %hr
-            / .row
-            /   .col-sm-12
-            /     .row
-            /       .col-sm-6
-            /         .form-group
-            /           %label Diesel Company
-            /           %select#two_diesel_company_id.form-control{name: "two_diesel_company"}
-            /             - DieselCompany.all.each do |company|
-            /               %option{value: company.id}
-            /                 = company.name
-            /       .col-sm-6
-            /         .form-group
-            /           %label Litres
-            /           %input.form-control#two_no_of_litres{type: "text", name: "two_diesel_litres"}
-            /     .row
-            /       .col-sm-6
-            /         .form-group
-            /           %label Price Per Litre
-            /           %input.form-control#two_price_per_litre{type: "text", name: "two_diesel_price"}
-            /       .col-sm-6
-            /         .form-group
-            /           %label Amount
-            /           %input.form-control#two_total_amount{type: "text", name: "two_diesel_amount"}
-            /     .row
-            /       .col-sm-12
-            /         .form-group
-            /           %label Diesel LPO
-            /           %input.form-control#two_diesel_lpo{type: "text", name: "two_diesel_lpo"}
+            - if @trip.new_record?
+              = render partial: 'diesel_expense', locals: {index: session[:index], first: true, new_record: true}
+            - else
+              - @trip.diesel_expenses.each do |dx|
+                = render partial: 'diesel_expense', locals: {index: dx.id, first: true, diesel_expense: dx, new_record: false}
   .box-footer.kasoko-footer
     .actions.pull-right
       %button.btn.btn-kasoko.btn-rounded{"data-original-title" => "", :title => "", :type => "submit"}

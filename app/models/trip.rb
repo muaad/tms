@@ -68,4 +68,8 @@ class Trip < ApplicationRecord
     expenses.each{|e| ex << e.diesel_expense}
     ex.uniq.compact
   end
+
+  def mileage_expense
+    expenses.select{|e| e.expense_category.name == 'Mileage'}.first
+  end
 end
