@@ -1,0 +1,76 @@
+%section.content{style: "background: white;"}
+	%br
+	.row.logo-banner
+		= image_tag("logo-banner.png", style: "width: 100%;")
+		/ .col-md-2
+		/ 	= image_tag("gadano-logo.png", style: "width: 200px;")
+		/ .col-md-8
+		/ 	.company-name
+		/ 		%span#gadano
+		/ 			GADANO
+		/ 		%span#gen-trade
+		/ 			GENERAL TRADING CO. LTD
+		/ 	.company-contacts
+		/ 		%center
+		/ 			%h4
+		/ 				HEAD OFFICE
+		/ 			%h4
+		/ 				JOGOO ROAD PLAZA, THIRD FLOOR, SUITE 8,
+		/ 			%h4
+		/ 				P.O. BOX 407 - 00507,
+		/ 			%h4
+		/ 				NAIROBI, KENYA.
+		/ 			%h4
+		/ 				CELL: +254722145008 / +254721471744
+		/ 			%h4
+		/ 				EMAIL: info@gadanogeneraltrading.com
+
+		/ .col-md-2
+		/ 	= image_tag("gadano-truck.png", style: "width: 200px;")
+	.row{style: "border-bottom: 1px solid black;"}
+		.col-md-12
+			%center
+				%h4{style: "color: blue"}
+					= "Report For #{model_type}"
+	.row{style: "border-bottom: 1px solid black;"}
+		.col-md-12
+			%center
+				%h4{style: "color: red"}
+					- if from.blank? || to.blank?
+						= "Cash Statement"
+					- else
+						- if truck.blank?
+							= "Cash Statement From #{from} To #{to}"
+	.row
+		.col-md-12
+			.table-responsive-has-a-problem-in-this-case
+				%table.table
+					%thead
+						%tr
+							%th Date
+							%th LPO
+							%th Amount
+							%th Description
+					%tbody
+						- Cash.date_between(from, to).each do |cash|
+							%tr
+								%td
+									= cash.created_at.to_date
+								%td
+									= cash.lpo
+								%td
+									= cash.amount_in
+								%td
+									= cash.description
+				%table.table.no-margin{border: 1}
+					%tr
+						%td
+							Cash IN 
+						%td
+							.pull-right
+								= to_currency(Cash.date_between(from, to).sum(:amount_in), unit: "")
+						/ %td
+						/ 	Cash OUT
+						/ %td
+						/ 	.pull-right
+						/ 		= to_currency(expenses.shilling.sum(:amount), unit: "")

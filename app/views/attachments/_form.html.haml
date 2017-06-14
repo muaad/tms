@@ -41,7 +41,7 @@
 							= f.label :truck_id, id: "owner_type_label"
 							%select.form-control#attachment_owner_list{name: "attachment[truck_id]"}
 								- Truck.all.each do |truck|
-									%option{value: truck.id}
+									%option{value: truck.id, selected: params[:owner_id].to_i == truck.id}
 										= truck.registration_number
 					.col-md-6
 						.form-group

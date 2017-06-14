@@ -38,18 +38,21 @@
         = @trip.rate
       .col-lg-3
         %strong Amount:
-        = @trip.amount
+        = to_currency(@trip.amount, unit: '')
     %br
     .row
       .col-lg-3
         %strong Commission:
-        = @trip.commission
+        = to_currency(@trip.commission, unit: '')
       .col-lg-3
         %strong Short:
-        = @trip.short
+        = to_currency(@trip.short, unit: '')
       .col-lg-3
         %strong Currency:
         = @trip.currency
+      .col-lg-3
+        %strong Expenses:
+        = to_currency(@trip.total_expenses, unit: '')
     %br
     .row
       .col-lg-12

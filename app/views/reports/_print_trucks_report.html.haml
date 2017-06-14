@@ -1,0 +1,76 @@
+%section.content{style: "background: white;"}
+	%br
+	.row.logo-banner
+		= image_tag("logo-banner.png", style: "width: 100%;")
+		/ .col-md-2
+		/ 	= image_tag("gadano-logo.png", style: "width: 200px;")
+		/ .col-md-8
+		/ 	.company-name
+		/ 		%span#gadano
+		/ 			GADANO
+		/ 		%span#gen-trade
+		/ 			GENERAL TRADING CO. LTD
+		/ 	.company-contacts
+		/ 		%center
+		/ 			%h4
+		/ 				HEAD OFFICE
+		/ 			%h4
+		/ 				JOGOO ROAD PLAZA, THIRD FLOOR, SUITE 8,
+		/ 			%h4
+		/ 				P.O. BOX 407 - 00507,
+		/ 			%h4
+		/ 				NAIROBI, KENYA.
+		/ 			%h4
+		/ 				CELL: +254722145008 / +254721471744
+		/ 			%h4
+		/ 				EMAIL: info@gadanogeneraltrading.com
+
+		/ .col-md-2
+		/ 	= image_tag("gadano-truck.png", style: "width: 200px;")
+	.row{style: "border-bottom: 1px solid black;"}
+		.col-md-12
+			%center
+				%h4{style: "color: blue"}
+					= "Report For #{model_type}"
+	.row{style: "border-bottom: 1px solid black;"}
+		.col-md-12
+			%center
+				%h4{style: "color: red"}
+					- if from.blank? || to.blank?
+						= "Accounts Statement"
+					- else
+						= "Accounts Statement From #{from} To #{to} for #{truck}"
+	.row
+		.col-md-12
+			.table-responsive-has-a-problem-in-this-case
+				%table.table
+					%thead
+						%tr
+							%th Registration Number
+							%th Owner
+							%th Trips
+							%th Expenses
+							%th Income
+							%th Balance
+					%tbody
+						- Truck.all.each do |truck|
+							%tr
+								%td
+									= truck.registration_number
+								%td
+									= truck.owner.name
+								%td
+									= truck.trips.count
+								%td
+									= truck.total_expenses
+								%td
+									= to_currency(truck.income, unit: '')
+								%td
+									= to_currency(truck.balance, unit: '')
+				%table.table.no-margin{border: 1}
+					%tr
+						%td
+							Number of Trucks
+						%td
+							.pull-right
+								= Truck.count

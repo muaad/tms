@@ -18,7 +18,7 @@
 					%button.btn.btn-kasoko.print-report
 						%i.fa.fa-print
 						Print
-	.box-body.kasoko-body#account-reports
+	.box-body.kasoko-body
 		.row
 			.col-md-4
 				.info-box
@@ -96,3 +96,10 @@
 												= expense.amount
 											%td.description
 												= expense.description
+
+#print_reports_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+	.modal-dialog
+		.modal-content
+			#account-reports
+				/ = render 'print_report'
+				= render partial: 'print_cash_report', locals: { model_type: "Cash IN", from: @from, to: @to }

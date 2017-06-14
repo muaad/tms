@@ -10,7 +10,11 @@ function switchOwners(ownerType, ownerID) {
 			} else{
 				var name = data[i].name;
 			};
-			$('#attachment_owner_list').append('<option value=' + data[i].id + '>' + name + '</option>')
+			if (ownerID == data[i].id) {
+				$('#attachment_owner_list').append('<option value=' + data[i].id + ' selected="' + true + '">' + name + '</option>')
+			} else {
+				$('#attachment_owner_list').append('<option value=' + data[i].id + '>' + name + '</option>')
+			}
 		};
 	})
 	if (ownerID != 0) {

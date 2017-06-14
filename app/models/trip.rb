@@ -72,4 +72,8 @@ class Trip < ApplicationRecord
   def mileage_expense
     expenses.select{|e| e.expense_category.name == 'Mileage'}.first
   end
+
+  def total_expenses
+    expenses.collect { |x| x.amount }.compact.sum
+  end
 end

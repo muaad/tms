@@ -24,6 +24,7 @@
               %tr
                 %th.no-sort
                   = check_box_tag "toggle_trips"
+                %th Trip
                 %th Truck
                 %th Driver
                 %th Turn boy
@@ -40,6 +41,8 @@
                 %tr.gradeX
                   %td
                     = check_box_tag "trip[trip.id]", trip.id
+                  %td
+                    = link_to trip.name, trip
                   %td
                     = link_to trip.truck.registration_number, truck_path(trip.truck) if !trip.truck.blank?
                   %td

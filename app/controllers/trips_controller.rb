@@ -29,7 +29,7 @@ class TripsController < ApplicationController
 
   # GET /trips/1/edit
   def edit
-    session[:index] = @trip.diesel_expenses.last.id
+    session[:index] = @trip.diesel_expenses.last.try(:id)
   end
 
   # POST /trips
@@ -89,7 +89,7 @@ class TripsController < ApplicationController
   end
 
   def diesel_expense
-    session[:index] = session[:index] + 1
+    session[:index] = session[:index].to_i + 1
     render partial: 'trips/diesel_expense', locals: {index: session[:index], first: false, diesel_expense: nil, new_record: true}
   end
 

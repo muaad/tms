@@ -89,7 +89,7 @@
                         %td
                           = link_to truck.owner.name, truck_owner_path(truck.owner)
                         %td
-                          = link_to truck.trips.count, "#{trips_path}?truck=#{truck}"
+                          = link_to truck.trips.count, "#{trips_path}?truck=#{truck.id}"
                         %td
                           = link_to to_currency(truck.total_expenses, unit: ''), "#{expenses_path}?truck=#{truck.id}"
                         %td

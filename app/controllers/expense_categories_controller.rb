@@ -11,6 +11,7 @@ class ExpenseCategoriesController < ApplicationController
   # GET /expense_categories/1
   # GET /expense_categories/1.json
   def show
+    redirect_to "#{expenses_path}?category=#{@expense_category.id}"
   end
 
   # GET /expense_categories/new
